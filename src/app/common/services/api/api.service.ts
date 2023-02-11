@@ -7,13 +7,13 @@ export class ApiService {
   /**
    * API Enviroment
    */
-  environment: 'prod' | 'dev' = 'dev';
+  environment: 'prod' | 'dev' = 'prod';
 
   /**
    * Base URL for API
    */
   // baseUrl = this.environment == 'prod' ? 'http://konekted-api.nafuutronics.com/' : 'http://localhost:8000/';
-  baseUrl = this.environment == 'prod' ? 'http://konekted-api.nafuutronics.com/' : 'http://localhost:9000/';
+  baseUrl = this.environment == 'prod' ? 'https://api.smartmetertz.com/' : 'http://localhost:9000/';
 
   /**
    * WebHost URL
