@@ -13,11 +13,29 @@ export class SummaryReportsService {
   ) { }
 
   /**
-   * Get banks for datatable from API
+   * Get User Brief Stats
    * @param void
    * @returns Promise<any>
    */
-  async getSummary(): Promise<any> {
-    return await this.http.get(this.api.reports.summaryReports, false);
+  async getUserBriefStats(): Promise<any> {
+    return await this.http.get(this.api.reports.getUserBriefStats, false);
+  }
+
+  /**
+   * Get Brief Stats
+   * @param void
+   * @returns Promise<any>
+   */
+  async getBriefStats(): Promise<any> {
+    return await this.http.get(this.api.reports.getBriefStats, false);
+  }
+
+  /**
+   * Get Health Statuses
+   * @param void
+   * @returns Promise<any>
+   */
+  async getHealthStatus(): Promise<any> {
+    return await this.http.get(this.api.reports.getHealthStatus, false);
   }
 }

@@ -35,8 +35,21 @@ export class SensorsService {
    * @param void
    * @returns Promise<any>
    */
+  async getAutoAddedUserSensors(): Promise<any> {
+    return await this.http.get(this.api.sensors.userSensorsAutoAdded, false);
+  }
+
+  /**
+   * Get user sensors for datatable from API
+   * @param void
+   * @returns Promise<any>
+   */
   async getUserSensorValues(): Promise<any> {
     return await this.http.get(this.api.sensors.userSensorValues, false);
+  }
+
+  async getUserSensorValuesPerSensor(sensorID: number): Promise<any> {
+    return await this.http.get(this.api.sensors.userSensorValues + "/" + sensorID, false);
   }
 
 
@@ -83,6 +96,15 @@ export class SensorsService {
    */
    async updateSensor(id:string, data: any): Promise<any> {
     return await this.http.postFiles(this.api.sensors.sensors, data, true);
+  }
+
+  /**
+   * Update sensor from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async updateUserSensor(id:string, data: any): Promise<any> {
+    return await this.http.put(this.api.sensors.userSensors, id, data, true);
   }
 
   /**

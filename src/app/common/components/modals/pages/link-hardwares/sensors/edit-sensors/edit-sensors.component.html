@@ -1,1 +1,63 @@
-<p>edit-sensors works!</p>
+<form class="p-1" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+  <div class="form-floating mb-3">
+    <input
+      formControlName="name"
+      [class.invalid]="name?.touched && name?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingName"
+      placeholder="Name"
+    >
+    <label for="floatingName">Name</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="name?.touched && name?.invalid">{{ name?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="interval"
+      [class.invalid]="interval?.touched && interval?.invalid"
+      type="number"
+      class="form-control"
+      id="floatingInterval"
+      placeholder="Interval"
+    >
+    <label for="floatingInterval">Interval</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="interval?.touched && interval?.invalid">{{ interval?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="threshold"
+      [class.invalid]="threshold?.touched && threshold?.invalid"
+      type="number"
+      class="form-control"
+      id="floatingThreshold"
+      placeholder="Threshold"
+    >
+    <label for="floatingThreshold">Threshold</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="threshold?.touched && threshold?.invalid">{{ threshold?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="threshold_percentage"
+      [class.invalid]="threshold_percentage?.touched && threshold_percentage?.invalid"
+      type="number"
+      class="form-control"
+      id="floatingThreshold_percentage"
+      placeholder="Threshold Percentage"
+    >
+    <label for="floatingThreshold_percentage">Threshold Percentage</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="threshold_percentage?.touched && threshold_percentage?.invalid">{{ threshold_percentage?.errors?.message }}</p>
+  </div>
+
+
+  <button
+    class="w-100 btn btn-lg btn-success"
+    [class.disabled]="form.invalid"
+    [type]="form.valid ? 'submit' : 'button'"
+    >
+    Update
+    <i class="bi bi-check-circle-fill"></i>
+  </button>
+</form>

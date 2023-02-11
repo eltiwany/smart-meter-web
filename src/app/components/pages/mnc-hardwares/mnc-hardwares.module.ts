@@ -10,13 +10,17 @@ import { MncHardwaresRoutingModule } from './mnc-hardwares-routing.module';
 import { AutomateHardwaresComponent } from './automate-hardwares/automate-hardwares.component';
 import { MonitorHardwaresComponent } from './monitor-hardwares/monitor-hardwares.component';
 import { ControlActuatorsComponent } from './control-actuators/control-actuators.component';
+import { SmartReportsComponent } from './smart-reports/smart-reports.component';
+import { MySmartReportsComponent } from './my-smart-reports/my-smart-reports.component';
 
 // MNC = Monitor and Control
 @NgModule({
   declarations: [
     AutomateHardwaresComponent,
     MonitorHardwaresComponent,
-    ControlActuatorsComponent
+    ControlActuatorsComponent,
+    SmartReportsComponent,
+    MySmartReportsComponent
   ],
   imports: [
     CommonModule,

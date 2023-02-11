@@ -11,6 +11,7 @@ import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { ChartSelectorComponent } from './charts/chart-selector/chart-selector.component';
 import { AreaChartComponent } from './charts/area-chart/area-chart.component';
 import { ColumnChartComponent } from './charts/column-chart/column-chart.component';
+import { ChartSelectorByDeviceComponent } from './charts/chart-selector-by-device/chart-selector-by-device.component';
 
 
 
@@ -23,6 +24,7 @@ import { ColumnChartComponent } from './charts/column-chart/column-chart.compone
     ChartSelectorComponent,
     AreaChartComponent,
     ColumnChartComponent,
+    ChartSelectorByDeviceComponent,
   ],
   imports: [
     DataTablesModule,
@@ -35,7 +37,8 @@ import { ColumnChartComponent } from './charts/column-chart/column-chart.compone
     CardMd4Component,
     SimpleTableComponent,
     ChartSelectorComponent,
-    LineChartComponent
+    LineChartComponent,
+    ChartSelectorByDeviceComponent
   ]
 })
 export class FragmentsModule { }

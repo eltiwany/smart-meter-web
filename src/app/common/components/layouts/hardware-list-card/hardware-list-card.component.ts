@@ -44,6 +44,11 @@ export class HardwareListCardComponent implements OnInit {
   @Input() modalDeleteContent: Type<any>;
   @Input() modalDeleteSize: 'md' | 'lg' | 'sm' | 'xl' = 'md';
 
+  @Input() editAction: boolean = false;
+  // @ts-ignore
+  @Input() modalEditContent: Type<any>;
+  @Input() modalEditSize: 'md' | 'lg' | 'sm' | 'xl' = 'md';
+
   // Data for View & Edit
   @Input() data: any = [];
 

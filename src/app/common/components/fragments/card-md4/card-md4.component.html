@@ -8,7 +8,7 @@
                   </div>
                   <div class="d-sm-none">
                       <h2 class="h5"> {{ cardName }}</h2>
-                      <h3 class="mb-1" *ngIf="cardNumberFormat == 'number'">{{ cardNumber | number }}</h3>
+                      <h3 class="mb-1" *ngIf="cardNumberFormat == 'number'">{{ general.formatNumber(cardNumber, 1) + (cardNumberSI ?? "") }}</h3>
                       <h3 class="mb-1" *ngIf="cardNumberFormat == 'percent'">{{ (cardNumber | number) + "%" }}</h3>
                       <h3 class="mb-1" *ngIf="cardNumberFormat == 'currency'">{{ (cardNumber | number) }}</h3>
                   </div>
@@ -16,7 +16,7 @@
               <div class="col-12 col-xl-7 px-xl-0">
                   <div class="d-none d-sm-block">
                       <h2 class="h4 mb-0"> {{ cardName }}</h2>
-                      <h3 class="fw-extrabold mb-2" *ngIf="cardNumberFormat == 'number'">{{ cardNumber | number }}</h3>
+                      <h3 class="fw-extrabold mb-2" *ngIf="cardNumberFormat == 'number'">{{ general.formatNumber(cardNumber, 1) + (cardNumberSI ?? "") }}</h3>
                       <h3 class="fw-extrabold mb-2" *ngIf="cardNumberFormat == 'percent'">{{ (cardNumber | number) + "%" }}</h3>
                       <h3 class="fw-extrabold mb-2" *ngIf="cardNumberFormat == 'currency'">{{ (cardNumber | number) }}</h3>
                   </div>

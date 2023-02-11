@@ -63,7 +63,7 @@ export class AuthService {
         return {
           token: localStorage.getItem('token'),
           email: jwt.email,
-          fullName: jwt.fullName,
+          name: jwt.name,
           employeeId: jwt.employeeId,
           gender: jwt.gender,
           permissions: jwt.permissions,

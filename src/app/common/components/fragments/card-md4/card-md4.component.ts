@@ -1,3 +1,4 @@
+import { GeneralService } from './../../../../services/general.service';
 import { AppConfigService } from './../../../services/app-config.service';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -13,6 +14,7 @@ export class CardMd4Component implements OnInit {
                               'number' |
                               'currency' = 'number';
   @Input() cardNumber: number = 0;
+  @Input() cardNumberSI: string = "";
   @Input() iconName: any = 'info-circle-fill';
   @Input() bgColor: 'primary' |
                   'secondary' |
@@ -33,7 +35,8 @@ export class CardMd4Component implements OnInit {
                         'warning' = 'white';
 
   constructor(
-    public config: AppConfigService
+    public config: AppConfigService,
+    public general: GeneralService
   ) { }
 
   ngOnInit(): void {

@@ -92,6 +92,9 @@
                       <button *ngIf="deleteAction" class="btn btn-danger float-right" placement="bottom" ngbTooltip="Delete" (click)="modalService.open(modalDelete, modalDeleteSize)">
                         <i class="bi bi-trash"></i>
                       </button>
+                      <button *ngIf="editAction" class="btn btn-primary float-right" style="margin-right: 5px" placement="bottom" ngbTooltip="Edit" (click)="modalService.open(modalEdit, modalEditSize)">
+                        <i class="bi bi-pencil"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -123,5 +126,19 @@
   </div>
   <div class="modal-body">
     <ng-container *ngComponentOutlet="modalDeleteContent; injector: dataInjected"></ng-container>
+  </div>
+</ng-template>
+
+
+<!-- Edit Modal with Dynamic Form Loading -->
+<ng-template #modalEdit let-modald let-c="close" let-d="dismiss" class="p-0">
+  <div class="modal-header bg-dark text-white">
+      <h2 class="h6 modal-title">Edit {{ deviceName }}</h2>
+      <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
+        <i class="bi bi-x-lg"></i>
+      </button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngComponentOutlet="modalEditContent; injector: dataInjected"></ng-container>
   </div>
 </ng-template>

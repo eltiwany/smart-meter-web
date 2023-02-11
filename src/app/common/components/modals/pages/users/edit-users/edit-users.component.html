@@ -1,4 +1,5 @@
 <form class="p-1" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
   <div class="form-floating mb-3">
     <input
       formControlName="email"
@@ -11,6 +12,85 @@
     <label for="floatingEmail">Email</label>
     <p class="text-danger font-weight-bold p-0 m-0" *ngIf="email?.touched && email?.invalid">{{ email?.errors?.message }}</p>
   </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="phone_number"
+      [class.invalid]="phone_number?.touched && phone_number?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingPhoneNumber"
+      placeholder="Phone Number"
+    >
+    <label for="floatingPhoneNumber">Phone Number</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="phone_number?.touched && phone_number?.invalid">{{ phone_number?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="city"
+      [class.invalid]="city?.touched && city?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingCity"
+      placeholder="City"
+    >
+    <label for="floatingCity">City</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="city?.touched && city?.invalid">{{ city?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="region"
+      [class.invalid]="region?.touched && region?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingRegion"
+      placeholder="Region"
+    >
+    <label for="floatingRegion">Region</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="region?.touched && region?.invalid">{{ region?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="district"
+      [class.invalid]="district?.touched && district?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingDistrict"
+      placeholder="District"
+    >
+    <label for="floatingDistrict">District</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="district?.touched && district?.invalid">{{ district?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="house_number"
+      [class.invalid]="house_number?.touched && house_number?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingHouseNumber"
+      placeholder="House Number"
+    >
+    <label for="floatingHouseNumber">House Number</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="house_number?.touched && house_number?.invalid">{{ house_number?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input
+      formControlName="residence_id"
+      [class.invalid]="residence_id?.touched && residence_id?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingResidenceID"
+      placeholder="Residence ID"
+    >
+    <label for="floatingResidenceID">Residence ID</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="residence_id?.touched && residence_id?.invalid">{{ residence_id?.errors?.message }}</p>
+  </div>
+
   <div class="form-floating mb-3">
     <select
       formControlName="roleId"

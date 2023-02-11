@@ -91,6 +91,7 @@
       </a>
     </li>
 
+
     <!-- Linked Actuators -->
     <li *ngIf="permissions.isAllowedPath(['actuators'])" class="nav-item" routerLinkActive="active">
       <a routerLink="hardwares/actuators" class="nav-link">
@@ -98,6 +99,15 @@
           <i class="icon icon-xs bi bi-lightbulb-fill me-2"></i>
         </span>
         <span class="sidebar-text">Actuators</span>
+      </a>
+    </li>
+
+    <li *ngIf="permissions.isAllowedPath(['smart-appliances'])" class="nav-item" routerLinkActive="active">
+      <a routerLink="hardwares/smart-appliances" class="nav-link">
+        <span class="sidebar-icon">
+          <i class="icon icon-xs bi bi-stars me-2"></i>
+        </span>
+        <span class="sidebar-text">Smart Appliances</span>
       </a>
     </li>
 
@@ -179,6 +189,25 @@
           <i class="icon icon-xs bi bi-speedometer me-2"></i>
         </span>
         <span class="sidebar-text">Monitor Hardwares</span>
+      </a>
+    </li>
+
+    <!-- Monitor Hardwares -->
+    <li *ngIf="permissions.isAllowedPath(['my-smart-reports'])" class="nav-item" routerLinkActive="active">
+      <a routerLink="monitor-and-control/smart-reports" class="nav-link">
+        <span class="sidebar-icon">
+          <i class="icon icon-xs bi bi-file-post me-2"></i>
+        </span>
+        <span class="sidebar-text">Smart Reports</span>
+      </a>
+    </li>
+
+    <li *ngIf="permissions.isAllowedPath(['my-smart-reports'])" class="nav-item" routerLinkActive="active">
+      <a routerLink="monitor-and-control/my-smart-reports" class="nav-link">
+        <span class="sidebar-icon">
+          <i class="icon icon-xs bi bi-asterisk me-2"></i>
+        </span>
+        <span class="sidebar-text">My Smart Reports</span>
       </a>
     </li>
 

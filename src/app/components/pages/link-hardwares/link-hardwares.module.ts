@@ -8,13 +8,15 @@ import { LinkHardwaresRoutingModule } from './link-hardwares-routing.module';
 import { ActuatorsComponent } from './actuators/actuators.component';
 import { SensorsComponent } from './sensors/sensors.component';
 import { BoardsComponent } from './boards/boards.component';
+import { AutoSensorsComponent } from './auto-sensors/auto-sensors.component';
 
 
 @NgModule({
   declarations: [
     ActuatorsComponent,
     SensorsComponent,
-    BoardsComponent
+    BoardsComponent,
+    AutoSensorsComponent
   ],
   imports: [
     CommonModule,

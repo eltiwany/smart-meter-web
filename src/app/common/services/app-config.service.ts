@@ -41,8 +41,8 @@ export class AppConfigService {
     name: 'Konekted IoT',
     longName: 'Konekted IoT',
     heading: [
-      'Connecting IoT devices',
-      'should be simpler and faster ⚡'
+      'Your home is now smart',
+      'with smart meter ⚡'
     ],
     description: `
                   This platform allows users to manage hardware projects easily and efficiently

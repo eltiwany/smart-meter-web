@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
   automationData: any[] = [];
   dtOptions: DataTables.Settings = {};
 
-
   reportsWithNumbersColumns = [
     {
       bgColor: 'info',

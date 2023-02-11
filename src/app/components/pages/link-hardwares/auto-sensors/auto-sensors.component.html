@@ -1,0 +1,40 @@
+<app-top-bar
+  [exportOptions]="false"
+  [newButton]="false"
+></app-top-bar>
+
+<div class="row">
+  <div class="col col-md-3" *ngFor="let datum of data">
+    <app-hardware-list-card
+      [imageUrl]="api.storageHost + datum.sensor.image_url"
+      [isImage]="true"
+      [link]="false"
+      [textButton]="true"
+      [showStatus]="false"
+      [deleteAction]="true"
+      [editAction]="true"
+      [color]="'warning'"
+      [modalSize]="'lg'"
+      [modalEditContent]="modalEditComponent"
+      [modalContent]="modalViewComponent"
+      [modalDeleteContent]="modalDeleteComponent"
+      headingDelete="Unlink Sensor"
+      [deviceName]="datum.sensor.user_defined_name ?? datum.sensor.name"
+      [interval]="datum.sensor.interval"
+      [data]="datum"
+      [connections]="datum.connections"
+      [columns]="datum.columns"
+    ></app-hardware-list-card>
+  </div>
+
+  <div class="col col-md-3" *ngIf="data.length == 0">
+    <app-hardware-list-card
+      [modalSize]="'lg'"
+      [color]="'warning'"
+      heading="No sensor found."
+      [linkMessage]="'No appliance found, Data from new appliance will be displayed here.'"
+      [iconName]="'exclamation'"
+      [data]="data"
+    ></app-hardware-list-card>
+  </div>
+</div>

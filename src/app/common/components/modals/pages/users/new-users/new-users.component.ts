@@ -30,6 +30,12 @@ export class NewUsersComponent implements OnInit {
 
   form = new FormGroup({
     'name': new FormControl('', [GeneralValidators.required]),
+    'phone_number': new FormControl(''),
+    'city': new FormControl(''),
+    'region': new FormControl(''),
+    'district': new FormControl(''),
+    'house_number': new FormControl(''),
+    'residence_id': new FormControl(''),
     'email': new FormControl('', [AuthValidators.email]),
     'roleId': new FormControl(this.selectors.role, [GeneralValidators.required, GeneralValidators.isNot(this.selectors.role)]),
   });
@@ -41,6 +47,31 @@ export class NewUsersComponent implements OnInit {
   get name() {
     return this.form.get('name');
   }
+
+  get phone_number() {
+    return this.form.get('phone_number');
+  }
+
+  get city() {
+    return this.form.get('city');
+  }
+
+  get region() {
+    return this.form.get('region');
+  }
+
+  get district() {
+    return this.form.get('district');
+  }
+
+  get house_number() {
+    return this.form.get('house_number');
+  }
+
+  get residence_id() {
+    return this.form.get('residence_id');
+  }
+
 
   get roleId() {
     return this.form.get('roleId');
@@ -62,6 +93,12 @@ export class NewUsersComponent implements OnInit {
     const data = {
       email: this.email?.value,
       name: this.name?.value,
+      phone_number: this.phone_number?.value,
+      city: this.city?.value,
+      region: this.region?.value,
+      district: this.district?.value,
+      house_number: this.house_number?.value,
+      residence_id: this.residence_id?.value,
       roleId: this.roleId?.value,
       password: 'user12345',
     };

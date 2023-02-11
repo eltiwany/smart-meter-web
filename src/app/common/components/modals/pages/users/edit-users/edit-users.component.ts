@@ -34,11 +34,41 @@ export class EditUsersComponent implements OnInit {
 
   form = new FormGroup({
     'email': new FormControl(),
+    'phone_number': new FormControl(),
+    'city': new FormControl(),
+    'region': new FormControl(),
+    'district': new FormControl(),
+    'house_number': new FormControl(),
+    'residence_id': new FormControl(),
     'roleId': new FormControl(),
   });
 
   get email() {
     return this.form.get('email');
+  }
+
+  get phone_number() {
+    return this.form.get('phone_number');
+  }
+
+  get city() {
+    return this.form.get('city');
+  }
+
+  get region() {
+    return this.form.get('region');
+  }
+
+  get district() {
+    return this.form.get('district');
+  }
+
+  get house_number() {
+    return this.form.get('house_number');
+  }
+
+  get residence_id() {
+    return this.form.get('residence_id');
   }
 
   get roleId() {
@@ -49,6 +79,12 @@ export class EditUsersComponent implements OnInit {
     if (this.dataIn) {
       this.data = this.dataIn;
       this.form.setControl('email', new FormControl(this.data.email, [GeneralValidators.required]));
+      this.form.setControl('phone_number', new FormControl(this.data.phone_number));
+      this.form.setControl('city', new FormControl(this.data.city));
+      this.form.setControl('region', new FormControl(this.data.region));
+      this.form.setControl('district', new FormControl(this.data.district));
+      this.form.setControl('house_number', new FormControl(this.data.house_number));
+      this.form.setControl('residence_id', new FormControl(this.data.residence_id));
       this.form.setControl('roleId', new FormControl(this.data.role_id, [GeneralValidators.required, GeneralValidators.isNot(this.selectors.role)]));
     }
     this.getRoles();
@@ -65,7 +101,13 @@ export class EditUsersComponent implements OnInit {
   onSubmit = (): void => {
     const data = {
       email: this.email?.value,
-      roleId: this.roleId?.value
+      roleId: this.roleId?.value,
+      phone_number: this.phone_number?.value,
+      city: this.city?.value,
+      region: this.region?.value,
+      district: this.district?.value,
+      house_number: this.house_number?.value,
+      residence_id: this.residence_id?.value,
     };
     // console.log(data);
 
