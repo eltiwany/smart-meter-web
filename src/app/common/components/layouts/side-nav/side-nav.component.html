@@ -244,6 +244,16 @@
       </a>
     </li>
 
+    <!-- User Boards -->
+     <li *ngIf="permissions.isAllowedPath(['user-boards'])" class="nav-item" routerLinkActive="active">
+      <a routerLink="user-boards" class="nav-link">
+        <span class="sidebar-icon">
+          <i class="icon icon-xs bi bi-cpu-fill me-2"></i>
+        </span>
+        <span class="sidebar-text">User Boards</span>
+      </a>
+    </li>
+
     <!-- My Area -->
     <li *ngIf="permissions.isAllowedPath(myAreaRoutes)" class="nav-item" routerLinkActive="active">
       <span

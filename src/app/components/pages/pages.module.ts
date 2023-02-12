@@ -7,11 +7,13 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { MyCommonModule } from 'src/app/common/common.module';
 import { UsersComponent } from './users/users.component';
 import { UserLogsComponent } from './user-logs/user-logs.component';
+import { UserBoardsComponent } from './user-boards/user-boards.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     UserLogsComponent,
+    UserBoardsComponent,
   ],
   imports: [
     CommonModule,

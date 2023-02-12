@@ -11,6 +11,9 @@ import { NewAutomationsComponent } from './pages/automations/new-automations/new
 import { EditAutomationsComponent } from './pages/automations/edit-automations/edit-automations.component';
 import { DeleteAutomationsComponent } from './pages/automations/delete-automations/delete-automations.component';
 import { ViewAutomationsComponent } from './pages/automations/view-automations/view-automations.component';
+import { NewUserBoardsComponent } from './pages/user-boards/new-user-boards/new-user-boards.component';
+import { DeleteUserBoardsComponent } from './pages/user-boards/delete-user-boards/delete-user-boards.component';
+import { ViewUserBoardsComponent } from './pages/user-boards/view-user-boards/view-user-boards.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { ViewAutomationsComponent } from './pages/automations/view-automations/v
     EditAutomationsComponent,
     DeleteAutomationsComponent,
     ViewAutomationsComponent,
+    NewUserBoardsComponent,
+    DeleteUserBoardsComponent,
+    ViewUserBoardsComponent,
   ],
   imports: [
     CommonModule,
