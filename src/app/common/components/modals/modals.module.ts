@@ -14,6 +14,11 @@ import { ViewAutomationsComponent } from './pages/automations/view-automations/v
 import { NewUserBoardsComponent } from './pages/user-boards/new-user-boards/new-user-boards.component';
 import { DeleteUserBoardsComponent } from './pages/user-boards/delete-user-boards/delete-user-boards.component';
 import { ViewUserBoardsComponent } from './pages/user-boards/view-user-boards/view-user-boards.component';
+import { NewServiceDocsComponent } from './pages/my-area/new-service-docs/new-service-docs.component';
+import { DeleteServiceDocsComponent } from './pages/my-area/delete-service-docs/delete-service-docs.component';
+import { EditServiceDocsComponent } from './pages/my-area/edit-service-docs/edit-service-docs.component';
+import { ViewServiceDocsComponent } from './pages/my-area/view-service-docs/view-service-docs.component';
+import { SendNotificationsComponent } from './pages/users/send-notifications/send-notifications.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,11 @@ import { ViewUserBoardsComponent } from './pages/user-boards/view-user-boards/vi
     NewUserBoardsComponent,
     DeleteUserBoardsComponent,
     ViewUserBoardsComponent,
+    NewServiceDocsComponent,
+    DeleteServiceDocsComponent,
+    EditServiceDocsComponent,
+    ViewServiceDocsComponent,
+    SendNotificationsComponent,
   ],
   imports: [
     CommonModule,

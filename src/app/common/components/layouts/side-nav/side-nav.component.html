@@ -286,6 +286,15 @@
               <span class="sidebar-text">User Info.</span>
             </a>
           </li> -->
+          <li *ngIf="permissions.isAllowedPath(['service-documents'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/my-area/service-documents">
+              <span class="sidebar-icon">
+                <i class="bi bi-capslock-fill"></i>
+              </span>
+              <span class="sidebar-text">Service Docs</span>
+            </a>
+          </li>
+
           <!-- CHANGE PASSWORD -->
           <li *ngIf="permissions.isAllowedPath(['change-password'])" class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/my-area/change-password">
@@ -347,6 +356,15 @@
               <span class="sidebar-text">Roles</span>
             </a>
           </li>
+
+          <li *ngIf="permissions.isAllowedPath(['documents'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/settings/documents">
+              <span class="sidebar-icon">
+                <i class="bi bi-capslock-fill"></i>
+              </span>
+              <span class="sidebar-text">Documents</span>
+            </a>
+          </li>
         </ul>
       </div>
     </li>
@@ -368,6 +386,15 @@
           <i class="icon icon-xs me-2 bi bi-file-text-fill"></i>
         </span>
         <span class="sidebar-text">User Logs</span>
+      </a>
+    </li>
+
+    <li *ngIf="permissions.isAllowedPath(['notification-logs'])" class="nav-item" routerLinkActive="active">
+      <a routerLink="/notification-logs" class="nav-link">
+        <span class="sidebar-icon">
+          <i class="icon icon-xs me-2 bi bi-file-text-fill"></i>
+        </span>
+        <span class="sidebar-text">Notification Logs</span>
       </a>
     </li>
 

@@ -138,4 +138,51 @@ export class SettingsService {
     return await this.http.delete(this.api.settings.roles, id, true);
   }
 
+  // ------------------------- DOCUMENTS ----------------------------- //
+
+  /**
+   * Get documents from API
+   * @param void
+   * @returns Promise<any>
+   */
+  async getDocuments(dataTablesParameters: any): Promise<any> {
+    return await this.http.post(this.api.settings.getDocuments, dataTablesParameters, false);
+  }
+
+  /**
+   * Get all documents from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async getDocumentsUnfiltered(): Promise<any> {
+    return await this.http.get(this.api.settings.documents, false);
+  }
+
+  /**
+   * New documents with specified permissions
+   * @param void
+   * @returns Promise<any>
+   */
+   async newDocument(data: any): Promise<any> {
+    return await this.http.post(this.api.settings.documents, data, true);
+  }
+
+  /**
+   * Update documents with specified permissions
+   * @param DocumentId id
+   * @param data data
+   * @returns Promise<any>
+   */
+   async updateDocument(id:string, data: any): Promise<any> {
+    return await this.http.put(this.api.settings.documents, id, data, true);
+  }
+
+  /**
+   * Delete Document of specified ID from API
+   * @param DocumentId id
+   * @returns Promise<any>
+   */
+   async deleteDocument(id: string): Promise<any> {
+    return await this.http.delete(this.api.settings.documents, id, true);
+  }
 }

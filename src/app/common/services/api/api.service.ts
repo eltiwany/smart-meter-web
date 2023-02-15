@@ -43,6 +43,10 @@ export class ApiService {
    */
    myArea = {
     changePassword: this.host + 'my-area/change-password',
+
+    // ServiceDocuments
+    ServiceDocuments: this.host + 'my-area/service-documents',
+    getServiceDocuments: this.host + 'my-area/get-service-documents',
   }
 
   /**
@@ -52,6 +56,10 @@ export class ApiService {
     // Pages
     pageAccess: this.host + 'settings/pages',
     getPageAccess: this.host + 'settings/get-pages',
+
+    // Documents
+    documents: this.host + 'settings/documents',
+    getDocuments: this.host + 'settings/get-documents',
 
     // Permissions
     permissions: this.host + 'settings/permissions',
@@ -71,7 +79,16 @@ export class ApiService {
     getUserLogs: this.host + 'get-user-logs',
     clearUserLogs: this.host + 'clear-user-logs',
     users: this.host + 'users',
+    notifications: this.host + 'notifications',
     resetPassword: this.host + 'reset-password',
+  }
+
+  /**
+   * Messages Api's
+   */
+  messages = {
+    getMessages: this.host + 'get-messages',
+    messages: this.host + 'messages'
   }
 
   /**

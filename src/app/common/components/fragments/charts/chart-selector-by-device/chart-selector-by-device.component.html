@@ -2,7 +2,7 @@
 <ng-container *ngIf="columns">
   <form class="p-1" [formGroup]="form" autocomplete="off">
     <div class="row">
-      <div class="col col-md-6">
+      <div class="col col-md-4">
         <!-- Sensors List -->
         <div class="form-floating mb-3">
           <select
@@ -19,7 +19,26 @@
         </div>
       </div>
 
-      <div class="col col-md-6">
+      <div class="col col-md-4">
+        <!-- Report Type -->
+        <div class="form-floating mb-3">
+          <select
+            [formControlName]="'reportType'"
+            type="text"
+            class="form-control"
+            id="floatingChartSelector"
+            placeholder="Report Type"
+            (change)="setSelectedColumns()"
+          >
+            <option [value]="'usage_va'">Power Usage in Terms on Voltage and Current</option>
+            <option [value]="'usage_power'">Power Usage in Terms on Power</option>
+            <option [value]="'usage_losses'">Power Usage in Terms on Power Usage vs Losses</option>
+          </select>
+          <label for="floatingChartSelector">Report Type</label>
+        </div>
+      </div>
+
+      <div class="col col-md-4">
         <!-- Chart Selector -->
         <div class="form-floating mb-3">
           <select
@@ -42,37 +61,37 @@
     </div>
 
 
-    <ng-container  *ngIf="chartOption?.value == 'line' && columns.length > 0">
+    <ng-container  *ngIf="chartOption?.value == 'line' && selectedColumns.length > 0">
       <app-line-chart
-        [columns]="columns"
+        [columns]="selectedColumns"
         [sensor]="sensors"
       ></app-line-chart>
     </ng-container>
 
-    <ng-container *ngIf="chartOption?.value == 'area' && columns.length > 0">
+    <ng-container *ngIf="chartOption?.value == 'area' && selectedColumns.length > 0">
       <app-area-chart
-        [columns]="columns"
+        [columns]="selectedColumns"
         [sensor]="sensors"
         ></app-area-chart>
     </ng-container>
 
-    <ng-container *ngIf="chartOption?.value == 'column' && columns.length > 0">
+    <ng-container *ngIf="chartOption?.value == 'column' && selectedColumns.length > 0">
       <app-column-chart
-        [columns]="columns"
+        [columns]="selectedColumns"
         [sensor]="sensors"
       ></app-column-chart>
     </ng-container>
 
-    <ng-container *ngIf="chartOption?.value == 'pie' && columns.length > 0">
+    <ng-container *ngIf="chartOption?.value == 'pie' && selectedColumns.length > 0">
       <app-pie-chart
-        [columns]="columns"
+        [columns]="selectedColumns"
         [sensor]="sensors"
       ></app-pie-chart>
     </ng-container>
 
   </form>
 </ng-container>
-<ng-container *ngIf="!columns">
+<ng-container *ngIf="!selectedColumns">
   <div class="alert alert-infor">
     No data found.
   </div>

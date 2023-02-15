@@ -7,6 +7,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { PermissionsComponent } from './permissions/permissions.component';
 import { PageAccessComponent } from './page-access/page-access.component';
 import { RolesComponent } from './roles/roles.component';
+import { DocumentsComponent } from './documents/documents.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { RolesComponent } from './roles/roles.component';
     PermissionsComponent,
     PageAccessComponent,
     RolesComponent,
+    DocumentsComponent,
   ],
   imports: [
     CommonModule,

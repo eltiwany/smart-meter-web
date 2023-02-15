@@ -1,0 +1,14 @@
+<p>
+  Are you sure you wan't to delete this document: <b>{{ data.name }}</b>?<br>
+  All client documents uploaded using this document will also be deleted! Proceed with caution.
+</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <button
+    class="w-100 btn btn-lg btn-danger"
+    [class.disabled]="form.invalid"
+    [type]="form.valid ? 'submit' : 'button'"
+    >
+    Delete
+    <i class="bi bi-trash"></i>
+  </button>
+</form>

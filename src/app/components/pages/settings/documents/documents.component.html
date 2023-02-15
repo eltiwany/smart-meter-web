@@ -1,0 +1,51 @@
+<app-top-bar
+  [exportOptions]="true"
+  [newButton]="true"
+  [newButtonName]="'New Document'"
+  [modalContent]="modalComponent"
+  modalRef="newModal"
+  [dataArray]="data"
+  [colsArray]="cols"
+  ></app-top-bar>
+
+<div class="card">
+  <div class="table-responsive py-4" id="htmlData" #htmlData>
+    <div class="dataTable-wrapper dataTable-loading no-footer fixed-columns">
+      <table datatable [dtOptions]="dtOptions" class="table table-flush dataTable-table" id="htmlData">
+        <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="data?.length != 0">
+        <tr *ngFor="let datum of  data; let i = index">
+          <th>{{ datum.id }}</th>
+          <td>{{ datum.name }}</td>
+          <td>{{ datum.description }}</td>
+          <td>
+            <app-action-buttons
+              [headingDelete]="'Delete: ' + datum.name"
+              [headingEdit]="'Edit ' + datum.name"
+              [modalEditContent]="modalEditComponent"
+              [modalDeleteContent]="modalDeleteComponent"
+              [data]="datum"
+              [deleteAction]="true"
+              [editAction]="true"
+              [viewAction]="false"
+            ></app-action-buttons>
+          </td>
+        </tr>
+        <tbody *ngIf="data?.length == 0">
+          <tr>
+            <th colspan="3">No data found.</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

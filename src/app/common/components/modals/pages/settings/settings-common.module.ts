@@ -9,6 +9,9 @@ import { EditPageAccessComponent } from './page-access/edit-page-access/edit-pag
 import { NewPageAccessComponent } from './page-access/new-page-access/new-page-access.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NewDocsComponent } from './documents/new-docs/new-docs.component';
+import { EditDocsComponent } from './documents/edit-docs/edit-docs.component';
+import { DeleteDocsComponent } from './documents/delete-docs/delete-docs.component';
 
 
 @NgModule({
@@ -21,6 +24,9 @@ import { CommonModule } from '@angular/common';
     EditRolesComponent,
     ViewRolesComponent,
     ViewPageAccessComponent,
+    NewDocsComponent,
+    EditDocsComponent,
+    DeleteDocsComponent,
   ],
   imports: [
     CommonModule,

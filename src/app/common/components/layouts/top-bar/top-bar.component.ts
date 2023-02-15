@@ -59,6 +59,11 @@ export class TopBarComponent implements OnInit {
   @Input() dataArray: any[] = [];
   @Input() colsArray: any[] = [];
 
+  // @ts-ignore
+  @Input() messageModalContent: Type<any>;
+  @Input() messageButton = false;
+  @Input() messageButtonName = "Send Notification";
+
   constructor(
     public config: AppConfigService,
     public route: ActivatedRoute,

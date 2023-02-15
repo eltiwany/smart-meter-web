@@ -1,3 +1,4 @@
+import { NotificationLogsComponent } from './notification-logs/notification-logs.component';
 import { UserBoardsComponent } from './user-boards/user-boards.component';
 import { UserLogsComponent } from './user-logs/user-logs.component';
 import { UsersComponent } from './users/users.component';
@@ -11,10 +12,12 @@ import { AuthGuardService } from 'src/app/services/guards/auth-guard.service';
 
 const routes: Routes = [
   // Stand-Alone Paths
+  {'path': 'notification-logs', 'component': NotificationLogsComponent, canActivate: [AuthGuardService, RolesGuardService]},
   {'path': 'dashboard', 'component': DashboardComponent, canActivate: [AuthGuardService]},
   {'path': 'user-boards', 'component': UserBoardsComponent, canActivate: [AuthGuardService, RolesGuardService]},
   {'path': 'users', 'component': UsersComponent, canActivate: [AuthGuardService, RolesGuardService]},
   {'path': 'user-logs', 'component': UserLogsComponent, canActivate: [AuthGuardService, RolesGuardService]},
+
   // With Childrens
   {'path': 'config-hardwares', loadChildren: () => import('./config-hardwares/config-hardwares.module').then(m => m.ConfigHardwaresModule), canActivateChild: [RolesGuardService]},
   {'path': 'hardwares', loadChildren: () => import('./link-hardwares/link-hardwares.module').then(m => m.LinkHardwaresModule), canActivateChild: [RolesGuardService]},

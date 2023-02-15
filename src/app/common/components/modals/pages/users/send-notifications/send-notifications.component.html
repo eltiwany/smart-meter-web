@@ -1,0 +1,25 @@
+<form class="p-1" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+  <div class="form-floating mb-3">
+    <textarea
+      formControlName="message"
+      [class.invalid]="message?.touched && message?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingInput"
+      style="height: 100px"
+      placeholder="Message to Send"
+    ></textarea>
+    <label for="floatingInput">Message to Send</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="message?.touched && message?.invalid">{{ message?.errors?.message }}</p>
+  </div>
+
+  <button
+    class="w-100 btn btn-lg btn-primary"
+    [class.disabled]="form.invalid"
+    [type]="form.valid ? 'submit' : 'button'"
+    >
+    Send
+    <i class="bi bi-envelop-fill"></i>
+  </button>
+</form>

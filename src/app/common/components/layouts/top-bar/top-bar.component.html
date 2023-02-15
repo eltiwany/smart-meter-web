@@ -31,6 +31,12 @@
         {{ importButtonName }}
       </button>
 
+      <!-- Message Button -->
+      <button  *ngIf="permission.isAllowedAction('w') && messageButton" class="btn btn-sm btn-warning d-inline-flex align-items-center" (click)="modal.open(modalMessage)">
+        <i class="icon icon-xs me-2 bi bi-envelope-fill"></i>
+        {{ messageButtonName }}
+      </button>
+
       <input type="file" style="display: none" #excel (change)="onFileChange($event, contentFilePreview)" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
       <div class="m-1"></div>
       <button  *ngIf="permission.isAllowedAction('w') && newButton" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center" (click)="modal.open(modalNew, modalSize)">
@@ -93,6 +99,19 @@
   </div>
   <div class="modal-body">
     <ng-container *ngComponentOutlet="modalClearLogsContent"></ng-container>
+  </div>
+</ng-template>
+
+<!-- Clear Logs Modal with Dynamic Form Loading -->
+<ng-template #modalMessage let-modald let-c="close" let-d="dismiss" class="p-0">
+  <div class="modal-header bg-warning">
+      <h2 class="h6 modal-title">{{ messageButtonName }}</h2>
+      <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
+        <i class="bi bi-x-lg"></i>
+      </button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngComponentOutlet="messageModalContent"></ng-container>
   </div>
 </ng-template>
 

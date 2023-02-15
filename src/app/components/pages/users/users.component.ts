@@ -1,3 +1,4 @@
+import { SendNotificationsComponent } from './../../../common/components/modals/pages/users/send-notifications/send-notifications.component';
 import { ResetUsersComponent } from './../../../common/components/modals/pages/users/reset-users/reset-users.component';
 import { UsersService } from './../../../services/pages/users.service';
 import { DeleteUsersComponent } from './../../../common/components/modals/pages/users/delete-users/delete-users.component';
@@ -17,6 +18,7 @@ export class UsersComponent implements OnInit {
   modalEditComponent: Type<any>;
   modalDeleteComponent: Type<any>;
   modalResetComponent: Type<any>;
+  modalNotificationComponent: Type<any>;
 
   dtOptions: DataTables.Settings = {};
   data: any[] = [];
@@ -31,6 +33,7 @@ export class UsersComponent implements OnInit {
     this.modalEditComponent = EditUsersComponent;
     this.modalDeleteComponent = DeleteUsersComponent;
     this.modalResetComponent = ResetUsersComponent;
+    this.modalNotificationComponent = SendNotificationsComponent;
   }
 
   ngOnInit(): void {

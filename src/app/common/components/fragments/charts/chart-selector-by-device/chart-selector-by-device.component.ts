@@ -10,7 +10,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ChartSelectorByDeviceComponent implements OnInit {
 
+  selectedColumns: any[] = [];
   columns: any[] = [];
+  power: any[] = [];
+  powerWithLosses: any[] = [];
+  lossColumns: any[] = [];
   sensors: any;
   sensorData: any;
 
@@ -19,6 +23,7 @@ export class ChartSelectorByDeviceComponent implements OnInit {
   form = new FormGroup({
     'chartOption': new FormControl('line'),
     'sensor': new FormControl(),
+    'reportType': new FormControl('usage_va'),
   });
 
   constructor(
@@ -34,23 +39,75 @@ export class ChartSelectorByDeviceComponent implements OnInit {
     return this.form.get('sensor');
   }
 
+  get reportType() {
+    return this.form.get('reportType');
+  }
+
   ngOnInit(): void {
 
+  }
+
+  setSelectedColumns() {
+    this.selectedColumns = [];
+
+    switch (this.reportType?.value) {
+      case 'usage_sa':
+        this.selectedColumns = this.columns;
+        break;
+      case 'usage_power':
+        this.selectedColumns = this.power;
+        break;
+      case 'usage_losses':
+        this.selectedColumns = this.powerWithLosses;
+        break;
+      default:
+        this.selectedColumns = this.columns;
+    }
   }
 
   getSensorData(sensor: any) {
     this.sensorData = [];
     this.columns = [];
+    this.lossColumns = [];
     this.sensors = [];
 
     const sensorId = sensor.value;
 
     this.sensorsService.getUserSensorValuesPerSensor(sensorId).then((response) => {
-      if (!response.error)
+      if (!response.error) {
         this.sensorData = response.data[0];
         this.columns = this.sensorData.columns;
+        this.lossColumns = this.sensorData.loss_columns;
         this.sensors = this.sensorData.sensors;
-      // console.table(this.columns);
+
+        let powerData: any[] = [];
+        let powerLossData: any[] = [];
+        this.columns[0]['data'].forEach((v: number, index: number) => {
+          powerData.push((v * this.columns[1]['data'][index]) / 1000);
+          powerLossData.push((this.lossColumns[0]['data'][index] * this.lossColumns[1]['data'][index]) / 1000);
+        });
+
+        this.power = [
+          {
+            name: 'Power (kW)',
+            data: powerData
+          }
+        ]
+
+        this.powerWithLosses = [
+          {
+            name: 'Power (kW)',
+            data: powerData
+          },
+          {
+            name: 'Losses (kW)',
+            data: powerLossData
+          }
+        ]
+      }
+
+      this.setSelectedColumns();
+
     });
   }
 

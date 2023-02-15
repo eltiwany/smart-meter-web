@@ -84,4 +84,12 @@ export class UsersService {
     return await this.http.post(this.api.users.clearUserLogs, data, true);
   }
 
+  /**
+   * Notify users on some issue
+   * @param void
+   * @returns Promise<any>
+   */
+  async sendNotification(data: any): Promise<any> {
+    return await this.http.post(this.api.users.notifications, data, true);
+  }
 }

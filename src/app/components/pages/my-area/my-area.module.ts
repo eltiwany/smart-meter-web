@@ -10,12 +10,14 @@ import { CommonModule } from '@angular/common';
 import { MyAreaRoutingModule } from './my-area-routing.module';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { ServiceDocumentsComponent } from './service-documents/service-documents.component';
 
 
 @NgModule({
   declarations: [
     ChangePasswordComponent,
     MyProfileComponent,
+    ServiceDocumentsComponent,
   ],
   imports: [
     CommonModule,
