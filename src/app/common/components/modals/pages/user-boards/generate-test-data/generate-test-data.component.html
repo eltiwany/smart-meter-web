@@ -1,0 +1,31 @@
+<form class="p-1" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+  <div class="form-floating mb-3">
+    <select
+      id="User"
+      class="form-control"
+      aria-placeholder="User"
+      [formControlName]="'token'"
+    >
+      <option *ngFor="let user of users" [value]="user.token">{{ "#" + (user.id) + ": " + (user.full_name ? user.full_name : 'N/A') }}</option>
+    </select>
+    <label class="my-1 me-2" for="User">User</label>
+  </div>
+
+  <div class="alert alert-warning" *ngIf="token?.value && token?.value !== 'null'">
+    Generate test data for token: <b>{{ token?.value }}</b>
+  </div>
+
+  <div class="alert alert-warning" *ngIf="!token?.value || token?.value === 'null'">
+    No token found, please select user or generate smart meter token for this user first.
+  </div>
+
+  <button
+    class="w-100 btn btn-danger"
+    [class.disabled]="(!form.valid || token?.value === 'null')"
+    [type]="(form.valid && token?.value !== 'null') ? 'submit' : 'button'"
+    >
+    Generate
+    <i class="bi bi-node-plus-fill"></i>
+  </button>
+</form>

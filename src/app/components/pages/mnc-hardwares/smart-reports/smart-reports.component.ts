@@ -19,6 +19,7 @@ export class SmartReportsComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
 
   healthStatus: any = [];
+  losses: any = [];
 
   reportsWithNumbersColumns = [
     {
@@ -49,6 +50,18 @@ export class SmartReportsComponent implements OnInit {
       bgColor: 'info',
       textColor: 'white',
       iconName: 'lightbulb',
+      allDataUrl: '#'
+    },
+    {
+      bgColor: 'warning',
+      textColor: 'dark',
+      iconName: 'exclamation',
+      allDataUrl: '#'
+    },
+    {
+      bgColor: 'danger',
+      textColor: 'white',
+      iconName: 'exclamation',
       allDataUrl: '#'
     },
     {
@@ -85,12 +98,23 @@ export class SmartReportsComponent implements OnInit {
     this.getSensors();
 
     this.getHealthStatus();
+
+    this.getTotalLosses();
   }
 
   getHealthStatus() {
     this.reports.getHealthStatus().then((response) => {
       if (!response.error)
         this.healthStatus = response.data;
+    });
+  }
+
+  getTotalLosses() {
+    this.reports.getTotalLosses().then((response) => {
+      if (!response.error)
+        this.losses = response.data;
+
+      // console.log(this.losses);
     });
   }
 

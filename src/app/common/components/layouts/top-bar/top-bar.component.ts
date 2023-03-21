@@ -48,6 +48,8 @@ export class TopBarComponent implements OnInit {
   // @ts-ignore
   @Input() modalClearLogsContent: Type<any>;
   @Input() clearLogsButton  = false;
+  @Input() clearLogsButtonName  = 'Clear Logs';
+  @Input() clearLogsButtonIcon  = 'trash';
 
   @Input() exportOptions = false;
   @Input() newButton  = false;

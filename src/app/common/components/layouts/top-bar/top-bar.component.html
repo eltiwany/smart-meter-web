@@ -22,8 +22,8 @@
       </button>
 
       <button  *ngIf="clearLogsButton" class="btn btn-sm btn-danger d-inline-flex align-items-center" (click)="modal.open(modalClearLogs)">
-        <i class="icon icon-xs me-2 bi bi-trash"></i>
-        Clear Logs
+        <i class="icon icon-xs me-2 bi bi-{{ clearLogsButtonIcon }}"></i>
+        {{ clearLogsButtonName }}
       </button>
 
       <button  *ngIf="permission.isAllowedAction('w') && importButton" class="btn btn-sm btn-success d-inline-flex align-items-center" (click)="excel.click()">
@@ -92,7 +92,7 @@
 <!-- Clear Logs Modal with Dynamic Form Loading -->
 <ng-template #modalClearLogs let-modald let-c="close" let-d="dismiss" class="p-0">
   <div class="modal-header bg-danger text-white">
-      <h2 class="h6 modal-title">Clear Logs</h2>
+      <h2 class="h6 modal-title">{{ clearLogsButtonName }}</h2>
       <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
         <i class="bi bi-x-lg"></i>
       </button>

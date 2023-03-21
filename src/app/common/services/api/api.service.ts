@@ -7,7 +7,7 @@ export class ApiService {
   /**
    * API Enviroment
    */
-  environment: 'prod' | 'dev' = 'prod';
+  environment: 'prod' | 'dev' = 'dev';
 
   /**
    * Base URL for API
@@ -151,6 +151,7 @@ export class ApiService {
     getBoards: this.host + 'user-boards/get-boards',
     boards: this.host + 'user-boards/boards',
     getActiveBoard: this.host + 'user-boards/get-active-board',
+    test: this.host + 'seed/smart-meter',
   }
 
   /**
@@ -171,5 +172,6 @@ export class ApiService {
     getUserBriefStats: this.host + 'get-user-brief-stats',
     getBriefStats: this.host + 'get-brief-stats',
     getHealthStatus: this.host + 'get-health-status',
+    getTotalLosses: this.host + 'get-total-losses',
   }
 }

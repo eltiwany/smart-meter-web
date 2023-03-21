@@ -49,6 +49,15 @@ export class UserBoardsService {
   }
 
   /**
+   * Generate test data
+   * @param void
+   * @returns Promise<any>
+   */
+   async generateTestData(data: any): Promise<any> {
+    return await this.http.post(this.api.userBoards.test, data, true);
+  }
+
+  /**
    * Disconnect board from API
    * @param void
    * @returns Promise<any>

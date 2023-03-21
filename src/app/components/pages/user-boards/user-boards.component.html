@@ -1,8 +1,12 @@
 <app-top-bar
   [exportOptions]="true"
   [newButton]="true"
+  [clearLogsButton]="true"
+  [clearLogsButtonName]="'Generate Test Data'"
+  [clearLogsButtonIcon]="'node-plus-fill'"
   [newButtonName]="'New User Board'"
   [modalContent]="modalComponent"
+  [modalClearLogsContent]="modalGenerateComponent"
   modalRef="newModal"
   [dataArray]="data"
   [colsArray]="cols"

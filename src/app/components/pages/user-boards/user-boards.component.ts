@@ -1,3 +1,4 @@
+import { GenerateTestDataComponent } from './../../../common/components/modals/pages/user-boards/generate-test-data/generate-test-data.component';
 import { ViewUserBoardsComponent } from './../../../common/components/modals/pages/user-boards/view-user-boards/view-user-boards.component';
 import { DeleteUserBoardsComponent } from './../../../common/components/modals/pages/user-boards/delete-user-boards/delete-user-boards.component';
 import { NewUserBoardsComponent } from './../../../common/components/modals/pages/user-boards/new-user-boards/new-user-boards.component';
@@ -13,6 +14,7 @@ import { Component, OnInit, Type } from '@angular/core';
 export class UserBoardsComponent implements OnInit {
   modalComponent: Type<any>;
   modalViewComponent: Type<any>;
+  modalGenerateComponent: Type<any>;
   modalDeleteComponent: Type<any>;
 
   dtOptions: DataTables.Settings = {};
@@ -20,11 +22,12 @@ export class UserBoardsComponent implements OnInit {
   cols = ['id', 'email', 'role_name'];
 
   constructor(
-    private users: UsersService
+    private users: UsersService,
   ) {
     // Initialize modals for new, edit and delete
     this.modalComponent = NewUserBoardsComponent;
     this.modalViewComponent = ViewUserBoardsComponent;
+    this.modalGenerateComponent = GenerateTestDataComponent;
     this.modalDeleteComponent = DeleteUserBoardsComponent;
   }
 

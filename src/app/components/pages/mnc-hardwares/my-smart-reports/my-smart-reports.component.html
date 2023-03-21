@@ -64,8 +64,8 @@
               <td>{{ datum.sensor.id }}</td>
               <th>{{ datum.sensor.user_defined_name }}</th>
               <td class="text-center" *ngFor="let status of datum.statuses">{{ general.formatNumber(status, 2) }}W</td>
-              <td [class]="getNoticationStatus(datum.statuses).status == 'warning' ? 'bg-' + getNoticationStatus(datum.statuses).status + ' font-weight-750' : 'bg-' + getNoticationStatus(datum.statuses).status + ' text-white font-weight-750'">
-                {{ getNoticationStatus(datum.statuses).message }}
+              <td [class]="getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).status == 'warning' ? 'bg-' + getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).status + ' font-weight-750' : 'bg-' + getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).status + ' text-white font-weight-750'">
+                {{ getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).message }}
               </td>
             </tr>
           </ng-container>

@@ -10,7 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ChartSelectorByDeviceComponent implements OnInit {
 
-  selectedColumns: any[] = [];
+  // selectedColumns: any[] = [];
   columns: any[] = [];
   power: any[] = [];
   powerWithLosses: any[] = [];
@@ -24,6 +24,7 @@ export class ChartSelectorByDeviceComponent implements OnInit {
     'chartOption': new FormControl('line'),
     'sensor': new FormControl(),
     'reportType': new FormControl('usage_va'),
+    'selectedColumns': new FormControl([]),
   });
 
   constructor(
@@ -43,26 +44,33 @@ export class ChartSelectorByDeviceComponent implements OnInit {
     return this.form.get('reportType');
   }
 
+  get selectedColumns() {
+    return this.form.get('selectedColumns');
+  }
+
   ngOnInit(): void {
 
   }
 
   setSelectedColumns() {
-    this.selectedColumns = [];
+    this.selectedColumns?.setValue([]);
+    let tmp = this.chartOption?.value;
+    this.chartOption?.setValue('no-chart');
 
     switch (this.reportType?.value) {
       case 'usage_sa':
-        this.selectedColumns = this.columns;
+        this.selectedColumns?.setValue(this.columns);
         break;
       case 'usage_power':
-        this.selectedColumns = this.power;
+        this.selectedColumns?.setValue(this.power);
         break;
       case 'usage_losses':
-        this.selectedColumns = this.powerWithLosses;
+        this.selectedColumns?.setValue(this.powerWithLosses);
         break;
       default:
-        this.selectedColumns = this.columns;
+        this.selectedColumns?.setValue(this.columns);
     }
+    // this.chartOption?.setValue(tmp);
   }
 
   getSensorData(sensor: any) {

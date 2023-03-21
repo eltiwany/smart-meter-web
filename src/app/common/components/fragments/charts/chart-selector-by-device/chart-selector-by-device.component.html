@@ -42,7 +42,7 @@
         <!-- Chart Selector -->
         <div class="form-floating mb-3">
           <select
-            formControlName="chartOption"
+            [formControlName]="'chartOption'"
             [class.invalid]="chartOption?.touched && chartOption?.invalid"
             type="text"
             class="form-control"
@@ -61,45 +61,52 @@
     </div>
 
 
-    <ng-container  *ngIf="chartOption?.value == 'line' && selectedColumns.length > 0">
-      <app-line-chart
-        [columns]="selectedColumns"
-        [sensor]="sensors"
-      ></app-line-chart>
-    </ng-container>
+    <ng-container  *ngIf="selectedColumns?.value.length > 0">
+      <span [ngSwitch]="chartOption?.value">
 
-    <ng-container *ngIf="chartOption?.value == 'area' && selectedColumns.length > 0">
-      <app-area-chart
-        [columns]="selectedColumns"
-        [sensor]="sensors"
+        <app-line-chart
+          *ngSwitchCase="'line'"
+          [columns]="selectedColumns?.value"
+          [sensor]="sensors"
+        ></app-line-chart>
+
+        <app-area-chart
+          *ngSwitchCase="'area'"
+          [columns]="selectedColumns?.value"
+          [sensor]="sensors"
         ></app-area-chart>
-    </ng-container>
 
-    <ng-container *ngIf="chartOption?.value == 'column' && selectedColumns.length > 0">
-      <app-column-chart
-        [columns]="selectedColumns"
-        [sensor]="sensors"
-      ></app-column-chart>
-    </ng-container>
+        <app-column-chart
+          *ngSwitchCase="'column'"
+          [columns]="selectedColumns?.value"
+          [sensor]="sensors"
+        ></app-column-chart>
 
-    <ng-container *ngIf="chartOption?.value == 'pie' && selectedColumns.length > 0">
-      <app-pie-chart
-        [columns]="selectedColumns"
-        [sensor]="sensors"
-      ></app-pie-chart>
+        <app-pie-chart
+          *ngSwitchCase="'pie'"
+          [columns]="selectedColumns?.value"
+          [sensor]="sensors"
+        ></app-pie-chart>
+
+        <div
+          *ngSwitchDefault
+          class="alert alert-warning">
+          Select a chart type to preview report.
+        </div>
+
+      </span>
     </ng-container>
 
   </form>
 </ng-container>
-<ng-container *ngIf="!selectedColumns">
-  <div class="alert alert-infor">
-    No data found.
-  </div>
-</ng-container>
 
-<ng-container *ngIf="!sensorData">
-  <div class="alert alert-warning">
+<ng-container *ngIf="!selectedColumns || !sensorData">
+  <div class="alert alert-info">
     Select a smart appliances on the selection above to get detailed data.
   </div>
 </ng-container>
+
+<!-- <ng-container *ngIf="!sensorData">
+
+</ng-container> -->
 

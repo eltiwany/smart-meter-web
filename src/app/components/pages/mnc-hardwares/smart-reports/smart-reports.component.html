@@ -28,3 +28,20 @@
     </div>
   </div>
 </div>
+
+<div class="card mb-4 shadow">
+  <div class="card-header bg-primary text-white">
+    <h5 class="p-0 m-0 font-weight-750">
+      <i class="bi bi-table" style="margin-right: 10px;"></i>
+      View detailed losses for all smart meters (Last 50 data)
+    </h5>
+  </div>
+  <div class="card-body" *ngIf="losses[0]?.loss_columns">
+    <div class="row">
+      <app-chart-selector
+        [rootColumns]="losses[0]?.loss_columns"
+        [rootSensor]="[losses[0]?.loss_columns[0].data, losses[0]?.loss_columns[1].data]"
+      ></app-chart-selector>
+    </div>
+  </div>
+</div>

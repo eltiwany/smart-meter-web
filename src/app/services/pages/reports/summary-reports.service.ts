@@ -38,4 +38,13 @@ export class SummaryReportsService {
   async getHealthStatus(): Promise<any> {
     return await this.http.get(this.api.reports.getHealthStatus, false);
   }
+
+  /**
+   * Get Total Losses
+   * @param void
+   * @returns Promise<any>
+   */
+  async getTotalLosses(): Promise<any> {
+    return await this.http.get(this.api.reports.getTotalLosses, false);
+  }
 }
