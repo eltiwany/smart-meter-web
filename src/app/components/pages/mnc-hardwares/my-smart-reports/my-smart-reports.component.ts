@@ -103,11 +103,27 @@ export class MySmartReportsComponent implements OnInit {
   getNoticationStatus(powerData: number[], threshold = 0, threshold_percentage = 0) {
     let percent = Math.round((Math.max(...powerData) - Math.min(...powerData)) / Math.max(...powerData) * 100);
 
-    if (threshold && powerData[3] > threshold)
-      return {
-        'status': 'danger',
-        'message': 'Appliance consumes more power than specified by manufactuter!'
-      }
+    let threshold_plus = Number(threshold) + (Number(threshold) * (Number(threshold_percentage) / 100))
+    let threshold_minus = Number(threshold) - (Number(threshold) * (Number(threshold_percentage) / 100))
+
+    if (threshold) {
+      console.table({power: powerData[3], plus: threshold_plus, minus: threshold_minus})
+      if (powerData[3] > threshold_plus)
+        return {
+          'status': 'danger',
+          'message': 'Appliance consumes more power than specified by manufacturer!'
+        }
+      else if (powerData[3] < threshold_minus)
+        return {
+          'status': 'warning',
+          'message': 'Appliance consumes less power than specified by manufacturer!'
+        }
+      else
+        return {
+          'status': 'success',
+          'message': 'It is normally operating as per manufaturer`s specifications'
+        }
+    }
 
     if (percent > 5 && (powerData[0] < powerData[3]))
       return {
