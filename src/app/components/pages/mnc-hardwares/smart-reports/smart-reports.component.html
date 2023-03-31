@@ -36,11 +36,11 @@
       View detailed losses for all smart meters (Last 50 data)
     </h5>
   </div>
-  <div class="card-body" *ngIf="losses[0]?.loss_columns">
+  <div class="card-body" *ngIf="powerWithLosses.length > 0">
     <div class="row">
       <app-chart-selector
-        [rootColumns]="losses[0]?.loss_columns"
-        [rootSensor]="[losses[0]?.loss_columns[0].data, losses[0]?.loss_columns[1].data]"
+        [rootColumns]="powerWithLosses"
+        [rootSensor]="sensors"
       ></app-chart-selector>
     </div>
   </div>

@@ -1,3 +1,4 @@
+import { MySmartReportsComponent } from './mnc-hardwares/my-smart-reports/my-smart-reports.component';
 import { NotificationLogsComponent } from './notification-logs/notification-logs.component';
 import { UserBoardsComponent } from './user-boards/user-boards.component';
 import { UserLogsComponent } from './user-logs/user-logs.component';
@@ -13,7 +14,7 @@ import { AuthGuardService } from 'src/app/services/guards/auth-guard.service';
 const routes: Routes = [
   // Stand-Alone Paths
   {'path': 'notification-logs', 'component': NotificationLogsComponent, canActivate: [AuthGuardService, RolesGuardService]},
-  {'path': 'dashboard', 'component': DashboardComponent, canActivate: [AuthGuardService]},
+  {'path': 'dashboard', 'component': MySmartReportsComponent, canActivate: [AuthGuardService]},
   {'path': 'user-boards', 'component': UserBoardsComponent, canActivate: [AuthGuardService, RolesGuardService]},
   {'path': 'users', 'component': UsersComponent, canActivate: [AuthGuardService, RolesGuardService]},
   {'path': 'user-logs', 'component': UserLogsComponent, canActivate: [AuthGuardService, RolesGuardService]},

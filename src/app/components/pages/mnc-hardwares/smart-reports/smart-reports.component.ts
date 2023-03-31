@@ -15,6 +15,10 @@ export class SmartReportsComponent implements OnInit {
   fullName: string = "";
   data: any[] = [];
   sensors: any[] = [];
+  power: any[] = [];
+  powerWithLosses: any[] = [];
+  columns: any[] = [];
+  lossColumns: any[] = [];
   sensorData: any = [];
   dtOptions: DataTables.Settings = {};
 
@@ -70,6 +74,12 @@ export class SmartReportsComponent implements OnInit {
       iconName: 'exclamation',
       allDataUrl: '#'
     },
+    {
+      bgColor: 'dark',
+      textColor: 'white',
+      iconName: 'check',
+      allDataUrl: '#'
+    },
   ];
 
   constructor(
@@ -111,10 +121,32 @@ export class SmartReportsComponent implements OnInit {
 
   getTotalLosses() {
     this.reports.getTotalLosses().then((response) => {
-      if (!response.error)
-        this.losses = response.data;
+      if (!response.error) {
+        this.sensorData = response.data[0];
+        this.columns = this.sensorData.columns;
+        this.lossColumns = this.sensorData.loss_columns;
+        this.sensors = this.sensorData.sensors;
 
-      // console.log(this.losses);
+        let powerData: any[] = [];
+        let powerLossData: any[] = [];
+        this.columns[0]['data'].forEach((v: number, index: number) => {
+          powerData.push((v * this.columns[1]['data'][index]) / 1000);
+          powerLossData.push((this.lossColumns[0]['data'][index] * this.lossColumns[1]['data'][index]) / 1000);
+        });
+
+        this.powerWithLosses = [
+          {
+            name: 'Power (kW)',
+            data: powerData
+          },
+          {
+            name: 'Losses (kW)',
+            data: powerLossData
+          }
+        ]
+      }
+
+      console.log(this.powerWithLosses);
     });
   }
 
@@ -154,6 +186,5 @@ export class SmartReportsComponent implements OnInit {
         'status': 'success',
         'message': 'Looks ok!'
       }
-
   }
 }
