@@ -43,6 +43,16 @@ export class RolesGuardService implements CanActivate, CanActivateChild {
     return isAllowed;
   }
 
+  isAdmin() {
+    this.auth.getAuth().permissions.forEach((permission: any) => {
+      if (permission.page == 'All') {
+        return true;
+      }
+      return false;
+    });
+    return false;
+  }
+
   constructor(
     private auth: AuthService,
     private router: Router,

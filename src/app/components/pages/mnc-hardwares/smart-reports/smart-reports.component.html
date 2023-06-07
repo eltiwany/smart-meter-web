@@ -5,10 +5,119 @@
 
 <div class="card mb-4 shadow">
   <div class="card-header bg-primary text-white">
+    <h5 class="p-0 m-0 font-weight-750" style="float:left">
+      <i class="bi bi-file-text-fill" style="margin-right: 10px;"></i>
+      Smart meter customers in maps
+    </h5>
+    <!-- Message Button -->
+    <button class="btn btn-warning" style="float: right" (click)="modal.open(modalMessage, 'xl')">
+      <i class="icon icon-xs me-2 bi bi-tag-fill"></i>
+      Get Reports by Specific Area
+    </button>
+  </div>
+  <div class="card-body">
+    <google-map width="100%" [options]="mapOptions">
+      <!-- <map-marker
+        *ngFor="let spot of spots"
+        [position]="{ lat: spot.lat, lng: spot.lng }"
+        [options]="markerOptions"
+      ></map-marker> -->
+    </google-map>
+  </div>
+</div>
+
+<!-- Clear Logs Modal with Dynamic Form Loading -->
+<ng-template #modalMessage let-modald let-c="close" let-d="dismiss" class="p-0">
+  <div class="modal-header bg-warning">
+      <h2 class="h6 modal-title">Get Reports by Specific Area</h2>
+      <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
+        <i class="bi bi-x-lg"></i>
+      </button>
+  </div>
+  <div class="modal-body" *ngIf="cities && regions && districts">
+    <form class="p-1" [formGroup]="form" autocomplete="off">
+      <div class="row">
+        <div class="col col-md-4">
+          <div class="form-floating mb-3">
+            <select
+              formControlName="city"
+              type="text"
+              class="form-control"
+              id="floatingChartSelector"
+              placeholder="City"
+              (change)="getSummaryByArea()"
+            >
+              <option *ngFor="let city of cities" [value]="city"> {{ city }} </option>
+            </select>
+            <label for="floatingChartSelector">City</label>
+          </div>
+        </div>
+
+        <div class="col col-md-4">
+          <div class="form-floating mb-3">
+            <select
+              formControlName="region"
+              type="text"
+              class="form-control"
+              id="floatingChartSelector"
+              placeholder="Region"
+              (change)="getSummaryByArea()"
+            >
+              <option *ngFor="let region of regions" [value]="region"> {{ region }} </option>
+            </select>
+            <label for="floatingChartSelector">Region</label>
+          </div>
+        </div>
+
+        <div class="col col-md-4">
+          <div class="form-floating mb-3">
+            <select
+              formControlName="district"
+              type="text"
+              class="form-control"
+              id="floatingChartSelector"
+              placeholder="District"
+              (change)="getSummaryByArea()"
+            >
+              <option *ngFor="let district of districts" [value]="district"> {{ district }} </option>
+            </select>
+            <label for="floatingChartSelector">District</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <p><b>City: </b> {{ city?.value }}</p>
+        <p><b>Region: </b> {{ region?.value }}</p>
+        <p><b>District: </b> {{ district?.value }}</p>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <tr>
+              <th>Time</th>
+              <th>Power (kW)</th>
+              <th>Loss (kW)</th>
+            </tr>
+
+            <tr *ngFor="let summary of summaryByArea">
+              <td>{{ summary.time }}</td>
+              <td>{{ summary.power }}</td>
+              <td>{{ summary.loss }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div class="card mb-4 shadow">
+  <div class="card-header bg-primary text-white">
     <h1 class="bold"> {{ general.getGreeting() + ", " + fullName + "!" }} </h1>
     <h5 class="p-0 m-0 font-weight-750">
       <i class="bi bi-file-text-fill" style="margin-right: 10px;"></i>
-      Checkout the report for customers smart home in the past 24 hours
+      Checkout the report for customers smart home in the past 24 hours*
     </h5>
   </div>
   <div class="card-body">

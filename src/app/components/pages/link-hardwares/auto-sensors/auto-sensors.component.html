@@ -5,26 +5,31 @@
 
 <div class="row">
   <div class="col col-md-3" *ngFor="let datum of data">
-    <app-hardware-list-card
+
+    <app-control-smart-device-card
       [imageUrl]="api.storageHost + datum.sensor.image_url"
       [isImage]="true"
+      [color]="'success'"
+      [deviceName]="datum.sensor.user_defined_name ?? datum.sensor.name"
+      [deviceId]="datum.sensor.id"
+      [isSwitchedOn]="datum.sensor.is_switched_on"
+      [isActiveLow]="datum.sensor.is_active_low"
+
       [link]="false"
       [textButton]="true"
       [showStatus]="false"
       [deleteAction]="true"
       [editAction]="true"
-      [color]="'warning'"
       [modalSize]="'lg'"
       [modalEditContent]="modalEditComponent"
       [modalContent]="modalViewComponent"
       [modalDeleteContent]="modalDeleteComponent"
       headingDelete="Unlink Sensor"
-      [deviceName]="datum.sensor.user_defined_name ?? datum.sensor.name"
       [interval]="datum.sensor.interval"
       [data]="datum"
       [connections]="datum.connections"
       [columns]="datum.columns"
-    ></app-hardware-list-card>
+    ></app-control-smart-device-card>
   </div>
 
   <div class="col col-md-3" *ngIf="data.length == 0">

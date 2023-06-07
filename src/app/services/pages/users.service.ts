@@ -22,6 +22,24 @@ export class UsersService {
   }
 
   /**
+   * Get user resourcesfrom API
+   * @param void
+   * @returns Promise<any>
+   */
+  async getUserResources(): Promise<any> {
+    return await this.http.get(this.api.users.getResources, false);
+  }
+
+  /**
+   * Get user resourcesfrom API
+   * @param void
+   * @returns Promise<any>
+   */
+  async getAreaReports(data: any): Promise<any> {
+    return await this.http.post(this.api.users.getAreaReports, data, false);
+  }
+
+  /**
    * Get user logs for datatable from API
    * @param void
    * @returns Promise<any>

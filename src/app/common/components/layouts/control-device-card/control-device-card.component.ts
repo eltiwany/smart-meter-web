@@ -32,7 +32,7 @@ export class ControlDeviceCardComponent implements OnInit {
       'userActuatorId': id,
       'isSwitchedOn': this.isActiveLow ? !input.target.checked : input.target.checked,
     }
-    console.log(input.target.value, this.isSwitchedOn, this.isActiveLow, !this.isSwitchedOn && this.isActiveLow);
+    // console.log(input.target.value, this.isSwitchedOn, this.isActiveLow, !this.isSwitchedOn && this.isActiveLow);
     this.actuatorsService.switchActuator(data).then((response) => {
       if(response.error) {
         this.checked[id] = !this.checked[id];

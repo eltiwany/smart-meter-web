@@ -7,13 +7,13 @@ export class ApiService {
   /**
    * API Enviroment
    */
-  environment: 'prod' | 'dev' = 'prod';
+  environment: 'prod' | 'dev' = 'dev';
 
   /**
    * Base URL for API
    */
   // baseUrl = this.environment == 'prod' ? 'http://konekted-api.nafuutronics.com/' : 'http://localhost:8000/';
-  baseUrl = this.environment == 'prod' ? 'https://api.smartmetertz.com/' : 'http://localhost:9000/';
+  baseUrl = this.environment == 'prod' ? 'https://api.smartmetertz.com/' : 'http://localhost:8000/';
 
   /**
    * WebHost URL
@@ -76,6 +76,8 @@ export class ApiService {
    */
    users = {
     getUsers: this.host + 'get-users',
+    getResources: this.host + 'get-user-resources',
+    getAreaReports: this.host + 'get-area-reports',
     getUserLogs: this.host + 'get-user-logs',
     clearUserLogs: this.host + 'clear-user-logs',
     users: this.host + 'users',
@@ -114,6 +116,7 @@ export class ApiService {
     userSensorsAutoAdded: this.host + 'user-sensors-auto-added',
     userSensorValues: this.host + 'get-user-sensor-values',
     userSensorValuesPerSensor: this.host + 'get-user-sensor-values-per-sensor',
+    switchActuator: this.host + 'switch-smart-actuator',
   }
 
   /**

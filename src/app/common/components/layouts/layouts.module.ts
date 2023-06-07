@@ -11,6 +11,7 @@ import { TopReportHeadingComponent } from './reports/top-report-heading/top-repo
 import { HardwareConnectionButtonsComponent } from './hardware-connection-buttons/hardware-connection-buttons.component';
 import { HardwareListCardComponent } from './hardware-list-card/hardware-list-card.component';
 import { ControlDeviceCardComponent } from './control-device-card/control-device-card.component';
+import { ControlSmartDeviceCardComponent } from './control-smart-device-card/control-smart-device-card.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ControlDeviceCardComponent } from './control-device-card/control-device
     TopReportHeadingComponent,
     HardwareConnectionButtonsComponent,
     HardwareListCardComponent,
-    ControlDeviceCardComponent
+    ControlDeviceCardComponent,
+    ControlSmartDeviceCardComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { ControlDeviceCardComponent } from './control-device-card/control-device
     TopReportHeadingComponent,
     HardwareConnectionButtonsComponent,
     HardwareListCardComponent,
-    ControlDeviceCardComponent
+    ControlDeviceCardComponent,
+    ControlSmartDeviceCardComponent
   ],
 })
 export class LayoutsModule { }

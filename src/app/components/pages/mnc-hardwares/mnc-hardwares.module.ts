@@ -1,3 +1,5 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { MyCommonModule } from 'src/app/common/common.module';
 import { FragmentsModule } from './../../../common/components/fragments/fragments.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +26,8 @@ import { MySmartReportsComponent } from './my-smart-reports/my-smart-reports.com
   ],
   imports: [
     CommonModule,
+    GoogleMapsModule,
+    ReactiveFormsModule,
     DataTablesModule,
     LayoutsModule,
     FragmentsModule,

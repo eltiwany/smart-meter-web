@@ -111,34 +111,34 @@ export class MySmartReportsComponent implements OnInit {
       if (powerData[3] > threshold_plus)
         return {
           'status': 'danger',
-          'message': 'Appliance consumes more power than specified by manufacturer!'
+          'message': 'Higher usage than recommended'
         }
       else if (powerData[3] < threshold_minus)
         return {
           'status': 'warning',
-          'message': 'Appliance consumes less power than specified by manufacturer!'
+          'message': 'Lower usage than recommended'
         }
       else
         return {
           'status': 'success',
-          'message': 'It is normally operating as per manufaturer`s specifications'
+          'message': 'Normal'
         }
     }
 
     if (percent > 5 && (powerData[0] < powerData[3]))
       return {
         'status': 'danger',
-        'message': 'Appliance consumes more power!'
+        'message': 'Higher usage than normal'
       }
     if (percent > 5 && (powerData[0] > powerData[3]))
       return {
         'status': 'warning',
-        'message': 'Appliance uses lower power than normal!'
+        'message': 'Lower usage than normal'
       }
     else
       return {
         'status': 'success',
-        'message': 'Looks ok!'
+        'message': 'Normal'
       }
 
   }

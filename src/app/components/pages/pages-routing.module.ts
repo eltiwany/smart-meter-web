@@ -1,3 +1,5 @@
+import jwt_decode from 'jwt-decode';
+import { SmartReportsComponent } from './mnc-hardwares/smart-reports/smart-reports.component';
 import { MySmartReportsComponent } from './mnc-hardwares/my-smart-reports/my-smart-reports.component';
 import { NotificationLogsComponent } from './notification-logs/notification-logs.component';
 import { UserBoardsComponent } from './user-boards/user-boards.component';
@@ -11,10 +13,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from 'src/app/services/guards/auth-guard.service';
 
+const getDashboardComponent = (): Routes => {
+  const jwt: any = jwt_decode(localStorage.getItem('token') + '');
+  const permissions = jwt.permissions;
+  let path: any = [{'path': 'dashboard', 'component': MySmartReportsComponent, canActivate: [AuthGuardService]}];
+
+  permissions.forEach((permission: any) => {
+    if (permission.page == 'All')
+      path = [{'path': 'dashboard', 'component': SmartReportsComponent, canActivate: [AuthGuardService]}];
+  });
+
+  return path;
+};
+
 const routes: Routes = [
   // Stand-Alone Paths
   {'path': 'notification-logs', 'component': NotificationLogsComponent, canActivate: [AuthGuardService, RolesGuardService]},
-  {'path': 'dashboard', 'component': MySmartReportsComponent, canActivate: [AuthGuardService]},
   {'path': 'user-boards', 'component': UserBoardsComponent, canActivate: [AuthGuardService, RolesGuardService]},
   {'path': 'users', 'component': UsersComponent, canActivate: [AuthGuardService, RolesGuardService]},
   {'path': 'user-logs', 'component': UserLogsComponent, canActivate: [AuthGuardService, RolesGuardService]},
@@ -32,7 +46,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild([...getDashboardComponent(), ...routes])],
   exports: [RouterModule]
 })
-export class PagesRoutingModule { }
+export class PagesRoutingModule {
+  constructor() {}
+}

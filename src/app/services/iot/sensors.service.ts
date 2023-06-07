@@ -125,4 +125,13 @@ export class SensorsService {
     return await this.http.delete(this.api.sensors.userSensors, id, true);
   }
 
+  /**
+   * Switch actuator On/Off from API
+   * @param void
+   * @returns Promise<any>
+   */
+  async switchActuator(data: any): Promise<any> {
+    return await this.http.post(this.api.sensors.switchActuator, data, false);
+  }
+
 }

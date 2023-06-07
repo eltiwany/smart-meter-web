@@ -16,6 +16,7 @@ export class ChartSelectorByDeviceComponent implements OnInit {
   powerWithLosses: any[] = [];
   lossColumns: any[] = [];
   sensors: any;
+  time: any[] = [];
   sensorData: any;
 
   @Input() sensorsList: any[] = [];
@@ -23,7 +24,7 @@ export class ChartSelectorByDeviceComponent implements OnInit {
   form = new FormGroup({
     'chartOption': new FormControl('line'),
     'sensor': new FormControl(),
-    'reportType': new FormControl('usage_va'),
+    'reportType': new FormControl('usage_losses'),
     'selectedColumns': new FormControl([]),
   });
 
@@ -87,12 +88,13 @@ export class ChartSelectorByDeviceComponent implements OnInit {
         this.columns = this.sensorData.columns;
         this.lossColumns = this.sensorData.loss_columns;
         this.sensors = this.sensorData.sensors;
+        this.time = this.sensorData.columns[0]['time'].sort(function(a: number, b: number){return a-b});
 
         let powerData: any[] = [];
         let powerLossData: any[] = [];
         this.columns[0]['data'].forEach((v: number, index: number) => {
-          powerData.push((v * this.columns[1]['data'][index]) / 1000);
-          powerLossData.push((this.lossColumns[0]['data'][index] * this.lossColumns[1]['data'][index]) / 1000);
+          powerData.push({ x: this.time[index], y: ((v * this.columns[1]['data'][index]) / 1000) });
+          powerLossData.push({ x: this.time[index], y: ((this.lossColumns[0]['data'][index] * this.lossColumns[1]['data'][index]) / 1000) });
         });
 
         this.power = [

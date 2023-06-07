@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 import { NoAccessComponent } from './components/errors/no-access/no-access.component';
 import { DataTablesModule } from 'angular-datatables';
+import { GoogleMapsModule } from '@angular/google-maps'
+
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { DataTablesModule } from 'angular-datatables';
     NotFoundComponent,
     NoAccessComponent,
     DataTablesModule,
+    GoogleMapsModule
   ],
   providers: [
   ]
