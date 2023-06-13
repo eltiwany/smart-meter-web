@@ -5,28 +5,140 @@
 
 <div class="card mb-4 shadow">
   <div class="card-header bg-primary text-white">
-    <h1 class="bold"> {{ general.getGreeting() + ", " + fullName + "!" }} </h1>
-    <h5 class="p-0 m-0 font-weight-750">
+    <h5 class="p-0 m-0 font-weight-750" style="float:left">
       <i class="bi bi-file-text-fill" style="margin-right: 10px;"></i>
-      Checkout the report for your smart home in the past 24 hours<br/>
-      <i class="bi bi-dot" style="margin-right: 10px;"></i>
-      Meter ID / Token:
+      {{ fullName }}'s smart home in the past 12 hours<br/>
+    </h5>
+    <!-- Message Button -->
+    <button class="btn btn-warning" style="float: right" (click)="modal.open(modalMessage, 'xl')">
+      <i class="icon icon-xs me-2 bi bi-printer-fill"></i>
+      Get Smart Appliances(s) Usage Report
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col col-md-8">
+        <div class="row">
+          <div
+            *ngFor="let datum of data; index as i"
+            class="col-12">
+              <app-card-brief
+                *ngIf="i == 0"
+                class="col-md-3"
+                [addedHeight]="data.length - 1"
+                [cardName]="datum[0].name"
+                [cardNumber]="getPower(datum[0].value)"
+                [cardNumberSI]="datum[0]?.si"
+              ></app-card-brief>
+          </div>
+        </div>
+      </div>
+
+      <div class="col col-md-4">
+        <div class="row">
+          <div
+          *ngFor="let datum of data; index as i"
+          class="col-12">
+            <app-card-brief
+              *ngIf="i != 0"
+              class="col-md-3"
+              [cardName]="datum[0].name"
+              [cardNumber]="getPower(datum[0].value)"
+              [cardNumberSI]="datum[0]?.si"
+            ></app-card-brief>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Clear Logs Modal with Dynamic Form Loading -->
+<ng-template #modalMessage let-modald let-c="close" let-d="dismiss" class="p-0">
+  <div class="modal-header bg-warning">
+    <h2 class="h6 modal-title">Smart Appliances(s) Usage Report</h2>
+    <div class="btn-right">
+      <button *ngIf="summaryByArea.length > 0" class="btn btn-success" (click)="printDiv('printContent')">
+        <i class="bi bi-printer-fill"></i> Print
+      </button>
+      <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body" *ngIf="startDate && endDate">
+    <form class="p-1" [formGroup]="form" autocomplete="off">
+      <div class="row">
+        <div class="col col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              formControlName="startDate"
+              type="date"
+              class="form-control"
+              id="floatingChartSelector"
+              placeholder="Start Date"
+              (change)="getSummaryByArea()"
+            />
+            <label for="floatingChartSelector">Start Date</label>
+          </div>
+        </div>
+
+        <div class="col col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              formControlName="endDate"
+              type="date"
+              class="form-control"
+              id="floatingChartSelector"
+              placeholder="End Date"
+              (change)="getSummaryByArea()"
+            />
+            <label for="floatingChartSelector">End Date</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="printContent">
+        <div class="row" *ngIf="startDate?.valid && endDate?.valid && summaryByArea.length > 0">
+          <h3 class="text-center mt-2">Smart Appliances(s) Usage Report</h3>
+          <h5 class="text-center mb-2">{{ startDate?.value | date:'fullDate' }} - {{ endDate?.value | date:'fullDate' }}</h5>
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <tr>
+                <th>Time</th>
+                <th>Power (kW)</th>
+                <th>Loss (kW)</th>
+              </tr>
+
+              <tr *ngFor="let summary of summaryByArea">
+                <td>{{ summary.time }}</td>
+                <td>{{ summary.power }}</td>
+                <td>{{ summary.loss }}</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+        <div class="alert alert-warning" *ngIf="startDate?.valid && endDate?.valid && summaryByArea.length == 0">No data found.</div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div class="card mb-4 shadow">
+  <div class="card-header bg-primary text-white">
+    <h5 class="p-0 m-0 font-weight-750">
+      <i class="bi bi-table" style="margin-right: 10px;"></i>
+      View data of your appliances in past 12 hours
     </h5>
   </div>
   <div class="card-body">
     <div class="row">
-      <!-- Cards with counting summary -->
-      <app-card-md4
-        *ngFor="let datum of data"
-        class="col-md-3"
-        [cardName]="datum[0].name"
-        [cardNumber]="getPower(datum[0].value)"
-        [cardNumberSI]="datum[0]?.si"
-        [iconName]="datum[1].iconName"
-        [bgColor]="datum[1].bgColor"
-        [textColor]="datum[1].textColor"
-        [allDataUrl]="''"
-      ></app-card-md4>
+      <app-chart-selector-by-device
+        [sensorsList]="sensors"
+      ></app-chart-selector-by-device>
     </div>
   </div>
 </div>
@@ -76,22 +188,5 @@
           </tbody>
         </table>
       </div>
-  </div>
-</div>
-
-
-<div class="card mb-4 shadow">
-  <div class="card-header bg-primary text-white">
-    <h5 class="p-0 m-0 font-weight-750">
-      <i class="bi bi-table" style="margin-right: 10px;"></i>
-      View detailed data on your appliances
-    </h5>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <app-chart-selector-by-device
-        [sensorsList]="sensors"
-      ></app-chart-selector-by-device>
-    </div>
   </div>
 </div>

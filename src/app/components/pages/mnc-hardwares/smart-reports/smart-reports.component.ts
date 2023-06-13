@@ -1,3 +1,4 @@
+import { GeneralValidators } from './../../../../validators/general.validators';
 import { UsersService } from './../../../../services/pages/users.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalsService } from './../../../../common/services/layouts/modals.service';
@@ -41,7 +42,7 @@ export class SmartReportsComponent implements OnInit {
     zoom: 15,
   };
 
-  markerOptions: google.maps.MarkerOptions = { icon: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless.png' };
+  // markerOptions: google.maps.MarkerOptions = { icon: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless.png' };
 
   spots: { id: number; lat: number; lng: number }[] = [
     { id: 1, lat: 48.85952222328431, lng: 2.3347153257887454 },
@@ -112,6 +113,8 @@ export class SmartReportsComponent implements OnInit {
     'city': new FormControl(''),
     'region': new FormControl(''),
     'district': new FormControl(''),
+    'startDate': new FormControl('', [GeneralValidators.required]),
+    'endDate': new FormControl('', [GeneralValidators.required]),
   });
 
   constructor(
@@ -133,6 +136,14 @@ export class SmartReportsComponent implements OnInit {
 
   get district() {
     return this.form.get('district');
+  }
+
+  get startDate() {
+    return this.form.get('startDate');
+  }
+
+  get endDate() {
+    return this.form.get('endDate');
   }
 
   ngOnInit(): void {
@@ -172,25 +183,28 @@ export class SmartReportsComponent implements OnInit {
       "district": this.district?.value,
       "region": this.region?.value,
       "city": this.city?.value,
+      "startDate": this.startDate?.value,
+      "endDate": this.endDate?.value,
     };
 
-    this.usersService.getAreaReports(data).then((response) => {
-      this.summaryByArea = [];
-      if (!response.error) {
-        let time = response.data[0].columns[0]['time'].sort(function(a: number, b: number){return a-b});
+    if (this.startDate?.valid && this.endDate?.valid)
+      this.usersService.getAreaReports(data).then((response) => {
+        this.summaryByArea = [];
+        if (!response.error) {
+          let time = response.data[0].columns[0]['time'].sort(function(a: number, b: number){return a-b});
 
-        response.data[0].columns[0]['data'].forEach((v: number, index: number) => {
-          this.summaryByArea.push(
-            {
-              time: time[index],
-              power: ((v * response.data[0].columns[1]['data'][index]) / 1000),
-              loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000)
-            }
-          );
-        });
+          response.data[0].columns[0]['data'].forEach((v: number, index: number) => {
+            this.summaryByArea.push(
+              {
+                time: time[index],
+                power: ((v * response.data[0].columns[1]['data'][index]) / 1000),
+                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000)
+              }
+            );
+          });
 
-      }
-    })
+        }
+      })
   }
 
   getHealthStatus() {
@@ -208,7 +222,7 @@ export class SmartReportsComponent implements OnInit {
         this.lossColumns = this.sensorData.loss_columns;
         this.time = this.sensorData.columns[0]['time'].sort(function(a: number, b: number){return a-b});
 
-        console.log(this.time);
+        // console.log(this.time);
 
         let powerData: any[] = [];
         let powerLossData: any[] = [];
@@ -230,7 +244,7 @@ export class SmartReportsComponent implements OnInit {
         ]
       }
 
-      console.log(this.powerWithLosses);
+      // console.log(this.powerWithLosses);
     });
   }
 
@@ -251,6 +265,38 @@ export class SmartReportsComponent implements OnInit {
       this.sensors = response.data;
       // console.table(this.data);
     });
+  }
+
+  printDiv(divName: string) {
+    const printContents = (document?.getElementById(divName) as HTMLElement).innerHTML;
+
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    printWindow?.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+        </head>
+        <body>
+          ${printContents}
+        </body>
+      </html>
+    `);
+
+    // Extract print styles from the bundled styles
+    const styles = Array.from(document.querySelectorAll('style'));
+    styles.forEach((style) => {
+      printWindow?.document.head.appendChild(style.cloneNode(true));
+    });
+
+    printWindow?.document.close();
+
+    printWindow?.addEventListener('afterprint', () => {
+      printWindow?.close();
+      // Restore JavaScript functionalities here
+    });
+
+    printWindow?.print();
+
   }
 
   getNoticationStatus(powerData: number[]) {

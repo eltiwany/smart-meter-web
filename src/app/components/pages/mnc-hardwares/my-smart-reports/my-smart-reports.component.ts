@@ -1,3 +1,7 @@
+import { ModalsService } from './../../../../common/services/layouts/modals.service';
+import { UsersService } from './../../../../services/pages/users.service';
+import { GeneralValidators } from './../../../../validators/general.validators';
+import { FormGroup, FormControl } from '@angular/forms';
 import { SensorsService } from './../../../../services/iot/sensors.service';
 import { SummaryReportsService } from './../../../../services/pages/reports/summary-reports.service';
 import { UserBoardsService } from './../../../../services/iot/user-boards.service';
@@ -18,6 +22,7 @@ export class MySmartReportsComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
 
   healthStatus: any = [];
+  summaryByArea: any[] = [];
 
   reportsWithNumbersColumns = [
     {
@@ -46,11 +51,27 @@ export class MySmartReportsComponent implements OnInit {
     },
   ];
 
+  form = new FormGroup({
+    'startDate': new FormControl('', [GeneralValidators.required]),
+    'endDate': new FormControl('', [GeneralValidators.required]),
+  });
+
+
+  get startDate() {
+    return this.form.get('startDate');
+  }
+
+  get endDate() {
+    return this.form.get('endDate');
+  }
+
   constructor(
     private auth:AuthService,
     public general: GeneralService,
     private reports: SummaryReportsService,
-    private sensorsService: SensorsService
+    private sensorsService: SensorsService,
+    public modal: ModalsService,
+    private usersService: UsersService
   ) { }
 
   ngOnInit(): void {
@@ -72,6 +93,64 @@ export class MySmartReportsComponent implements OnInit {
     this.getSensors();
 
     this.getHealthStatus();
+  }
+
+  getSummaryByArea() {
+    let data = {
+      "startDate": this.startDate?.value,
+      "endDate": this.endDate?.value,
+    };
+
+    if (this.startDate?.valid && this.endDate?.valid)
+      this.usersService.getAreaReports(data).then((response) => {
+        this.summaryByArea = [];
+        if (!response.error) {
+          let time = response.data[0].columns[0]['time'].sort(function(a: number, b: number){return a-b});
+
+          response.data[0].columns[0]['data'].forEach((v: number, index: number) => {
+            this.summaryByArea.push(
+              {
+                time: time[index],
+                power: ((v * response.data[0].columns[1]['data'][index]) / 1000),
+                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000)
+              }
+            );
+          });
+
+        }
+      })
+  }
+
+  printDiv(divName: string) {
+    const printContents = (document?.getElementById(divName) as HTMLElement).innerHTML;
+
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    printWindow?.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+        </head>
+        <body>
+          ${printContents}
+        </body>
+      </html>
+    `);
+
+    // Extract print styles from the bundled styles
+    const styles = Array.from(document.querySelectorAll('style'));
+    styles.forEach((style) => {
+      printWindow?.document.head.appendChild(style.cloneNode(true));
+    });
+
+    printWindow?.document.close();
+
+    printWindow?.addEventListener('afterprint', () => {
+      printWindow?.close();
+      // Restore JavaScript functionalities here
+    });
+
+    printWindow?.print();
+
   }
 
   getHealthStatus() {
@@ -107,7 +186,7 @@ export class MySmartReportsComponent implements OnInit {
     let threshold_minus = Number(threshold) - (Number(threshold) * (Number(threshold_percentage) / 100))
 
     if (threshold) {
-      console.table({power: powerData[3], plus: threshold_plus, minus: threshold_minus})
+      // console.table({power: powerData[3], plus: threshold_plus, minus: threshold_minus})
       if (powerData[3] > threshold_plus)
         return {
           'status': 'danger',

@@ -12,6 +12,7 @@ import { ChartSelectorComponent } from './charts/chart-selector/chart-selector.c
 import { AreaChartComponent } from './charts/area-chart/area-chart.component';
 import { ColumnChartComponent } from './charts/column-chart/column-chart.component';
 import { ChartSelectorByDeviceComponent } from './charts/chart-selector-by-device/chart-selector-by-device.component';
+import { CardBriefComponent } from './card-brief/card-brief.component';
 
 
 
@@ -25,6 +26,7 @@ import { ChartSelectorByDeviceComponent } from './charts/chart-selector-by-devic
     AreaChartComponent,
     ColumnChartComponent,
     ChartSelectorByDeviceComponent,
+    CardBriefComponent,
   ],
   imports: [
     DataTablesModule,
@@ -38,7 +40,8 @@ import { ChartSelectorByDeviceComponent } from './charts/chart-selector-by-devic
     SimpleTableComponent,
     ChartSelectorComponent,
     LineChartComponent,
-    ChartSelectorByDeviceComponent
+    ChartSelectorByDeviceComponent,
+    CardBriefComponent
   ]
 })
 export class FragmentsModule { }

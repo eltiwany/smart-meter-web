@@ -1,5 +1,5 @@
 import { FunctionsService } from './../../../../services/extras/functions.service';
-import { Component, ViewChild, Input, OnInit } from '@angular/core';
+import { Component, ViewChild, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -33,7 +33,7 @@ export type ChartOptions = {
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.css']
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnChanges {
   @Input() columns: any[] = [];
   @Input() sensor: any;
 
@@ -46,6 +46,10 @@ export class LineChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.chartOptions = {
       series: this.columns,
       chart: {

@@ -2,7 +2,7 @@
 <ng-container *ngIf="columns">
   <form class="p-1" [formGroup]="form" autocomplete="off">
     <div class="row">
-      <div class="col col-md-4">
+      <div class="col col-md-12">
         <!-- Sensors List -->
         <div class="form-floating mb-3">
           <select
@@ -19,9 +19,9 @@
         </div>
       </div>
 
-      <div class="col col-md-4">
+      <!-- <div class="col col-md-4"> -->
         <!-- Report Type -->
-        <div class="form-floating mb-3">
+        <!-- <div class="form-floating mb-3">
           <select
             [formControlName]="'reportType'"
             type="text"
@@ -35,42 +35,21 @@
             <option [value]="'usage_losses'">Power Usage in Terms on Power Usage vs Losses</option>
           </select>
           <label for="floatingChartSelector">Report Type</label>
-        </div>
-      </div>
-
-      <div class="col col-md-4">
-        <!-- Chart Selector -->
-        <div class="form-floating mb-3">
-          <select
-            [formControlName]="'chartOption'"
-            [class.invalid]="chartOption?.touched && chartOption?.invalid"
-            type="text"
-            class="form-control"
-            id="floatingChartSelector"
-            placeholder="Chart Selector"
-          >
-            <option [value]="'line'">Line Chart</option>
-            <option [value]="'area'">Area Chart</option>
-            <option [value]="'column'">Column Chart</option>
-            <option [value]="'pie'">Pie Chart</option>
-          </select>
-          <label for="floatingChartSelector">Chart Selector</label>
-          <p class="text-danger font-weight-bold p-0 m-0" *ngIf="chartOption?.touched && chartOption?.invalid">{{ chartOption?.errors?.message }}</p>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
     </div>
 
 
     <ng-container  *ngIf="selectedColumns?.value.length > 0">
-      <span [ngSwitch]="chartOption?.value">
+      <!-- <span [ngSwitch]="chartOption?.value"> -->
 
+        <!-- *ngSwitchCase="'line'" -->
         <app-line-chart
-          *ngSwitchCase="'line'"
           [columns]="selectedColumns?.value"
           [sensor]="sensors"
         ></app-line-chart>
 
-        <app-area-chart
+        <!-- <app-area-chart
           *ngSwitchCase="'area'"
           [columns]="selectedColumns?.value"
           [sensor]="sensors"
@@ -86,15 +65,15 @@
           *ngSwitchCase="'pie'"
           [columns]="selectedColumns?.value"
           [sensor]="sensors"
-        ></app-pie-chart>
+        ></app-pie-chart> -->
 
-        <div
+        <!-- <div
           *ngSwitchDefault
           class="alert alert-warning">
           Select a chart type to preview report.
         </div>
 
-      </span>
+      </span> -->
     </ng-container>
 
   </form>

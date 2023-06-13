@@ -33,7 +33,7 @@ export class ChartSelectorComponent implements OnInit {
     if(this.rootSensor)
       this.sensors = this.rootSensor;
 
-    console.log(this.columns, this.sensors);
+    // console.log(this.columns, this.sensors);
 
   }
 

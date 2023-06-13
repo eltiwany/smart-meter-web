@@ -14,14 +14,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from 'src/app/services/guards/auth-guard.service';
 
 const getDashboardComponent = (): Routes => {
-  const jwt: any = jwt_decode(localStorage.getItem('token') + '');
-  const permissions = jwt.permissions;
   let path: any = [{'path': 'dashboard', 'component': MySmartReportsComponent, canActivate: [AuthGuardService]}];
 
-  permissions.forEach((permission: any) => {
-    if (permission.page == 'All')
-      path = [{'path': 'dashboard', 'component': SmartReportsComponent, canActivate: [AuthGuardService]}];
-  });
+  try {
+    const jwt: any = jwt_decode(localStorage.getItem('token') + '');
+    const permissions = jwt.permissions;
+
+    permissions.forEach((permission: any) => {
+      if (permission.page == 'All')
+        path = [{'path': 'dashboard', 'component': SmartReportsComponent, canActivate: [AuthGuardService]}];
+    });
+
+  } catch(e) {
+    // console.log('guest mode_');
+    return path;
+  }
 
   return path;
 };

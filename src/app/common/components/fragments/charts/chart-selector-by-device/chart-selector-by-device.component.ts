@@ -1,14 +1,15 @@
+import { GeneralValidators } from './../../../../../validators/general.validators';
 import { SensorsService } from './../../../../../services/iot/sensors.service';
 import { FunctionsService } from './../../../../services/extras/functions.service';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-chart-selector-by-device',
   templateUrl: './chart-selector-by-device.component.html',
   styleUrls: ['./chart-selector-by-device.component.css']
 })
-export class ChartSelectorByDeviceComponent implements OnInit {
+export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
 
   // selectedColumns: any[] = [];
   columns: any[] = [];
@@ -53,10 +54,16 @@ export class ChartSelectorByDeviceComponent implements OnInit {
 
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.sensorsList.length > 0) {
+      // console.log(this.sensorsList[0].sensor.id);
+      this.sensor?.setValue(this.sensorsList[0].sensor.id);
+      this.getSensorData({value: this.sensorsList[0].sensor.id});
+    }
+  }
+
   setSelectedColumns() {
-    this.selectedColumns?.setValue([]);
-    let tmp = this.chartOption?.value;
-    this.chartOption?.setValue('no-chart');
+    this.form.setControl('selectedColumns', new FormControl('', [GeneralValidators.required]));
 
     switch (this.reportType?.value) {
       case 'usage_sa':
@@ -71,7 +78,6 @@ export class ChartSelectorByDeviceComponent implements OnInit {
       default:
         this.selectedColumns?.setValue(this.columns);
     }
-    // this.chartOption?.setValue(tmp);
   }
 
   getSensorData(sensor: any) {

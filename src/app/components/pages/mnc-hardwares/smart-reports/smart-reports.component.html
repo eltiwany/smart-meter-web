@@ -30,9 +30,14 @@
 <ng-template #modalMessage let-modald let-c="close" let-d="dismiss" class="p-0">
   <div class="modal-header bg-warning">
       <h2 class="h6 modal-title">Get Reports by Specific Area</h2>
-      <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
-        <i class="bi bi-x-lg"></i>
-      </button>
+      <div class="btn-right">
+        <button *ngIf="summaryByArea.length > 0" class="btn btn-success" (click)="printDiv('printContent')">
+          <i class="bi bi-printer-fill"></i> Print
+        </button>
+        <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
   </div>
   <div class="modal-body" *ngIf="cities && regions && districts">
     <form class="p-1" [formGroup]="form" autocomplete="off">
@@ -85,28 +90,62 @@
           </div>
         </div>
 
+        <div class="col col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              formControlName="startDate"
+              type="date"
+              class="form-control"
+              id="floatingChartSelector"
+              placeholder="Start Date"
+              (change)="getSummaryByArea()"
+            />
+            <label for="floatingChartSelector">Start Date</label>
+          </div>
+        </div>
+
+        <div class="col col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              formControlName="endDate"
+              type="date"
+              class="form-control"
+              id="floatingChartSelector"
+              placeholder="End Date"
+              (change)="getSummaryByArea()"
+            />
+            <label for="floatingChartSelector">End Date</label>
+          </div>
+        </div>
+
       </div>
 
-      <div class="row">
-        <p><b>City: </b> {{ city?.value }}</p>
-        <p><b>Region: </b> {{ region?.value }}</p>
-        <p><b>District: </b> {{ district?.value }}</p>
+      <div id="printContent">
+        <div class="row" *ngIf="startDate?.valid && endDate?.valid && summaryByArea.length > 0">
+          <h3 class="text-center mt-2">Smart Meter(s) Report By Area</h3>
+          <h5 class="text-center mb-2">{{ startDate?.value | date:'fullDate' }} - {{ endDate?.value | date:'fullDate' }}</h5>
+          <p><b>City: </b> {{ city?.value }}</p>
+          <p><b>Region: </b> {{ region?.value }}</p>
+          <p><b>District: </b> {{ district?.value }}</p>
 
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover">
-            <tr>
-              <th>Time</th>
-              <th>Power (kW)</th>
-              <th>Loss (kW)</th>
-            </tr>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <tr>
+                <th>Time</th>
+                <th>Power (kW)</th>
+                <th>Loss (kW)</th>
+              </tr>
 
-            <tr *ngFor="let summary of summaryByArea">
-              <td>{{ summary.time }}</td>
-              <td>{{ summary.power }}</td>
-              <td>{{ summary.loss }}</td>
-            </tr>
-          </table>
+              <tr *ngFor="let summary of summaryByArea">
+                <td>{{ summary.time }}</td>
+                <td>{{ summary.power }}</td>
+                <td>{{ summary.loss }}</td>
+              </tr>
+            </table>
+          </div>
+
         </div>
+        <div class="alert alert-warning" *ngIf="startDate?.valid && endDate?.valid && summaryByArea.length == 0">No data found.</div>
       </div>
     </form>
   </div>
@@ -114,10 +153,9 @@
 
 <div class="card mb-4 shadow">
   <div class="card-header bg-primary text-white">
-    <h1 class="bold"> {{ general.getGreeting() + ", " + fullName + "!" }} </h1>
-    <h5 class="p-0 m-0 font-weight-750">
+    <h5 class="p-0 m-0 font-weight-750" style="float:left">
       <i class="bi bi-file-text-fill" style="margin-right: 10px;"></i>
-      Checkout the report for customers smart home in the past 24 hours*
+      Checkout the report for customers smart home in the past 12 hours*
     </h5>
   </div>
   <div class="card-body">
@@ -142,7 +180,7 @@
   <div class="card-header bg-primary text-white">
     <h5 class="p-0 m-0 font-weight-750">
       <i class="bi bi-table" style="margin-right: 10px;"></i>
-      View detailed losses for all smart meters (Last 50 data)
+      View detailed losses for all smart meters past 12 hours
     </h5>
   </div>
   <div class="card-body" *ngIf="powerWithLosses.length > 0">
