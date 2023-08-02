@@ -29,6 +29,7 @@
                 [cardName]="datum[0].name"
                 [cardNumber]="getPower(datum[0].value)"
                 [cardNumberSI]="datum[0]?.si"
+                [allDataUrl]="null"
               ></app-card-brief>
           </div>
         </div>
@@ -45,7 +46,8 @@
               [cardName]="datum[0].name"
               [cardNumber]="getPower(datum[0].value)"
               [cardNumberSI]="datum[0]?.si"
-            ></app-card-brief>
+              [allDataUrl]="datum[0]?.name == 'Smart Appliances' ? '/hardwares/smart-appliances' : null"
+              ></app-card-brief>
           </div>
         </div>
       </div>

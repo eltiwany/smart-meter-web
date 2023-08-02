@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   data: any[] = [];
-  cols = ['id', 'email', 'role_name'];
+  cols = ['id', 'email', 'role_name', 'coordinates'];
 
   constructor(
     private users: UsersService
@@ -58,6 +58,7 @@ export class UsersComponent implements OnInit {
         { data: 'name' },
         { data: 'email' },
         { data: 'role_name' },
+        { data: 'coordinates' },
         { data: '', orderable: false}
       ],
       responsive: true

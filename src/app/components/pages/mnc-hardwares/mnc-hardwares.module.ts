@@ -14,6 +14,8 @@ import { MonitorHardwaresComponent } from './monitor-hardwares/monitor-hardwares
 import { ControlActuatorsComponent } from './control-actuators/control-actuators.component';
 import { SmartReportsComponent } from './smart-reports/smart-reports.component';
 import { MySmartReportsComponent } from './my-smart-reports/my-smart-reports.component';
+import { UploadedServiceDocsComponent } from './uploaded-service-docs/uploaded-service-docs.component';
+import { SmartSchedulersComponent } from './smart-schedulers/smart-schedulers.component';
 
 // MNC = Monitor and Control
 @NgModule({
@@ -22,7 +24,9 @@ import { MySmartReportsComponent } from './my-smart-reports/my-smart-reports.com
     MonitorHardwaresComponent,
     ControlActuatorsComponent,
     SmartReportsComponent,
-    MySmartReportsComponent
+    MySmartReportsComponent,
+    UploadedServiceDocsComponent,
+    SmartSchedulersComponent
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,4 @@
+import { GeneralValidators } from './../../../../validators/general.validators';
 import { ApiService } from './../../../../common/services/api/api.service';
 import { LoaderService } from './../../../../common/services/extras/loader.service';
 import { AlertService } from './../../../../common/services/extras/alert.service';
@@ -19,6 +20,7 @@ export class SystemPreferencesComponent implements OnInit {
     'organizationName',
     'systemName',
     'itSupport',
+    'thresholdPercent',
   ];
 
   form: FormGroup;
@@ -34,7 +36,10 @@ export class SystemPreferencesComponent implements OnInit {
     // Prepare all controls from keys
     let controls: any = {};
     this.keys.forEach((control: any) => {
-      controls[control] = new FormControl()
+      if (control == 'thresholdPercent')
+        controls[control] = new FormControl('', [GeneralValidators.isPercentage])
+      else
+        controls[control] = new FormControl()
     });
 
     // Add controls to formGroup

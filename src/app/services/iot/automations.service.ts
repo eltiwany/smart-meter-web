@@ -56,4 +56,53 @@ export class AutomationsService {
    async deleteAutomation(id:string): Promise<any> {
     return await this.http.delete(this.api.automations.automations, id, true);
   }
+
+
+
+
+
+  /**
+   * Get schedulers for datatable from API
+   * @param void
+   * @returns Promise<any>
+   */
+  async getSchedulers(dataTablesParameters: any): Promise<any> {
+    return await this.http.post(this.api.schedulers.getSchedulers, dataTablesParameters, false);
+  }
+
+  /**
+   * Get schedulers from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async getSchedulersUnfiltered(): Promise<any> {
+    return await this.http.get(this.api.schedulers.schedulers, false);
+  }
+
+  /**
+   * New board from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async newScheduler(data: any): Promise<any> {
+    return await this.http.post(this.api.schedulers.schedulers, data, true);
+  }
+
+  /**
+   * Update board from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async updateScheduler(id:string, data: any): Promise<any> {
+    return await this.http.put(this.api.schedulers.schedulers, id, data, true);
+  }
+
+  /**
+   * Delete board from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async deleteScheduler(id:string): Promise<any> {
+    return await this.http.delete(this.api.schedulers.schedulers, id, true);
+  }
 }

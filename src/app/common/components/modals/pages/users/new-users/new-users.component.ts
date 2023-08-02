@@ -36,6 +36,7 @@ export class NewUsersComponent implements OnInit {
     'district': new FormControl(''),
     'house_number': new FormControl(''),
     'residence_id': new FormControl(''),
+    'coordinates': new FormControl(),
     'email': new FormControl('', [AuthValidators.email]),
     'roleId': new FormControl(this.selectors.role, [GeneralValidators.required, GeneralValidators.isNot(this.selectors.role)]),
   });
@@ -72,6 +73,9 @@ export class NewUsersComponent implements OnInit {
     return this.form.get('residence_id');
   }
 
+  get coordinates() {
+    return this.form.get('coordinates');
+  }
 
   get roleId() {
     return this.form.get('roleId');
@@ -99,6 +103,7 @@ export class NewUsersComponent implements OnInit {
       district: this.district?.value,
       house_number: this.house_number?.value,
       residence_id: this.residence_id?.value,
+      coordinates: this.coordinates?.value,
       roleId: this.roleId?.value,
       password: 'user12345',
     };

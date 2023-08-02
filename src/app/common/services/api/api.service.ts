@@ -7,7 +7,7 @@ export class ApiService {
   /**
    * API Enviroment
    */
-  environment: 'prod' | 'dev' = 'prod';
+  environment: 'prod' | 'dev' = 'dev';
 
   /**
    * Base URL for API
@@ -148,6 +148,14 @@ export class ApiService {
   }
 
   /**
+   * Scheduling tasks Api's
+   */
+   schedulers = {
+    getSchedulers: this.host + 'get-schedulers',
+    schedulers: this.host + 'schedulers',
+  }
+
+  /**
    * User hardwares Api's
    */
   userBoards = {
@@ -176,5 +184,6 @@ export class ApiService {
     getBriefStats: this.host + 'get-brief-stats',
     getHealthStatus: this.host + 'get-health-status',
     getTotalLosses: this.host + 'get-total-losses',
+    getMapUserSummary: this.host + 'get-map-user-summary',
   }
 }

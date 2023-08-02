@@ -280,6 +280,9 @@ SOFTWARE.
 ng-apexcharts
 MIT
 
+ng-connection-service
+MIT
+
 ng-multiselect-dropdown
 MIT
 

@@ -20,6 +20,10 @@ import { EditServiceDocsComponent } from './pages/my-area/edit-service-docs/edit
 import { ViewServiceDocsComponent } from './pages/my-area/view-service-docs/view-service-docs.component';
 import { SendNotificationsComponent } from './pages/users/send-notifications/send-notifications.component';
 import { GenerateTestDataComponent } from './pages/user-boards/generate-test-data/generate-test-data.component';
+import { NewSchedulersComponent } from './pages/schedulers/new-schedulers/new-schedulers.component';
+import { ViewSchedulersComponent } from './pages/schedulers/view-schedulers/view-schedulers.component';
+import { EditSchedulersComponent } from './pages/schedulers/edit-schedulers/edit-schedulers.component';
+import { DeleteSchedulersComponent } from './pages/schedulers/delete-schedulers/delete-schedulers.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { GenerateTestDataComponent } from './pages/user-boards/generate-test-dat
     ViewServiceDocsComponent,
     SendNotificationsComponent,
     GenerateTestDataComponent,
+    NewSchedulersComponent,
+    ViewSchedulersComponent,
+    EditSchedulersComponent,
+    DeleteSchedulersComponent,
   ],
   imports: [
     CommonModule,

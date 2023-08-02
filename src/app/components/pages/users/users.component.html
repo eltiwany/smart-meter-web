@@ -20,6 +20,7 @@
           <th>Full Name</th>
           <th>Email</th>
           <th>Role</th>
+          <th>Coordinates</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -33,6 +34,18 @@
             <td>{{ datum.full_name ? datum.full_name : 'N/A' }}</td>
             <td>{{ datum.email }}</td>
             <td>{{ datum.role_name }}</td>
+            <td *ngIf="datum.coordinates">
+              <span class="badge bg-success">
+                <i class="bi bi-check-circle-fill"></i>
+                {{ datum.coordinates }}
+              </span>
+            </td>
+            <td *ngIf="!datum.coordinates">
+              <span class="badge bg-danger">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                N/A
+              </span>
+            </td>
             <td>
               <app-action-buttons
                 [headingDelete]="'Delete User: ' + datum.email"

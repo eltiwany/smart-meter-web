@@ -8,6 +8,8 @@ import { UserBoardsService } from './../../../../services/iot/user-boards.servic
 import { GeneralService } from './../../../../services/general.service';
 import { AuthService } from './../../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { MapGeocoder } from '@angular/google-maps';
+import { ConnectionService } from 'ng-connection-service';
 
 @Component({
   selector: 'app-smart-reports',
@@ -37,75 +39,106 @@ export class SmartReportsComponent implements OnInit {
   losses: any = [];
 
   myLatLng = { lat: -6.771481363166498, lng: 39.239863136461196 };// Map Options ,
-  mapOptions: google.maps.MapOptions = {
-    center: this.myLatLng,
-    zoom: 15,
-  };
+  mapOptions: any;
 
-  // markerOptions: google.maps.MarkerOptions = { icon: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless.png' };
 
-  spots: { id: number; lat: number; lng: number }[] = [
-    { id: 1, lat: 48.85952222328431, lng: 2.3347153257887454 },
-    { id: 2, lat: 48.80528296155103, lng: 2.2111191343824954 },
-    { id: 3, lat: 48.63132261107716, lng: 2.4308456968824954 },
-    { id: 4, lat: 48.77633134372322, lng: 2.4665512632887454 },
-    { id: 5, lat: 48.7871901580939, lng: 2.3127426695387454 },
+  labelPosition: any;
+  spots: { lat: number; lng: number, label: any, token: string, powerdata: any }[] = [
+    // {
+    //   lat: -6.767628316192537,
+    //   lng: 39.22904076546204,
+    //   label: 'Joseph Mtwange',
+    //   token: '5yt4Ksz3',
+    //   powerdata: {
+    //     power: 1982,
+    //     energy: 1212,
+    //     losses: 21,
+    //     powerlosses: 21,
+    //   }
+    // }
   ];
+  spot: any = {};
+
+  isConnected: boolean = true;
+  constructor(
+    private auth:AuthService,
+    public general: GeneralService,
+    private reports: SummaryReportsService,
+    private sensorsService: SensorsService,
+    public modal: ModalsService,
+    private usersService: UsersService,
+    private geocoder: MapGeocoder,
+    private connection: ConnectionService
+  ) {
+    this.connection.monitor().subscribe(isConnected => {
+      this.isConnected = isConnected.hasNetworkConnection;
+      // console.log(isConnected);
+      if (this.isConnected) {
+        try {
+          this.labelPosition = new google.maps.Point(25, 60);
+          this.mapOptions = {
+            center: this.myLatLng,
+            zoom: 15,
+          };
+        } catch(e) {
+          this.isConnected = false;
+        }
+      }
+    })
+   }
+
+  selectMarker(spot: { lat: number; lng: number, label: string, token: string, powerdata: any }, content: any) {
+    this.spot = spot;
+    this.modal.open(content, 'lg');
+  }
 
   reportsWithNumbersColumns = [
     {
       bgColor: 'primary',
       textColor: 'white',
       iconName: 'cpu-fill',
-      allDataUrl: '#'
+      allDataUrl: '/user-boards'
     },
     {
       bgColor: 'warning',
       textColor: 'dark',
       iconName: 'thermometer-sun',
-      allDataUrl: '#'
+      allDataUrl: '/hardwares/smart-appliances'
     },
     {
       bgColor: 'info',
       textColor: 'white',
       iconName: 'lightbulb',
-      allDataUrl: '#'
     },
     {
       bgColor: 'success',
       textColor: 'white',
       iconName: 'lightbulb',
-      allDataUrl: '#'
     },
     {
       bgColor: 'info',
       textColor: 'white',
       iconName: 'lightbulb',
-      allDataUrl: '#'
     },
     {
       bgColor: 'warning',
       textColor: 'dark',
       iconName: 'exclamation',
-      allDataUrl: '#'
     },
     {
       bgColor: 'danger',
       textColor: 'white',
       iconName: 'exclamation',
-      allDataUrl: '#'
     },
     {
       bgColor: 'danger',
       textColor: 'white',
       iconName: 'exclamation',
-      allDataUrl: '#'
     },
     {
       bgColor: 'dark',
       textColor: 'white',
       iconName: 'check',
-      allDataUrl: '#'
     },
   ];
 
@@ -116,15 +149,6 @@ export class SmartReportsComponent implements OnInit {
     'startDate': new FormControl('', [GeneralValidators.required]),
     'endDate': new FormControl('', [GeneralValidators.required]),
   });
-
-  constructor(
-    private auth:AuthService,
-    public general: GeneralService,
-    private reports: SummaryReportsService,
-    private sensorsService: SensorsService,
-    public modal: ModalsService,
-    private usersService: UsersService
-  ) { }
 
   get city() {
     return this.form.get('city');
@@ -176,6 +200,87 @@ export class SmartReportsComponent implements OnInit {
 
     this.getTotalLosses();
 
+    if(this.isConnected)
+      this.reports.getMapUserSummary().then((response) => {
+        let usersWithCordinates = response.data;
+
+        console.log(usersWithCordinates);
+        usersWithCordinates.forEach((userWithPower: any) => {
+          let cords = this.convertAddressToCoordinates(
+                              userWithPower.user.city,
+                              userWithPower.user.region,
+                              userWithPower.user.district,
+                              userWithPower.user.house_number,
+                              userWithPower.user.name,
+                              userWithPower.user.token,
+                              userWithPower
+                      );
+          if (cords.lat != 0)
+            this.spots.push(cords)
+        });
+    });
+
+  }
+
+  convertAddressToCoordinates(
+    city: string,
+    region: string,
+    district: string,
+    street: string,
+    name: string,
+    token: string,
+    powerdata: any
+  ): any {
+    const address = `${city}, ${region}, ${district}, ${street} Tanzania`;
+    const test = {
+      lat: -6.778120338154011,
+      lng: 39.24390420737638,
+      label: 'Ali Saleh',
+      token: '5yt4Ksz3',
+      powerdata: {
+        power: 1200,
+        energy: 3120,
+        losses: 0,
+        powerlosses: 21,
+      }
+    }
+
+    // return test;
+
+    // this.geocoder.geocode({ address })
+    //   .subscribe((results: any) => {
+        // if (results.length > 0) {
+          // const latitude = results[0].geometry.location.lat();
+          // const longitude = results[0].geometry.location.lng();
+          const coordinates = powerdata.user.coordinates.split(',');
+          // console.log(coordinates);
+          // return coordinates;
+          const latitude = Number(coordinates[0]);
+          const longitude = Number(coordinates[1]);
+
+
+          let cord = {
+            lat: latitude,
+            lng: longitude,
+            label: name,
+            token: token,
+            powerdata: {
+              power: this.getPower(powerdata.power),
+              energy: this.getPower(powerdata.energy),
+              losses: powerdata.losses,
+              powerlosses: this.getPower(powerdata.powerlosses)
+            }
+          }
+
+          // console.log(cord);
+          return cord;
+        // }
+
+        // return test;
+
+      // }, (error) => {
+      //   return test
+      // });
   }
 
   getSummaryByArea() {

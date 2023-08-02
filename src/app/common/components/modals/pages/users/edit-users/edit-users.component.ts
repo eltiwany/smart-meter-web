@@ -33,6 +33,7 @@ export class EditUsersComponent implements OnInit {
   ) {}
 
   form = new FormGroup({
+    'name': new FormControl(),
     'email': new FormControl(),
     'phone_number': new FormControl(),
     'city': new FormControl(),
@@ -40,9 +41,14 @@ export class EditUsersComponent implements OnInit {
     'district': new FormControl(),
     'house_number': new FormControl(),
     'residence_id': new FormControl(),
+    'coordinates': new FormControl(),
     'roleId': new FormControl(),
   });
 
+  get name() {
+    return this.form.get('name');
+  }
+ 
   get email() {
     return this.form.get('email');
   }
@@ -71,6 +77,10 @@ export class EditUsersComponent implements OnInit {
     return this.form.get('residence_id');
   }
 
+  get coordinates() {
+    return this.form.get('coordinates');
+  }
+
   get roleId() {
     return this.form.get('roleId');
   }
@@ -78,6 +88,7 @@ export class EditUsersComponent implements OnInit {
   ngOnInit(): void {
     if (this.dataIn) {
       this.data = this.dataIn;
+      this.form.setControl('name', new FormControl(this.data.name, [GeneralValidators.required]));
       this.form.setControl('email', new FormControl(this.data.email, [GeneralValidators.required]));
       this.form.setControl('phone_number', new FormControl(this.data.phone_number));
       this.form.setControl('city', new FormControl(this.data.city));
@@ -85,6 +96,7 @@ export class EditUsersComponent implements OnInit {
       this.form.setControl('district', new FormControl(this.data.district));
       this.form.setControl('house_number', new FormControl(this.data.house_number));
       this.form.setControl('residence_id', new FormControl(this.data.residence_id));
+      this.form.setControl('coordinates', new FormControl(this.data.coordinates));
       this.form.setControl('roleId', new FormControl(this.data.role_id, [GeneralValidators.required, GeneralValidators.isNot(this.selectors.role)]));
     }
     this.getRoles();
@@ -100,6 +112,7 @@ export class EditUsersComponent implements OnInit {
 
   onSubmit = (): void => {
     const data = {
+      name: this.name?.value,
       email: this.email?.value,
       roleId: this.roleId?.value,
       phone_number: this.phone_number?.value,
@@ -108,6 +121,7 @@ export class EditUsersComponent implements OnInit {
       district: this.district?.value,
       house_number: this.house_number?.value,
       residence_id: this.residence_id?.value,
+      coordinates: this.coordinates?.value,
     };
     // console.log(data);
 

@@ -47,4 +47,13 @@ export class SummaryReportsService {
   async getTotalLosses(): Promise<any> {
     return await this.http.get(this.api.reports.getTotalLosses, false);
   }
+
+  /**
+   * Get Summary for Map Rendering
+   * @param void
+   * @returns Promise<any>
+   */
+  async getMapUserSummary(): Promise<any> {
+    return await this.http.get(this.api.reports.getMapUserSummary, false);
+  }
 }

@@ -1,3 +1,4 @@
+import { PreferencesService } from './../../../../common/services/preferences.service';
 import { ModalsService } from './../../../../common/services/layouts/modals.service';
 import { UsersService } from './../../../../services/pages/users.service';
 import { GeneralValidators } from './../../../../validators/general.validators';
@@ -23,6 +24,7 @@ export class MySmartReportsComponent implements OnInit {
 
   healthStatus: any = [];
   summaryByArea: any[] = [];
+  thresholdPercent: number = 5;
 
   reportsWithNumbersColumns = [
     {
@@ -71,7 +73,8 @@ export class MySmartReportsComponent implements OnInit {
     private reports: SummaryReportsService,
     private sensorsService: SensorsService,
     public modal: ModalsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private preferences: PreferencesService
   ) { }
 
   ngOnInit(): void {
@@ -87,12 +90,17 @@ export class MySmartReportsComponent implements OnInit {
       });
 
       this.data = newData;
+      // console.log(this.data);
 
     });
 
     this.getSensors();
 
     this.getHealthStatus();
+
+    this.preferences.getPreference('thresholdPercent').then(response => {
+      this.thresholdPercent = response?.data?.value ?? 5;
+    })
   }
 
   getSummaryByArea() {
@@ -204,12 +212,12 @@ export class MySmartReportsComponent implements OnInit {
         }
     }
 
-    if (percent > 5 && (powerData[0] < powerData[3]))
+    if (percent > this.thresholdPercent && (powerData[0] < powerData[3]))
       return {
         'status': 'danger',
         'message': 'Higher usage than normal'
       }
-    if (percent > 5 && (powerData[0] > powerData[3]))
+    if (percent > this.thresholdPercent && (powerData[0] > powerData[3]))
       return {
         'status': 'warning',
         'message': 'Lower usage than normal'

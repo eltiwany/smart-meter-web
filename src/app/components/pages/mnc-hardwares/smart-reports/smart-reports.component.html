@@ -15,18 +15,74 @@
       Get Reports by Specific Area
     </button>
   </div>
-  <div class="card-body">
-    <google-map width="100%" [options]="mapOptions">
-      <!-- <map-marker
+  <div class="card-body" *ngIf="isConnected">
+    <google-map width="100%" [options]="mapOptions" *ngIf="spots.length > 0">
+      <map-marker
         *ngFor="let spot of spots"
         [position]="{ lat: spot.lat, lng: spot.lng }"
-        [options]="markerOptions"
-      ></map-marker> -->
+        [options]="{
+          icon: {
+            url: '/assets/images/location.png',
+            labelOrigin: labelPosition
+          },
+          label: {
+            text: spot.label,
+            fontWeight: 'bold',
+            fontSize: '15px',
+            color: 'red'
+          }
+        }"
+        [clickable]="true"
+        (mapClick)="selectMarker(spot, modalMap)"
+      ></map-marker>
     </google-map>
+  </div>
+  <div class="card-body bg-danger text-white" *ngIf="!isConnected">
+    Please enable internet connection to preview maps.
   </div>
 </div>
 
-<!-- Clear Logs Modal with Dynamic Form Loading -->
+<!-- Map Details Modal -->
+<ng-template #modalMap let-modald let-c="close" let-d="dismiss" class="p-0">
+  <div class="modal-header bg-warning">
+      <h2 class="h6 modal-title">Customer Details</h2>
+      <div class="btn-right">
+        <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+  </div>
+  <div class="modal-body">
+    <table class="table table-hover table-bordered" *ngIf="spot">
+      <tr>
+        <th>Customer Name</th>
+        <td>{{ spot.label }}</td>
+      </tr>
+      <tr>
+        <th>Meter Token</th>
+        <td>{{ spot.token }}</td>
+      </tr>
+      <tr>
+        <th>Power</th>
+        <td>{{ general.formatNumber(spot.powerdata.power, 1) }}W</td>
+      </tr>
+      <tr>
+        <th>Power Losses</th>
+        <td>{{ general.formatNumber(spot.powerdata.powerlosses, 1) }}W</td>
+      </tr>
+      <tr>
+        <th>Energy</th>
+        <td>{{ general.formatNumber(spot.powerdata.energy, 1) }}Wh</td>
+      </tr>
+      <tr>
+        <th>Earthing Loss</th>
+        <td>{{ general.formatNumber(spot.powerdata.losses, 1) }}A</td>
+      </tr>
+    </table>
+  </div>
+</ng-template>
+
+  <!-- Clear Logs Modal with Dynamic Form Loading -->
 <ng-template #modalMessage let-modald let-c="close" let-d="dismiss" class="p-0">
   <div class="modal-header bg-warning">
       <h2 class="h6 modal-title">Get Reports by Specific Area</h2>
@@ -170,7 +226,7 @@
         [iconName]="datum[1].iconName"
         [bgColor]="datum[1].bgColor"
         [textColor]="datum[1].textColor"
-        [allDataUrl]="''"
+        [allDataUrl]="datum[1].allDataUrl"
       ></app-card-md4>
     </div>
   </div>

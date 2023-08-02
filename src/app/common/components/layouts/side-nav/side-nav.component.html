@@ -230,6 +230,26 @@
         <span class="sidebar-text">Automate Appliances</span>
       </a>
     </li>
+    
+    <!-- smart-schedulers -->
+    <li *ngIf="permissions.isAllowedPath(['smart-schedulers'])" class="nav-item" routerLinkActive="active">
+      <a routerLink="monitor-and-control/smart-schedulers" class="nav-link">
+        <span class="sidebar-icon">
+          <i class="icon icon-xs bi bi-clock me-2"></i>
+        </span>
+        <span class="sidebar-text">Smart Schedulers</span>
+      </a>
+    </li>
+   
+    <!--  -->
+    <li *ngIf="permissions.isAllowedPath(['uploaded-service-docs'])" class="nav-item" routerLinkActive="active">
+      <a routerLink="monitor-and-control/uploaded-service-docs" class="nav-link">
+        <span class="sidebar-icon">
+          <i class="icon icon-xs bi bi-files me-2"></i>
+        </span>
+        <span class="sidebar-text">Uploaded Service Docs</span>
+      </a>
+    </li>
 
     <!-- Separator -->
     <li role="separator" class="dropdown-divider mt-3 mb-3 border-gray-700"></li>

@@ -9,6 +9,7 @@ import { NotFoundComponent } from './components/errors/not-found/not-found.compo
 import { NoAccessComponent } from './components/errors/no-access/no-access.component';
 import { DataTablesModule } from 'angular-datatables';
 import { GoogleMapsModule } from '@angular/google-maps'
+import {ConnectionServiceModule} from 'ng-connection-service';
 
 
 
@@ -26,7 +27,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
     NotFoundComponent,
     NoAccessComponent,
     DataTablesModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    ConnectionServiceModule
   ],
   providers: [
   ]

@@ -132,5 +132,32 @@
       <hr>
     </div>
 
+    <!-- Report Threashold -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <p class="event_desc">Report Threshold
+          <br>
+          <small>
+            <i>
+              <i class="bi bi-caret-right-fill me-2"></i>
+              (Value in percentage to show change in power on automatic report generation)<br>
+            </i>
+          </small>
+        </p>
+      </div>
+      <div class="col-md-8">
+          <input
+            (change)="updatePreference('thresholdPercent')"
+            formControlName="thresholdPercent"
+            [class.invalid]="form.get('thresholdPercent')?.touched && form.get('thresholdPercent')?.invalid"
+            type="number"
+            class="form-control"
+            id="floatingthresholdPercent"
+            placeholder="Report Threshold"
+          >
+          <p class="text-danger font-weight-bold p-0 m-0" *ngIf="form.get('thresholdPercent')?.touched && form.get('thresholdPercent')?.invalid">{{ form.get('thresholdPercent')?.errors?.message }}</p>
+      </div>
+    </div>
+
   </form>
 </div>
