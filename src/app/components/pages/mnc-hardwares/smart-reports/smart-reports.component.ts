@@ -92,6 +92,10 @@ export class SmartReportsComponent implements OnInit {
     this.modal.open(content, 'lg');
   }
 
+  sumValue(array: any[], key: string) {
+    return array.reduce((prev, curr) => prev + Number(curr[key] ?? 0), 0);
+  }
+
   reportsWithNumbersColumns = [
     {
       bgColor: 'primary',
@@ -303,7 +307,8 @@ export class SmartReportsComponent implements OnInit {
               {
                 time: time[index],
                 power: ((v * response.data[0].columns[1]['data'][index]) / 1000),
-                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000)
+                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000),
+                earthing: (response.data[0].earthing_columns[0]['data'][index])
               }
             );
           });

@@ -112,12 +112,21 @@
                 <th>Time</th>
                 <th>Power (kW)</th>
                 <th>Loss (kW)</th>
+                <!-- <th>Earthing Loss (A)</th> -->
               </tr>
 
               <tr *ngFor="let summary of summaryByArea">
                 <td>{{ summary.time }}</td>
                 <td>{{ summary.power }}</td>
                 <td>{{ summary.loss }}</td>
+                <!-- <td>{{ summary.earthing }}</td> -->
+              </tr>
+
+              <tr>
+                <th>Total</th>
+                <th>{{ sumValue(summaryByArea, 'power') }}</th>
+                <th>{{ sumValue(summaryByArea, 'loss') }}</th>
+                <!-- <th>{{ sumValue(summaryByArea, 'earthing') }}</th> -->
               </tr>
             </table>
           </div>
@@ -177,7 +186,7 @@
             <tr>
               <td>{{ datum.sensor.id }}</td>
               <th>{{ datum.sensor.user_defined_name }}</th>
-              <td class="text-center" *ngFor="let status of datum.statuses">{{ general.formatNumber(status, 2) }}W</td>
+              <td class="text-center" *ngFor="let status of datum.statuses">{{ general.formatNumber(status, 2) }}{{ datum.si }}</td>
               <td [class]="getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).status == 'warning' ? 'bg-' + getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).status + ' font-weight-750' : 'bg-' + getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).status + ' text-white font-weight-750'">
                 {{ getNoticationStatus(datum.statuses, datum.sensor.threshold, datum.sensor.threshold_percentage).message }}
               </td>

@@ -103,6 +103,10 @@ export class MySmartReportsComponent implements OnInit {
     })
   }
 
+  sumValue(array: any[], key: string) {
+    return array.reduce((prev, curr) => prev + Number(curr[key] ?? 0), 0);
+  }
+
   getSummaryByArea() {
     let data = {
       "startDate": this.startDate?.value,
@@ -120,7 +124,8 @@ export class MySmartReportsComponent implements OnInit {
               {
                 time: time[index],
                 power: ((v * response.data[0].columns[1]['data'][index]) / 1000),
-                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000)
+                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000),
+                earthing: (response.data[0].earthing_columns[0]['data'][index])
               }
             );
           });
