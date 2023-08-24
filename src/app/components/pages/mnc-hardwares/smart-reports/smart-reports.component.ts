@@ -1,3 +1,4 @@
+import { PreferencesService } from './../../../../common/services/preferences.service';
 import { GeneralValidators } from './../../../../validators/general.validators';
 import { UsersService } from './../../../../services/pages/users.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -68,7 +69,8 @@ export class SmartReportsComponent implements OnInit {
     public modal: ModalsService,
     private usersService: UsersService,
     private geocoder: MapGeocoder,
-    private connection: ConnectionService
+    private connection: ConnectionService,
+    private preferences: PreferencesService
   ) {
     this.connection.monitor().subscribe(isConnected => {
       this.isConnected = isConnected.hasNetworkConnection;
@@ -93,7 +95,8 @@ export class SmartReportsComponent implements OnInit {
   }
 
   sumValue(array: any[], key: string) {
-    return array.reduce((prev, curr) => prev + Number(curr[key] ?? 0), 0);
+    let num = array.reduce((prev, curr) => prev + Number(curr[key] ?? 0), 0);
+    return Math.round((num + Number.EPSILON) * 100) / 100;
   }
 
   reportsWithNumbersColumns = [
@@ -107,7 +110,7 @@ export class SmartReportsComponent implements OnInit {
       bgColor: 'warning',
       textColor: 'dark',
       iconName: 'thermometer-sun',
-      allDataUrl: '/hardwares/smart-appliances'
+      allDataUrl: '/monitor-and-control/consumer-appliances'
     },
     {
       bgColor: 'info',
@@ -177,8 +180,6 @@ export class SmartReportsComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getUserResources().then((resources: any) => {
       if (!resources.error) {
-        this.districts = resources.data.districts;
-        this.regions = resources.data.regions;
         this.cities = resources.data.cities;
       }
     })
@@ -285,6 +286,19 @@ export class SmartReportsComponent implements OnInit {
       // }, (error) => {
       //   return test
       // });
+  }
+
+  filterRegions() {
+    this.regions = [];
+    this.regions = this.preferences.getRegions().filter((city) => city.city == this.city?.value);
+    this.region?.setValue(this.regions[0].name);
+    this.filterDistricts();
+  }
+
+  filterDistricts() {
+    this.districts = [];
+    this.districts = this.regions.filter((region: any) => region.name == this.region?.value)[0].districts;
+    this.district?.setValue(this.districts[0]);
   }
 
   getSummaryByArea() {

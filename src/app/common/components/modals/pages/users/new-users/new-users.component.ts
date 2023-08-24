@@ -1,3 +1,4 @@
+import { PreferencesService } from './../../../../../services/preferences.service';
 import { UsersService } from './../../../../../../services/pages/users.service';
 import { AuthValidators } from './../../../../../../validators/auth.validators';
 import { FunctionsService } from './../../../../../services/extras/functions.service';
@@ -15,6 +16,10 @@ import { SettingsService } from 'src/app/services/pages/settings.service';
 })
 export class NewUsersComponent implements OnInit {
 
+  districts: any[] = [];
+  regions: any[] = [];
+  cities: any[] = [];
+
   roles: any[] = [];
   selectors = {
     role: '-- Select Role --'
@@ -25,7 +30,8 @@ export class NewUsersComponent implements OnInit {
     private users: UsersService,
     private settings: SettingsService,
     private loader: LoaderService,
-    public fn: FunctionsService
+    public fn: FunctionsService,
+    private preferences: PreferencesService
   ) {}
 
   form = new FormGroup({
@@ -83,6 +89,7 @@ export class NewUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoles();
+    this.cities = this.preferences.getRegions().filter((obj, index, self) => index == self.findIndex(item => item.city == obj.city));
   }
 
   getRoles() {
@@ -91,6 +98,19 @@ export class NewUsersComponent implements OnInit {
         this.roles = response.data;
       }
     });
+  }
+
+  filterRegions() {
+    this.regions = [];
+    this.regions = this.preferences.getRegions().filter((city) => city.city == this.city?.value);
+    this.region?.setValue(this.regions[0].name);
+    this.filterDistricts();
+  }
+
+  filterDistricts() {
+    this.districts = [];
+    this.districts = this.regions.filter((region) => region.name == this.region?.value)[0].districts;
+    this.district?.setValue(this.districts[0]);
   }
 
   onSubmit = (): void => {

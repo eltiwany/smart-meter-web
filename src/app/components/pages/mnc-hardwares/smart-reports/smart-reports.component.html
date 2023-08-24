@@ -95,7 +95,7 @@
         </button>
       </div>
   </div>
-  <div class="modal-body" *ngIf="cities && regions && districts">
+  <div class="modal-body" *ngIf="cities">
     <form class="p-1" [formGroup]="form" autocomplete="off">
       <div class="row">
         <div class="col col-md-4">
@@ -106,7 +106,7 @@
               class="form-control"
               id="floatingChartSelector"
               placeholder="City"
-              (change)="getSummaryByArea()"
+              (change)="filterRegions()"
             >
               <option *ngFor="let city of cities" [value]="city"> {{ city }} </option>
             </select>
@@ -122,9 +122,9 @@
               class="form-control"
               id="floatingChartSelector"
               placeholder="Region"
-              (change)="getSummaryByArea()"
+              (change)="filterDistricts()"
             >
-              <option *ngFor="let region of regions" [value]="region"> {{ region }} </option>
+              <option *ngFor="let region of regions" [value]="region.name"> {{ region.name }} </option>
             </select>
             <label for="floatingChartSelector">Region</label>
           </div>
@@ -138,7 +138,6 @@
               class="form-control"
               id="floatingChartSelector"
               placeholder="District"
-              (change)="getSummaryByArea()"
             >
               <option *ngFor="let district of districts" [value]="district"> {{ district }} </option>
             </select>
@@ -146,7 +145,7 @@
           </div>
         </div>
 
-        <div class="col col-md-6">
+        <div class="col col-md-5">
           <div class="form-floating mb-3">
             <input
               formControlName="startDate"
@@ -154,13 +153,12 @@
               class="form-control"
               id="floatingChartSelector"
               placeholder="Start Date"
-              (change)="getSummaryByArea()"
             />
             <label for="floatingChartSelector">Start Date</label>
           </div>
         </div>
 
-        <div class="col col-md-6">
+        <div class="col col-md-5">
           <div class="form-floating mb-3">
             <input
               formControlName="endDate"
@@ -168,9 +166,16 @@
               class="form-control"
               id="floatingChartSelector"
               placeholder="End Date"
-              (change)="getSummaryByArea()"
             />
             <label for="floatingChartSelector">End Date</label>
+          </div>
+        </div>
+
+        <div class="col col-md-2">
+          <div class="form-floating mb-3">
+            <button class="btn btn-primary w-100" style="height: 55px" (click)="getSummaryByArea()">
+              <i class="bi bi-search"></i> Search
+            </button>
           </div>
         </div>
 
@@ -190,21 +195,21 @@
                 <th>Time</th>
                 <th>Power (kW)</th>
                 <th>Loss (kW)</th>
-                <!-- <th>Earthing Loss (A)</th> -->
+                <th>Earthing Loss (A)</th>
               </tr>
 
               <tr *ngFor="let summary of summaryByArea">
                 <td>{{ summary.time }}</td>
                 <td>{{ summary.power }}</td>
                 <td>{{ summary.loss }}</td>
-                <!-- <td>{{ summary.earthing }}</td> -->
+                <td>{{ summary.earthing }}</td>
               </tr>
 
               <tr>
                 <th>Total</th>
                 <th>{{ sumValue(summaryByArea, 'power') }}</th>
                 <th>{{ sumValue(summaryByArea, 'loss') }}</th>
-                <!-- <th>{{ sumValue(summaryByArea, 'earthing') }}</th> -->
+                <th>{{ sumValue(summaryByArea, 'earthing') }}</th>
               </tr>
             </table>
           </div>

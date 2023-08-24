@@ -22,6 +22,15 @@ export class SensorsService {
   }
 
   /**
+   * Get sensors for datatable from API
+   * @param void
+   * @returns Promise<any>
+   */
+  async getuserSensorsDT(dataTablesParameters: any): Promise<any> {
+    return await this.http.post(this.api.sensors.getUserSensors, dataTablesParameters, false);
+  }
+
+  /**
    * Get user sensors for datatable from API
    * @param void
    * @returns Promise<any>

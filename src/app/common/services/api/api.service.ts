@@ -113,6 +113,7 @@ export class ApiService {
     getSensorPinTypes: this.host + 'get-sensor-pin-types',
     sensors: this.host + 'sensors',
     userSensors: this.host + 'user-sensors',
+    getUserSensors: this.host + 'get-user-sensors',
     userSensorsAutoAdded: this.host + 'user-sensors-auto-added',
     userSensorValues: this.host + 'get-user-sensor-values',
     userSensorValuesPerSensor: this.host + 'get-user-sensor-values-per-sensor',

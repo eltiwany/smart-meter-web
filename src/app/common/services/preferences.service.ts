@@ -1,6 +1,7 @@
 import { ApiService } from './api/api.service';
 import { HttpHrmService } from './../../services/http/http-hrm.service';
 import { Injectable } from '@angular/core';
+import { default as regions } from './regions.json';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +56,12 @@ export class PreferencesService {
    */
    async setPreferenceFile(data: any): Promise<any> {
     return await this.http.postFiles(this.api.preference.preferenceFiles, data, true);
+  }
+
+  /**
+   *
+   */
+  getRegions(): any[] {
+    return regions.regions;
   }
 }

@@ -1,0 +1,360 @@
+{
+  "regions": [
+    {
+      "name": "Arusha",
+      "city": "Arusha",
+      "districts": [
+        "Arusha City",
+        "Arusha District",
+        "Karatu",
+        "Longido",
+        "Meru",
+        "Monduli",
+        "Ngorongoro"
+      ]
+    },
+    {
+      "name": "Dar es Salaam",
+      "city": "Dar es Salaam",
+      "districts": [
+        "Ilala",
+        "Kinondoni",
+        "Temeke",
+        "Ubungo"
+      ]
+    },
+    {
+      "name": "Dodoma",
+      "city": "Dodoma",
+      "districts": [
+        "Bahi",
+        "Chamwino",
+        "Chemba",
+        "Dodoma Municipal",
+        "Kondoa",
+        "Kongwa",
+        "Mpwapwa"
+      ]
+    },
+    {
+      "name": "Geita",
+      "city": "Geita",
+      "districts": [
+        "Bukombe",
+        "Chato",
+        "Geita Town",
+        "Mbogwe",
+        "Nyang'hwale"
+      ]
+    },
+    {
+      "name": "Iringa",
+      "city": "Iringa",
+      "districts": [
+        "Iringa Municipal",
+        "Iringa District",
+        "Kilolo",
+        "Mafinga Town",
+        "Mufindi"
+      ]
+    },
+    {
+      "name": "Kagera",
+      "city": "Kagera",
+      "districts": [
+        "Biharamulo",
+        "Bukoba Municipal",
+        "Bukoba District",
+        "Karagwe",
+        "Kyerwa",
+        "Missenyi",
+        "Muleba",
+        "Ngara"
+      ]
+    },
+    {
+      "name": "Katavi",
+      "city": "Katavi",
+      "districts": [
+        "Mlele",
+        "Mpanda District",
+        "Mpanda Town"
+      ]
+    },
+    {
+      "name": "Kigoma",
+      "city": "Kigoma",
+      "districts": [
+        "Buhigwe",
+        "Kakonko",
+        "Kasulu District",
+        "Kasulu Town",
+        "Kibondo",
+        "Kigoma District",
+        "Kigoma-Ujiji Municipal",
+        "Uvinza"
+      ]
+    },
+    {
+      "name": "Kilimanjaro",
+      "city": "Kilimanjaro",
+      "districts": [
+        "Hai",
+        "Moshi District",
+        "Moshi Municipal",
+        "Mwanga",
+        "Rombo",
+        "Same",
+        "Siha"
+      ]
+    },
+    {
+      "name": "Lindi",
+      "city": "Lindi",
+      "districts": [
+        "Kilwa",
+        "Lindi District",
+        "Lindi Municipal",
+        "Liwale",
+        "Nachingwea",
+        "Ruangwa"
+      ]
+    },
+    {
+      "name": "Manyara",
+      "city": "Manyara",
+      "districts": [
+        "Babati District",
+        "Babati Town",
+        "Hanang",
+        "Kiteto",
+        "Mbulu District",
+        "Simanjiro"
+      ]
+    },
+    {
+      "name": "Mara",
+      "city": "Mara",
+      "districts": [
+        "Bunda",
+        "Butiama",
+        "Musoma District",
+        "Musoma Municipal",
+        "Rorya",
+        "Serengeti",
+        "Tarime"
+      ]
+    },
+    {
+      "name": "Mbeya",
+      "city": "Mbeya",
+      "districts": [
+        "Busokelo",
+        "Chunya",
+        "Kyela",
+        "Mbarali",
+        "Mbeya District",
+        "Mbeya City",
+        "Rungwe"
+      ]
+    },
+    {
+      "name": "Morogoro",
+      "city": "Morogoro",
+      "districts": [
+        "Gairo",
+        "Kilombero",
+        "Kilosa",
+        "Morogoro District",
+        "Morogoro Municipal",
+        "Mvomero",
+        "Ulanga",
+        "Malinyi"
+      ]
+    },
+    {
+      "name": "Mtwara",
+      "city": "Mtwara",
+      "districts": [
+        "Masasi District",
+        "Masasi Town",
+        "Mtwara District",
+        "Mtwara Municipal",
+        "Nanyumbu",
+        "Newala",
+        "Tandahimba"
+      ]
+    },
+    {
+      "name": "Mwanza",
+      "city": "Mwanza",
+      "districts": [
+        "Ilemela",
+        "Kwimba",
+        "Magu",
+        "Misungwi",
+        "Nyamagana",
+        "Sengerema",
+        "Ukerewe"
+      ]
+    },
+    {
+      "name": "Njombe",
+      "city": "Njombe",
+      "districts": [
+        "Ludewa",
+        "Makambako Town",
+        "Makete",
+        "Njombe District",
+        "Njombe Town",
+        "Wanging'ombe"
+      ]
+    },
+    {
+      "name": "Pemba Kaskazini",
+      "city": "Zanzibar",
+      "districts": [
+        "Micheweni",
+        "Wete"
+      ]
+    },
+    {
+      "name": "Pemba Kusini",
+      "city": "Zanzibar",
+      "districts": [
+        "Chake Chake",
+        "Mkoani"
+      ]
+    },
+    {
+      "name": "Pwani",
+      "city": "Pwani",
+      "districts": [
+        "Bagamoyo",
+        "Kibaha District",
+        "Kibaha Town",
+        "Kisarawe",
+        "Mafia",
+        "Mkuranga",
+        "Rufiji"
+      ]
+    },
+    {
+      "name": "Rukwa",
+      "city": "Rukwa",
+      "districts": [
+        "Kalambo",
+        "Nkasi",
+        "Sumbawanga District",
+        "Sumbawanga Municipal"
+      ]
+    },
+    {
+      "name": "Ruvuma",
+      "city": "Ruvuma",
+      "districts": [
+        "Mbinga",
+        "Namtumbo",
+        "Nyasa",
+        "Songea District",
+        "Songea Municipal",
+        "Tunduru"
+      ]
+    },
+    {
+      "name": "Shinyanga",
+      "city": "Shinyanga",
+      "districts": [
+        "Kahama Town",
+        "Kahama District",
+        "Kishapu",
+        "Shinyanga District",
+        "Shinyanga Municipal"
+      ]
+    },
+    {
+      "name": "Simiyu",
+      "city": "Simiyu",
+      "districts": [
+        "Bariadi District",
+        "Bariadi Town",
+        "Itilima",
+        "Maswa",
+        "Meatu"
+      ]
+    },
+    {
+      "name": "Singida",
+      "city": "Singida",
+      "districts": [
+        "Iramba",
+        "Manyoni",
+        "Singida District",
+        "Singida Municipal"
+      ]
+    },
+    {
+      "name": "Songwe",
+      "city": "Songwe",
+      "districts": [
+        "Ileje",
+        "Mbozi",
+        "Momba",
+        "Songwe"
+      ]
+    },
+    {
+      "name": "Tabora",
+      "city": "Tabora",
+      "districts": [
+        "Igunga",
+        "Kaliua",
+        "Nzega",
+        "Sikonge",
+        "Tabora Municipal",
+        "Tabora District",
+        "Urambo"
+      ]
+    },
+    {
+      "name": "Tanga",
+      "city": "Tanga",
+      "districts": [
+        "Handeni District",
+        "Handeni Town",
+        "Kilindi",
+        "Korogwe District",
+        "Korogwe Town",
+        "Lushoto",
+        "Muheza",
+        "Pangani",
+        "Tanga City",
+        "Tanga District"
+      ]
+    },
+    {
+      "name": "Unguja Kaskazini",
+      "city": "Zanzibar",
+      "districts": [
+        "Kaskazini A",
+        "Kaskazini B"
+      ]
+    },
+    {
+      "name": "Unguja Kusini",
+      "city": "Zanzibar",
+      "districts": [
+        "Kusini"
+      ]
+    },
+    {
+      "name": "Unguja Mjini Magharibi",
+      "city": "Zanzibar",
+      "districts": [
+        "Mjini",
+        "Magharibi A",
+        "Magharibi B"
+      ]
+    }
+  ]
+}

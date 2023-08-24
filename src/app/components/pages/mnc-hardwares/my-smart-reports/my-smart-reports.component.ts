@@ -104,7 +104,8 @@ export class MySmartReportsComponent implements OnInit {
   }
 
   sumValue(array: any[], key: string) {
-    return array.reduce((prev, curr) => prev + Number(curr[key] ?? 0), 0);
+    let num = array.reduce((prev, curr) => prev + Number(curr[key] ?? 0), 0);
+    return Math.round((num + Number.EPSILON) * 100) / 100;
   }
 
   getSummaryByArea() {

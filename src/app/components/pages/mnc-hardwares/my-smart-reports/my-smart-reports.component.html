@@ -112,21 +112,21 @@
                 <th>Time</th>
                 <th>Power (kW)</th>
                 <th>Loss (kW)</th>
-                <!-- <th>Earthing Loss (A)</th> -->
+                <th>Earthing Loss (A)</th>
               </tr>
 
               <tr *ngFor="let summary of summaryByArea">
                 <td>{{ summary.time }}</td>
                 <td>{{ summary.power }}</td>
                 <td>{{ summary.loss }}</td>
-                <!-- <td>{{ summary.earthing }}</td> -->
+                <td>{{ summary.earthing }}</td>
               </tr>
 
               <tr>
                 <th>Total</th>
                 <th>{{ sumValue(summaryByArea, 'power') }}</th>
                 <th>{{ sumValue(summaryByArea, 'loss') }}</th>
-                <!-- <th>{{ sumValue(summaryByArea, 'earthing') }}</th> -->
+                <th>{{ sumValue(summaryByArea, 'earthing') }}</th>
               </tr>
             </table>
           </div>

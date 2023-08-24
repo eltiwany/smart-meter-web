@@ -1,3 +1,4 @@
+import { PreferencesService } from './../../../../../services/preferences.service';
 import { UsersService } from './../../../../../../services/pages/users.service';
 import { AuthValidators } from './../../../../../../validators/auth.validators';
 import { FunctionsService } from './../../../../../services/extras/functions.service';
@@ -17,6 +18,10 @@ import { ProviderClass } from '../../../provider-class';
 })
 export class EditUsersComponent implements OnInit {
 
+  districts: any[] = [];
+  regions: any[] = [];
+  cities: any[] = [];
+
   data: any;
   roles: any[] = [];
   selectors = {
@@ -29,7 +34,8 @@ export class EditUsersComponent implements OnInit {
     private settings: SettingsService,
     private loader: LoaderService,
     public fn: FunctionsService,
-    private dataIn: ProviderClass
+    private dataIn: ProviderClass,
+    private preferences: PreferencesService
   ) {}
 
   form = new FormGroup({
@@ -48,7 +54,7 @@ export class EditUsersComponent implements OnInit {
   get name() {
     return this.form.get('name');
   }
- 
+
   get email() {
     return this.form.get('email');
   }
@@ -87,6 +93,7 @@ export class EditUsersComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.dataIn) {
+      this.cities = this.preferences.getRegions().filter((obj, index, self) => index == self.findIndex(item => item.city == obj.city));
       this.data = this.dataIn;
       this.form.setControl('name', new FormControl(this.data.name, [GeneralValidators.required]));
       this.form.setControl('email', new FormControl(this.data.email, [GeneralValidators.required]));
@@ -100,6 +107,19 @@ export class EditUsersComponent implements OnInit {
       this.form.setControl('roleId', new FormControl(this.data.role_id, [GeneralValidators.required, GeneralValidators.isNot(this.selectors.role)]));
     }
     this.getRoles();
+  }
+
+  filterRegions() {
+    this.regions = [];
+    this.regions = this.preferences.getRegions().filter((city) => city.city == this.city?.value);
+    this.region?.setValue(this.regions[0].name);
+    this.filterDistricts();
+  }
+
+  filterDistricts() {
+    this.districts = [];
+    this.districts = this.regions.filter((region) => region.name == this.region?.value)[0].districts;
+    this.district?.setValue(this.districts[0]);
   }
 
   getRoles() {

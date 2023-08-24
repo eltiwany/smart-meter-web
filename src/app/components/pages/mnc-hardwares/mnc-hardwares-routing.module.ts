@@ -1,3 +1,4 @@
+import { UserAppliancesAdminComponent } from './user-appliances-admin/user-appliances-admin.component';
 import { SmartSchedulersComponent } from './smart-schedulers/smart-schedulers.component';
 import { UploadedServiceDocsComponent } from './uploaded-service-docs/uploaded-service-docs.component';
 import { MySmartReportsComponent } from './my-smart-reports/my-smart-reports.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'monitor-hardwares', component: MonitorHardwaresComponent},
   {path: 'smart-reports', component: SmartReportsComponent},
   {path: 'my-smart-reports', component: MySmartReportsComponent},
+  {path: 'consumer-appliances', component: UserAppliancesAdminComponent},
   {path: 'control-actuators', component: ControlActuatorsComponent},
   {path: 'uploaded-service-docs', component: UploadedServiceDocsComponent},
 ];

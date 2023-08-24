@@ -29,40 +29,58 @@
   </div>
 
   <div class="form-floating mb-3">
-    <input
+    <select
       formControlName="city"
       [class.invalid]="city?.touched && city?.invalid"
       type="text"
       class="form-control"
       id="floatingCity"
       placeholder="City"
+      (change)="filterRegions()"
     >
+      <optgroup label="Select City">
+        <option *ngFor="let city of cities" [value]="city.city">
+          {{ city.city }}
+        </option>
+      </optgroup>
+    </select>
     <label for="floatingCity">City</label>
     <p class="text-danger font-weight-bold p-0 m-0" *ngIf="city?.touched && city?.invalid">{{ city?.errors?.message }}</p>
   </div>
 
   <div class="form-floating mb-3">
-    <input
+    <select
       formControlName="region"
       [class.invalid]="region?.touched && region?.invalid"
-      type="text"
       class="form-control"
       id="floatingRegion"
       placeholder="Region"
+      (change)="filterDistricts()"
     >
+    <optgroup label="Select Region">
+      <option *ngFor="let region of regions" [value]="region.name">
+        {{ region.name }}
+      </option>
+    </optgroup>
+    </select>
     <label for="floatingRegion">Region</label>
     <p class="text-danger font-weight-bold p-0 m-0" *ngIf="region?.touched && region?.invalid">{{ region?.errors?.message }}</p>
   </div>
 
   <div class="form-floating mb-3">
-    <input
+    <select
       formControlName="district"
       [class.invalid]="district?.touched && district?.invalid"
-      type="text"
       class="form-control"
       id="floatingDistrict"
       placeholder="District"
     >
+      <optgroup label="Select District">
+        <option *ngFor="let d of districts" [value]="d">
+          {{ d }}
+        </option>
+      </optgroup>
+    </select>
     <label for="floatingDistrict">District</label>
     <p class="text-danger font-weight-bold p-0 m-0" *ngIf="district?.touched && district?.invalid">{{ district?.errors?.message }}</p>
   </div>
@@ -105,7 +123,7 @@
     <label for="floatingCoordinates">Coordinates</label>
     <p class="text-danger font-weight-bold p-0 m-0" *ngIf="coordinates?.touched && coordinates?.invalid">{{ coordinates?.errors?.message }}</p>
   </div>
-  
+
   <div class="form-floating mb-3">
     <input
       formControlName="email"
