@@ -44,6 +44,18 @@ export class SensorsService {
    * @param void
    * @returns Promise<any>
    */
+  async getUserSensorsByToken(token: string): Promise<any> {
+    let data = {
+      token: token
+    }
+    return await this.http.post(this.api.sensors.getUserSensorsByToken, data, false);
+  }
+
+  /**
+   * Get user sensors for datatable from API
+   * @param void
+   * @returns Promise<any>
+   */
   async getAutoAddedUserSensors(): Promise<any> {
     return await this.http.get(this.api.sensors.userSensorsAutoAdded, false);
   }

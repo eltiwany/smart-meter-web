@@ -7,6 +7,9 @@
   [newButtonName]="'New User Board'"
   [modalContent]="modalComponent"
   [modalClearLogsContent]="modalGenerateComponent"
+  [importButton]="true"
+  [importButtonName]="'Import Test Data from Excel/CSV'"
+  [importModalContent]="modalImportComponent"
   modalRef="newModal"
   [dataArray]="data"
   [colsArray]="cols"
@@ -22,6 +25,7 @@
           <th>Full Name</th>
           <th>Email</th>
           <th>Board Name</th>
+          <th>Board Status</th>
           <th>Board Token</th>
           <th>Actions</th>
         </tr>
@@ -33,6 +37,11 @@
             <td>{{ datum.full_name ? datum.full_name : 'N/A' }}</td>
             <td>{{ datum.email }}</td>
             <td>{{ datum.board_name ?? "N/A" }}</td>
+            <td [style]="datum.token ? 'cursor: pointer' : ''" (click)="changeStatus(datum.token)">
+              <span class="px-2 py-1 text-white rounded bg-success" *ngIf="datum.token && datum.is_online"><i class="bi bi-toggle-on"></i> ONLINE </span>
+              <span style="background: gray" class="px-2 py-1 text-white rounded" *ngIf="datum.token && !datum.is_online"><i class="bi bi-toggle-off"></i> OFFLINE </span>
+              <span *ngIf="!datum.token">N/A</span>
+            </td>
             <td>{{ datum.token ?? "N/A" }}</td>
             <td>
               <app-action-buttons

@@ -1,0 +1,51 @@
+<app-top-bar
+  [importButton]="true"
+  [importButtonName]="'Import Payment Data from Excel/CSV'"
+  [importModalContent]="modalImportComponent"
+></app-top-bar>
+
+<div class="card">
+  <div class="table-responsive py-4" id="htmlData" #htmlData>
+    <div class="dataTable-wrapper dataTable-loading no-footer fixed-columns">
+      <table datatable [dtOptions]="dtOptions" class="table table-flush dataTable-table" id="htmlData">
+        <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Amount</th>
+          <th>Trx ID</th>
+          <th>Trx Date</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="data?.length != 0">
+        <tr *ngFor="let datum of  data; let i = index">
+          <th>{{ datum.id }}</th>
+          <td>{{ datum.full_name }}</td>
+          <td>{{ datum.email }}</td>
+          <td>{{ datum.amount | currency:'TZS' }}</td>
+          <td>{{ datum.transaction_id }}</td>
+          <td>{{ datum.transaction_date }}</td>
+          <td>{{ datum.description }}</td>
+          <td>
+            <app-action-buttons
+              [modalDeleteContent]="modalDeleteComponent"
+              [data]="datum"
+              [viewAction]="false"
+              [editAction]="false"
+            ></app-action-buttons>
+          </td>
+        </tr>
+        <tbody *ngIf="data?.length == 0">
+          <tr>
+            <th colspan="3">No data found.</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

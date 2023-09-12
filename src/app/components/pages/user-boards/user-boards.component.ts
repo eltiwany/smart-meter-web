@@ -1,3 +1,7 @@
+import { ImportTestDataComponent } from './../../../common/components/modals/pages/user-boards/import-test-data/import-test-data.component';
+import { BoardStateService } from './../../../services/iot/board-state.service';
+import { LoaderService } from 'src/app/common/services/extras/loader.service';
+import { UserBoardsService } from 'src/app/services/iot/user-boards.service';
 import { GenerateTestDataComponent } from './../../../common/components/modals/pages/user-boards/generate-test-data/generate-test-data.component';
 import { ViewUserBoardsComponent } from './../../../common/components/modals/pages/user-boards/view-user-boards/view-user-boards.component';
 import { DeleteUserBoardsComponent } from './../../../common/components/modals/pages/user-boards/delete-user-boards/delete-user-boards.component';
@@ -16,6 +20,7 @@ export class UserBoardsComponent implements OnInit {
   modalViewComponent: Type<any>;
   modalGenerateComponent: Type<any>;
   modalDeleteComponent: Type<any>;
+  modalImportComponent: Type<any>;
 
   dtOptions: DataTables.Settings = {};
   data: any[] = [];
@@ -23,12 +28,23 @@ export class UserBoardsComponent implements OnInit {
 
   constructor(
     private users: UsersService,
+    private userBoard: UserBoardsService,
+    private loader: LoaderService,
+    private boardState: BoardStateService
   ) {
     // Initialize modals for new, edit and delete
     this.modalComponent = NewUserBoardsComponent;
     this.modalViewComponent = ViewUserBoardsComponent;
     this.modalGenerateComponent = GenerateTestDataComponent;
     this.modalDeleteComponent = DeleteUserBoardsComponent;
+    this.modalImportComponent = ImportTestDataComponent;
+  }
+
+  changeStatus(token: string) {
+    this.userBoard.setBoardStatus(token).then((response) => {
+      this.boardState.getActiveBoard();
+      this.loader.refresh();
+    });
   }
 
   ngOnInit(): void {
@@ -52,7 +68,9 @@ export class UserBoardsComponent implements OnInit {
         { data: 'id' },
         { data: 'name' },
         { data: 'email' },
-        { data: 'role_name' },
+        { data: 'name' },
+        { data: 'is_online' },
+        { data: 'token' },
         { data: '', orderable: false}
       ],
       responsive: true

@@ -1,0 +1,47 @@
+<app-top-bar></app-top-bar>
+
+<div class="card">
+  <div class="table-responsive py-4" id="htmlData" #htmlData>
+    <div class="dataTable-wrapper dataTable-loading no-footer fixed-columns">
+      <table datatable [dtOptions]="dtOptions" class="table table-flush dataTable-table" id="htmlData">
+        <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>Amount</th>
+          <th>Trx ID</th>
+          <th>Trx Date</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="data?.length != 0">
+        <tr *ngFor="let datum of  data; let i = index">
+          <th>{{ datum.id }}</th>
+          <td>{{ datum.amount | currency:'TZS' }}</td>
+          <td>{{ datum.transaction_id }}</td>
+          <td>{{ datum.transaction_date }}</td>
+          <td>{{ datum.description }}</td>
+          <td>
+            <app-action-buttons
+              [headingPrint]="'Print Receipt'"
+              [modalPrintContent]="modalPrintComponent"
+              [data]="datum"
+              [deleteAction]="false"
+              [editAction]="false"
+              [viewAction]="false"
+              [printAction]="true"
+              [modalPrintSize]="'lg'"
+            ></app-action-buttons>
+          </td>
+        </tr>
+        <tbody *ngIf="data?.length == 0">
+          <tr>
+            <th colspan="3">No data found.</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

@@ -31,6 +31,11 @@ export class SideNavComponent implements OnInit {
     'roles',
   ];
 
+  billingRoutes = [
+    'payments',
+    'user-payments',
+  ];
+
   hardwareManagerRoutes = [
     'config-boards',
     'config-sensors',

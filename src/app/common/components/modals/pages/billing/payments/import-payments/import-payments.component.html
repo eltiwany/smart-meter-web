@@ -1,0 +1,33 @@
+<form class="p-1" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+  <button class="btn btn-link btn-block mb-4 w-100" type="button" (click)="downloadExcel()">
+    <i class="bi bi-download"></i>
+    Download Sample Excel File
+  </button>
+
+  <div class="form-floating mb-3" *ngIf="excelExportData.length > 0">
+    <input
+      type="file"
+      class="form-control"
+      (change)="onFileChange($event)"
+      accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+      placeholder="Upload Test Data"
+      id="floatingFile"
+      >
+    <label for="floatingFile">Upload Payment Data</label>
+  </div>
+
+  <div class="alert alert-warning" *ngIf="!approvedToImport && this.file">
+    Excel/CSV File contains invalid columns, excel file must have the following columns
+    (<span *ngFor="let col of importColumns; let i = index">{{ col + (i !== importColumns.length - 1 ? ', ' : '') }}</span>)
+  </div>
+
+  <button
+    class="w-100 btn btn-danger"
+    [class.disabled]="(!form.valid || excelImportData.length == 0)"
+    [type]="(form.valid) ? 'submit' : 'button'"
+    >
+    Import Test Data
+    <i class="bi bi-check-circle"></i>
+  </button>
+</form>

@@ -26,7 +26,7 @@
         {{ clearLogsButtonName }}
       </button>
 
-      <button  *ngIf="permission.isAllowedAction('w') && importButton" class="btn btn-sm btn-success d-inline-flex align-items-center" (click)="excel.click()">
+      <button  *ngIf="permission.isAllowedAction('w') && importButton" class="btn btn-sm btn-warning d-inline-flex align-items-center" style="margin-left: 0.5rem" (click)="modal.open(contentFilePreview, 'lg')">
         <i class="icon icon-xs me-2 bi bi-file-earmark-arrow-down-fill"></i>
         {{ importButtonName }}
       </button>
@@ -37,7 +37,6 @@
         {{ messageButtonName }}
       </button>
 
-      <input type="file" style="display: none" #excel (change)="onFileChange($event, contentFilePreview)" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
       <div class="m-1"></div>
       <button  *ngIf="permission.isAllowedAction('w') && newButton" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center" (click)="modal.open(modalNew, modalSize)">
           <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
@@ -115,7 +114,20 @@
   </div>
 </ng-template>
 
-<!-- Preview Imported Data -->
+
+<ng-template #contentFilePreview let-modald let-c="close" let-d="dismiss" class="p-0">
+  <div class="modal-header bg-warning">
+      <h2 class="h6 modal-title">{{ importButtonName }}</h2>
+      <button type="button" class="btn btn-link border-0 text-white" (click)="modald.dismiss('Cross click')">
+        <i class="bi bi-x-lg"></i>
+      </button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngComponentOutlet="importModalContent"></ng-container>
+  </div>
+</ng-template>
+
+<!-- Preview Imported Data
 <ng-template #contentFilePreview let-c="close" let-d="dismiss">
   <div class="modal-header bg-modal-header-custom">
     <h2 class="h6 modal-title float-left w-70">Preview of {{fileName}}</h2>
@@ -156,4 +168,4 @@
       <i class="bi bi-file-earmark-arrow-down-fill"></i> Proceed & Import
     </button>
   </div>
-</ng-template>
+</ng-template> -->

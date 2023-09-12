@@ -24,6 +24,10 @@ import { NewSchedulersComponent } from './pages/schedulers/new-schedulers/new-sc
 import { ViewSchedulersComponent } from './pages/schedulers/view-schedulers/view-schedulers.component';
 import { EditSchedulersComponent } from './pages/schedulers/edit-schedulers/edit-schedulers.component';
 import { DeleteSchedulersComponent } from './pages/schedulers/delete-schedulers/delete-schedulers.component';
+import { ImportTestDataComponent } from './pages/user-boards/import-test-data/import-test-data.component';
+import { PrintPaymentsComponent } from './pages/billing/payments/print-payments/print-payments.component';
+import { DeletePaymentsComponent } from './pages/billing/payments/delete-payments/delete-payments.component';
+import { ImportPaymentsComponent } from './pages/billing/payments/import-payments/import-payments.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,10 @@ import { DeleteSchedulersComponent } from './pages/schedulers/delete-schedulers/
     ViewSchedulersComponent,
     EditSchedulersComponent,
     DeleteSchedulersComponent,
+    ImportTestDataComponent,
+    PrintPaymentsComponent,
+    DeletePaymentsComponent,
+    ImportPaymentsComponent,
   ],
   imports: [
     CommonModule,

@@ -11,7 +11,6 @@ import { ButtonsService } from './../../../services/layouts/buttons.service';
 import { AppConfigService } from './../../../services/app-config.service';
 import { Component, Input, Type, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as XLSX from 'xlsx';
 
 interface importInterface {
   importData(data: any): Promise<any>;
@@ -24,10 +23,8 @@ interface importInterface {
 })
 export class TopBarComponent implements OnInit {
   // @ts-ignore
-  file: any = [];
   importedDataFile: any = [];
-  fileName: any;
-  arrayBuffer: any;
+
   dtOptions: any[] = [];
   urls: any;
 
@@ -37,6 +34,8 @@ export class TopBarComponent implements OnInit {
   @Input() importService: importInterface;
   @Input() importButton  = false;
   @Input() importButtonName  = "Import Data From Excel/CSV";
+  // @ts-ignore
+  @Input() importModalContent: Type<any>;
 
   @Input() sdlButton  = false;
 
@@ -87,71 +86,15 @@ export class TopBarComponent implements OnInit {
     this.loader.refresh();
   }
 
-  /**
-   * Detect file changed and open
-   * modal as requested
-   *
-   * @param event fileChanged
-   * @param content modalContent
-   */
-  onFileChange(event: any, content: any): void {
-    this.importedDataFile = [];
-    this.file = event.target.files[0];
-    const fileReader = new FileReader();
-    fileReader.readAsArrayBuffer(this.file);
-    this.fileName = this.file.name;
-    fileReader.onload = () => {
-      this.arrayBuffer = fileReader.result;
-      const data = new Uint8Array(this.arrayBuffer);
-      const arr = [];
-      for (let i = 0; i !== data.length; ++i) {
-        arr[i] = String.fromCharCode(data[i]);
-      }
-      const bstr = arr.join('');
-      const workbook = XLSX.read(bstr, {type: 'binary', cellDates: true});
-      const firstSheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[firstSheetName];
-      // console.log(this.accountsFile);
-      const arraylist: any[] = XLSX.utils.sheet_to_json(worksheet, {raw: true});
-      // console.log(arraylist);
-
-      for (const datum of arraylist) {
-        // console.log(datum);
-        // Check if all required columns exists on a file
-        let approvedToImport = false;
-        this.importColumns.forEach(column => {
-          if (!datum[column]) {
-            approvedToImport = false;
-            return;
-          }
-          approvedToImport = true;
-        });
-        // If all columns exists add to file
-        if (approvedToImport) {
-          this.importedDataFile.push(datum);
-        }
-      }
-      // console.log(this.importedDataFile);
-      if (this.file.length !== 0) {
-        this.dtOptions[1] = {
-          pagingType: 'full_numbers',
-          pageLength: 10,
-          order: [[ 0, 'asc' ]]
-        };
-      }
-      this.modal.open(content, 'xl');
-    };
-  }
-
-  importFileData(): void {
-    if (this.file.length !== 0) {
-      this.importService.importData(this.importedDataFile).then((response) => {
-        if (!response.error) {
-          this.modal.close();
-          this.refresh();
-        }
-      });
-    }
-  }
+  // importFileData(): void {
+  //   if (this.file.length !== 0) {
+  //     this.importService.importData(this.importedDataFile).then((response) => {
+  //       if (!response.error) {
+  //         this.modal.close();
+  //         this.refresh();
+  //       }
+  //     });
+  //   }
+  // }
 
 }

@@ -58,12 +58,30 @@ export class UserBoardsService {
   }
 
   /**
+   * Import test data
+   * @param void
+   * @returns Promise<any>
+   */
+   async importTestData(data: any): Promise<any> {
+    return await this.http.post(this.api.userBoards.testImport, data, true);
+  }
+
+  /**
    * Disconnect board from API
    * @param void
    * @returns Promise<any>
    */
    async disconnectBoard(id:string): Promise<any> {
     return await this.http.delete(this.api.userBoards.boards, id, true);
+  }
+
+  /**
+   * Disconnect board from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async setBoardStatus(token:string): Promise<any> {
+    return await this.http.post(this.api.boards.setBoardStatus, {token: token}, true);
   }
 
 }

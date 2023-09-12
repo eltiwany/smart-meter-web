@@ -2,6 +2,10 @@
 <button *ngIf="permission.isAllowedAction('r') && viewAction" class="btn btn-link text-tertiary m-0 p-0" placement="bottom" ngbTooltip="Edit" (click)="modal.open(modalView, modalViewSize)">
   <i class="bi bi-eye-fill"></i>
 </button>
+<!-- Print Button -->
+<button *ngIf="permission.isAllowedAction('r') && printAction" class="btn btn-link text-warning m-0 p-0" placement="bottom" ngbTooltip="Print" (click)="modal.open(modalPrint, modalPrintSize)">
+  <i class="bi bi-printer-fill"></i>
+</button>
 <!-- Confirm Button -->
 <button *ngIf="permission.isAllowedAction('a') && confirmAction" class="btn btn-link text-dark m-0 pl-1 pr-0 pb-0 pt-0" placement="bottom" ngbTooltip="Confirm" (click)="modal.open(modalConfirm)">
   <i class="bi bi-check2-square"></i>
@@ -27,6 +31,22 @@
   </div>
   <div class="modal-body">
     <ng-container *ngComponentOutlet="modalViewContent; injector: dataInjected"></ng-container>
+  </div>
+</ng-template>
+
+<!-- Print Modal with Dynamic Form Loading -->
+<ng-template #modalPrint let-modalv let-c="close" let-d="dismiss" class="p-0">
+  <div class="modal-header bg-dark text-white">
+      <h2 class="h6 modal-title">{{ headingPrint }}</h2>
+      <div class="btn-right">
+        <button class="btn btn-warning mx-4" (click)="printDiv('printContent')">
+          <i class="bi bi-printer-fill"></i> Print
+        </button>
+        <button type="button" class="btn-close bg-white" (click)="modalv.dismiss('Cross click')"></button>
+      </div>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngComponentOutlet="modalPrintContent; injector: dataInjected"></ng-container>
   </div>
 </ng-template>
 

@@ -102,6 +102,7 @@ export class ApiService {
     getBoardPinTypes: this.host + 'get-board-pin-types',
     boards: this.host + 'boards',
     userBoards: this.host + 'user-boards',
+    setBoardStatus: this.host + 'set-board-omc',
   }
 
   /**
@@ -114,6 +115,7 @@ export class ApiService {
     sensors: this.host + 'sensors',
     userSensors: this.host + 'user-sensors',
     getUserSensors: this.host + 'get-user-sensors',
+    getUserSensorsByToken: this.host + 'get-user-sensors-by-token',
     userSensorsAutoAdded: this.host + 'user-sensors-auto-added',
     userSensorValues: this.host + 'get-user-sensor-values',
     userSensorValuesPerSensor: this.host + 'get-user-sensor-values-per-sensor',
@@ -164,6 +166,7 @@ export class ApiService {
     boards: this.host + 'user-boards/boards',
     getActiveBoard: this.host + 'user-boards/get-active-board',
     test: this.host + 'seed/smart-meter',
+    testImport: this.host + 'seed/smart-meter-import',
   }
 
   /**
@@ -186,5 +189,15 @@ export class ApiService {
     getHealthStatus: this.host + 'get-health-status',
     getTotalLosses: this.host + 'get-total-losses',
     getMapUserSummary: this.host + 'get-map-user-summary',
+  }
+
+  /**
+   * Reports Api's
+   */
+  billing = {
+    payments: {
+      payments: this.host + 'billing/payments',
+      getPayments: this.host + 'billing/getPayments',
+    }
   }
 }

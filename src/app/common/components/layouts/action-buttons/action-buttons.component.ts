@@ -13,16 +13,18 @@ export class ActionButtonsComponent implements OnInit {
   // @ts-ignore
   componentEdit: Type<any>;
   @Input() headingView = "View Item";
+  @Input() headingPrint = "Print";
   @Input() headingEdit = "Edit Item";
   @Input() headingDelete = "Delete Item";
   @Input() headingReset = "Reset Password";
-  @Input() headingConfirm = "Confirm Employee";
+  @Input() headingConfirm = "Confirm";
 
   // Optional Buttons
   @Input() resetPassword = false;
   @Input() confirmAction = false;
   @Input() editAction = true;
   @Input() viewAction = true;
+  @Input() printAction = false;
   @Input() deleteAction = true;
 
   //
@@ -40,6 +42,9 @@ export class ActionButtonsComponent implements OnInit {
   // @ts-ignore
   @Input() modalViewContent: Type<any>;
   @Input() modalViewSize: 'md' | 'lg' | 'sm' | 'xl' = 'md';
+  // @ts-ignore
+  @Input() modalPrintContent: Type<any>;
+  @Input() modalPrintSize: 'md' | 'lg' | 'sm' | 'xl' = 'md';
 
   // @ts-ignore
   @Input() modalResetContent: Type<any>;
@@ -66,6 +71,38 @@ export class ActionButtonsComponent implements OnInit {
       [{ provide: ProviderClass, useValue: dataObj }],
       this.injector
     );
+  }
+
+  printDiv(divName: string) {
+    const printContents = (document?.getElementById(divName) as HTMLElement).innerHTML;
+
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    printWindow?.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+        </head>
+        <body>
+          ${printContents}
+        </body>
+      </html>
+    `);
+
+    // Extract print styles from the bundled styles
+    const styles = Array.from(document.querySelectorAll('style'));
+    styles.forEach((style) => {
+      printWindow?.document.head.appendChild(style.cloneNode(true));
+    });
+
+    printWindow?.document.close();
+
+    printWindow?.addEventListener('afterprint', () => {
+      printWindow?.close();
+      // Restore JavaScript functionalities here
+    });
+
+    printWindow?.print();
+
   }
 
 }
