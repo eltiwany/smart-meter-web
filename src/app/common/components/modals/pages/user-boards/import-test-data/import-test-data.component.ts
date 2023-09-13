@@ -26,7 +26,7 @@ export class ImportTestDataComponent implements OnInit {
   arrayBuffer: any;
   approvedToImport = false;
 
-  importColumns = ['ID', 'NAME', 'VOLTAGE', 'VOLTAGE_COLUMN_ID', 'CURRENT', 'CURRENT_COLUMN_ID'];
+  importColumns = ['ID', 'NAME', 'VOLTAGE', 'VOLTAGE_COLUMN_ID', 'CURRENT', 'CURRENT_COLUMN_ID', 'DATE_TIME'];
 
   form = new FormGroup({
     'token': new FormControl(null, [GeneralValidators.required, GeneralValidators.isNot(null)]),
@@ -77,6 +77,7 @@ export class ImportTestDataComponent implements OnInit {
               VOLTAGE: 230,
               CURRENT_COLUMN_ID: column_ids[currentIndex],
               CURRENT: 5,
+              DATE_TIME: (new Date())
             });
           }
         });

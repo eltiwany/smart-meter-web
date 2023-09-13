@@ -192,13 +192,15 @@
           <div class="table-responsive">
             <table class="table table-bordered table-hover">
               <tr>
+                <th>S/N</th>
                 <th>Time</th>
                 <th>Power (kW)</th>
                 <th>Loss (kW)</th>
                 <th>Earthing Loss (A)</th>
               </tr>
 
-              <tr *ngFor="let summary of summaryByArea">
+              <tr *ngFor="let summary of summaryByArea, let i = index">
+                <td>{{ i + 1 }}</td>
                 <td>{{ summary.time }}</td>
                 <td>{{ summary.power }}</td>
                 <td>{{ summary.loss }}</td>
@@ -206,7 +208,7 @@
               </tr>
 
               <tr>
-                <th>Total</th>
+                <th colspan="2">Total</th>
                 <th>{{ sumValue(summaryByArea, 'power') }}</th>
                 <th>{{ sumValue(summaryByArea, 'loss') }}</th>
                 <th>{{ sumValue(summaryByArea, 'earthing') }}</th>
