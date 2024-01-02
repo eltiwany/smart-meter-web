@@ -92,15 +92,33 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
       if (!response.error) {
         this.sensorData = response.data[0];
         this.columns = this.sensorData.columns;
-        this.lossColumns = this.sensorData.loss_columns;
         this.sensors = this.sensorData.sensors;
         this.time = this.sensorData.columns[0]['time'].sort(function(a: number, b: number){return a-b});
 
+
         let powerData: any[] = [];
         let powerLossData: any[] = [];
+        let loss: any, power: any;
+
         this.columns[0]['data'].forEach((v: number, index: number) => {
-          powerData.push({ x: this.time[index], y: ((v * this.columns[1]['data'][index]) / 1000) });
-          powerLossData.push({ x: this.time[index], y: ((this.lossColumns[0]['data'][index] * this.lossColumns[1]['data'][index]) / 1000) });
+          if (index < 12) {
+            loss =
+                (Math.abs(
+                    ((this.columns[0]['data'][index + 1] * this.columns[1]['data'][index + 1]) / 1000) -
+                    ((this.columns[0]['data'][index] * this.columns[1]['data'][index]) / 1000)
+                )).toFixed(4);
+
+            power = ((v * this.columns[1]['data'][index]) / 1000).toFixed(2);
+
+            while (loss > power)
+                  loss = (loss - power).toFixed(4);
+
+            powerData.push({ x: (index + 1), y: power });
+            powerLossData.push({
+              x: (index + 1),
+              y: isNaN(loss) ? 0 : loss
+            });
+          }
         });
 
         this.power = [
@@ -120,6 +138,8 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
             data: powerLossData
           }
         ]
+
+        console.log(this.power, this.powerWithLosses);
       }
 
       this.setSelectedColumns();

@@ -18,6 +18,8 @@ import { Component, OnInit } from '@angular/core';
 export class MySmartReportsComponent implements OnInit {
   fullName: string = "";
   data: any[] = [];
+  currentData: any = [];
+  resistanceData: any = [];
   sensors: any[] = [];
   sensorData: any = [];
   dtOptions: DataTables.Settings = {};
@@ -171,6 +173,9 @@ export class MySmartReportsComponent implements OnInit {
     this.reports.getHealthStatus().then((response) => {
       if (!response.error)
         this.healthStatus = response.data;
+
+        this.currentData = this.healthStatus.filter((curr: any) => curr.si == 'A');
+        this.resistanceData = this.healthStatus.filter((curr: any) => curr.si == 'R');
     });
   }
 
@@ -193,11 +198,50 @@ export class MySmartReportsComponent implements OnInit {
     });
   }
 
-  getNoticationStatus(powerData: number[], threshold = 0, threshold_percentage = 0) {
+  getNoticationPowerStatus() {
+    let powerOk = true;
+    this.healthStatus.forEach((power: any) => {
+      if (this.getNoticationStatus(power.statuses, power.sensor.threshold, power.sensor.threshold_percentage, power.si).status != 'success' && power.si == 'W')
+        powerOk = false;
+    });
+
+    if (powerOk)
+      return {
+        status: 'success',
+        message: 'Appliances operate on optimal power'
+      }
+    else
+      return {
+        status: 'warning',
+        message: 'Power issue detected on some appliances'
+      }
+  }
+
+  getNoticationStatus(powerData: number[], threshold = 0, threshold_percentage = 0, si: string = 'W') {
     let percent = Math.round((Math.max(...powerData) - Math.min(...powerData)) / Math.max(...powerData) * 100);
 
     let threshold_plus = Number(threshold) + (Number(threshold) * (Number(threshold_percentage) / 100))
     let threshold_minus = Number(threshold) - (Number(threshold) * (Number(threshold_percentage) / 100))
+
+    if (si == 'R') {
+      if (powerData[3] <= 5)
+        return {
+          'status': 'success',
+          'message': 'Normal'
+        }
+
+      else if (powerData[3] > 10000)
+        return {
+          'status': 'danger',
+          'message': 'No ground resistance detected'
+        }
+
+      else
+        return {
+          'status': 'warning',
+          'message': 'Issue detected on ground resistance'
+        }
+    }
 
     if (threshold) {
       // console.table({power: powerData[3], plus: threshold_plus, minus: threshold_minus})

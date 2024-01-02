@@ -26,7 +26,7 @@ export class ImportTestDataComponent implements OnInit {
   arrayBuffer: any;
   approvedToImport = false;
 
-  importColumns = ['ID', 'NAME', 'VOLTAGE', 'VOLTAGE_COLUMN_ID', 'CURRENT', 'CURRENT_COLUMN_ID', 'DATE_TIME'];
+  importColumns = ['ID', 'NAME', 'VOLTAGE', 'VOLTAGE_COLUMN_ID', 'CURRENT', 'CURRENT_COLUMN_ID', 'RESISTANCE'];
 
   form = new FormGroup({
     'token': new FormControl(null, [GeneralValidators.required, GeneralValidators.isNot(null)]),
@@ -66,6 +66,7 @@ export class ImportTestDataComponent implements OnInit {
           let column_names: any[] = JSON.parse(sensor.column_names);
           let voltageIndex = column_names.indexOf('V') ?? 0;
           let currentIndex = column_names.indexOf('A') ?? 0;
+          let resistanceIndex = column_names.indexOf('R') ?? 0;
           let column_ids = JSON.parse(sensor.column_ids);
           // console.log(column_names);
           for (let index = 0; index < 50; index++) {
@@ -73,11 +74,13 @@ export class ImportTestDataComponent implements OnInit {
               ID: sensor.id,
               NAME: sensor.user_defined_name,
               // ['COLUMN_' + column_names[0]]: column_names[0],
-              VOLTAGE_COLUMN_ID: column_ids[voltageIndex],
+              VOLTAGE_COLUMN_ID: column_ids[voltageIndex] ?? '-',
               VOLTAGE: 230,
-              CURRENT_COLUMN_ID: column_ids[currentIndex],
+              CURRENT_COLUMN_ID: column_ids[currentIndex] ?? '-',
               CURRENT: 5,
-              DATE_TIME: (new Date())
+              RESISTANCE_COLUMN_ID: column_ids[resistanceIndex] ?? '-',
+              RESISTANCE: 5,
+              // DATE_TIME: (new Date())
             });
           }
         });

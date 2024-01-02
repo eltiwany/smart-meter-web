@@ -1,7 +1,10 @@
 <div id="printContent">
   <div class="row" *ngIf="data">
+    <p class="text-center">
+      <img height="150" [src]="app.app.logoUrl">
+    </p>
+    <h3 class="text-center mt-2">{{ app.app.name }}</h3>
     <h3 class="text-center mt-2">Payment Receipt</h3>
-    <h3 class="text-center mt-2">{{ data.transaction_id }}</h3>
     <br>
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
@@ -16,12 +19,47 @@
         </tr>
 
         <tr>
+          <th>Meter Number</th>
+          <td>{{ meterNo }}</td>
+        </tr>
+
+        <tr>
           <th>Transaction Date</th>
           <td>{{ data.transaction_date }}</td>
         </tr>
 
         <tr>
-          <th>Amount</th>
+          <th>Token</th>
+          <td>{{ data.token }}</td>
+        </tr>
+
+        <tr>
+          <th>Units</th>
+          <td>{{ data.units + 'KWH' }}</td>
+        </tr>
+
+        <tr>
+          <th>Cost</th>
+          <td>{{ data.amount - (0.18 * data.amount) | currency:'TZS' }}</td>
+        </tr>
+
+        <tr>
+          <th>VAT (18%)</th>
+          <td>{{ (0.18 * data.amount) | currency:'TZS' }}</td>
+        </tr>
+
+        <tr>
+          <th>EWURA (1%)</th>
+          <td>{{ (0.01 * data.amount) | currency:'TZS' }}</td>
+        </tr>
+
+        <tr>
+          <th>REA (3%)</th>
+          <td>{{ (0.03 * data.amount) | currency:'TZS' }}</td>
+        </tr>
+
+        <tr>
+          <th>Total</th>
           <td>{{ data.amount | currency:'TZS' }}</td>
         </tr>
 

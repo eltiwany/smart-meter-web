@@ -15,7 +15,7 @@ export class AppConfigService {
   }
 
   getPreferences() {
-    this.app.logoUrl = 'assets/images/konekted.svg';
+    this.app.logoUrl = 'assets/images/smartmetertz.png';
     this.preference.getPreferences().then((response) => {
       if (!response.error) {
         response.data.forEach((dataSet: any) => {
@@ -38,8 +38,8 @@ export class AppConfigService {
   }
 
   app = {
-    name: 'Konekted IoT',
-    longName: 'Konekted IoT',
+    name: 'Smart Meter TZ',
+    longName: 'Smart Meter TZ',
     heading: [
       'Your home is now smart',
       'with smart meter ⚡'
@@ -51,7 +51,7 @@ export class AppConfigService {
                   innovative ideas to be implemented easier without hassle of manually
                   implementing codes
                 `,
-    logoUrl: 'assets/images/konekted.svg',
+    logoUrl: 'assets/images/smartmetertz.png',
   }
 
   website = {

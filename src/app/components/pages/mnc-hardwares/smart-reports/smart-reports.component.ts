@@ -343,17 +343,40 @@ export class SmartReportsComponent implements OnInit {
       if (!response.error) {
         this.sensorData = response.data[0];
         this.columns = this.sensorData.columns;
-        this.lossColumns = this.sensorData.loss_columns;
-        this.time = this.sensorData.columns[0]['time'].sort(function(a: number, b: number){return a-b});
+        // this.time = this.sensorData.columns[0]['time'].sort(function(a: number, b: number){return a-b});
 
         // console.log(this.time);
 
         let powerData: any[] = [];
         let powerLossData: any[] = [];
+        let loss: any, power: any;
 
         this.columns[0]['data'].forEach((v: number, index: number) => {
-          powerData.push({ x: this.time[index], y: ((v * this.columns[1]['data'][index]) / 1000) });
-          powerLossData.push({ x: this.time[index], y: ((this.lossColumns[0]['data'][index] * this.lossColumns[1]['data'][index]) / 1000) });
+          if (index <= 11) {
+            this.columns[0]['data']
+            loss =
+              (Math.abs(
+                  ((this.columns[0]['data'][index + 1] * this.columns[1]['data'][index + 1]) / 1000) -
+                  ((this.columns[0]['data'][index] * this.columns[1]['data'][index]) / 1000)
+              )).toFixed(4);
+
+            power = ((v * this.columns[1]['data'][index]) / 1000).toFixed(2);
+
+            while (loss > power)
+                  loss = (loss - power).toFixed(4);
+
+            // console.log(
+            //   [
+            //     this.columns[0]['data'][index + 1] * this.columns[1]['data'][index + 1],
+            //     this.columns[0]['data'][index] * this.columns[1]['data'][index]
+            //   ]);
+
+            powerData.push({ x: (index + 1), y: power });
+            powerLossData.push({
+              x: (index + 1),
+              y: loss == 'NaN' ? 0 : loss
+            });
+          }
         });
 
         this.powerWithLosses = [
@@ -368,7 +391,8 @@ export class SmartReportsComponent implements OnInit {
         ]
       }
 
-      // console.log(this.powerWithLosses);
+      // console.log(this.power, this.powerWithLosses);
+      console.log(this.powerWithLosses);
     });
   }
 

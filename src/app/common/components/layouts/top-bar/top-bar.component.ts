@@ -82,6 +82,10 @@ export class TopBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  back() {
+    history.back();
+  }
+
   refresh() {
     this.loader.refresh();
   }
