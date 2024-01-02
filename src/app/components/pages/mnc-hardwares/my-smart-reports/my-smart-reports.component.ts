@@ -227,55 +227,70 @@ export class MySmartReportsComponent implements OnInit {
       if (powerData[3] <= 5)
         return {
           'status': 'success',
-          'message': 'Normal'
+          'message': 'Ground resistance OK'
         }
 
       else if (powerData[3] > 10000)
         return {
           'status': 'danger',
-          'message': 'No ground resistance detected'
+          'message': 'Disconnected ground system'
         }
 
       else
         return {
           'status': 'warning',
-          'message': 'Issue detected on ground resistance'
+          'message': 'Check ground system for service'
+        }
+    }
+
+    if (si == 'A') {
+      if (powerData[3] > threshold_plus && powerData[3] < threshold_minus)
+        return {
+          'status': 'warning',
+          'message': 'Check electrical network for short circuit, open circuit and earth fault'
+        }
+
+      else
+        return {
+          'status': 'success',
+          'message': 'Ground current OK'
         }
     }
 
     if (threshold) {
-      // console.table({power: powerData[3], plus: threshold_plus, minus: threshold_minus})
       if (powerData[3] > threshold_plus)
         return {
           'status': 'danger',
-          'message': 'Higher usage than recommended'
+          'message': 'Service the appliance'
         }
-      else if (powerData[3] < threshold_minus)
+
+      else if (powerData[3] > (2 * threshold_plus))
         return {
-          'status': 'warning',
-          'message': 'Lower usage than recommended'
+          'status': 'danger',
+          'message': 'Consider replace the appliance'
         }
+
       else
         return {
           'status': 'success',
-          'message': 'Normal'
+          'message': 'Power is normal'
         }
     }
 
     if (percent > this.thresholdPercent && (powerData[0] < powerData[3]))
       return {
         'status': 'danger',
-        'message': 'Higher usage than normal'
+        'message': 'Power is higher than acceptable'
       }
     if (percent > this.thresholdPercent && (powerData[0] > powerData[3]))
       return {
         'status': 'warning',
-        'message': 'Lower usage than normal'
+        'message': 'Power is lower than acceptable'
       }
     else
       return {
         'status': 'success',
-        'message': 'Normal'
+        'message': 'Power is normal'
       }
 
   }
