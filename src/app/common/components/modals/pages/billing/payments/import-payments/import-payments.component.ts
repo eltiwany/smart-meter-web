@@ -22,7 +22,7 @@ export class ImportPaymentsComponent implements OnInit {
   arrayBuffer: any;
   approvedToImport = false;
 
-  importColumns = ['EMAIL', 'TRANSACTION_ID', 'TRANSACTION_DATE', 'AMOUNT', 'DESCRIPTION'];
+  importColumns = ['EMAIL', 'TRANSACTION_ID', 'TRANSACTION_DATE', 'AMOUNT', 'TOKEN', 'UNITS', 'DESCRIPTION'];
 
   form = new FormGroup({
   });
@@ -40,9 +40,19 @@ export class ImportPaymentsComponent implements OnInit {
         TRANSACTION_ID: 'CRDB/001/2031/' + (new Date().getTime()),
         TRANSACTION_DATE: new Date(),
         AMOUNT: Math.round(Math.random() * 10000),
+        TOKEN: this.generateToken(),
+        UNITS: Math.round(Math.random() * 1000),
         DESCRIPTION: 'Malipo ya Umeme',
       });
     }
+  }
+
+  generateToken() {
+    let token = '';
+    for (let index = 0; index < 5; index++) {
+      token += Math.floor(1000 + Math.random() * 9000) + ' ';
+    }
+    return token;
   }
 
   downloadExcel() {
