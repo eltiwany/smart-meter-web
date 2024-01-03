@@ -246,6 +246,7 @@ export class SmartReportsComponent implements OnInit {
         power: 1200,
         energy: 3120,
         losses: 0,
+        losses_resistance: 0,
         powerlosses: 21,
       }
     }
@@ -273,6 +274,7 @@ export class SmartReportsComponent implements OnInit {
               power: this.getPower(powerdata.power),
               energy: this.getPower(powerdata.energy),
               losses: powerdata.losses,
+              losses_resistance: powerdata.losses_resistance,
               powerlosses: this.getPower(powerdata.powerlosses)
             }
           }
@@ -321,8 +323,10 @@ export class SmartReportsComponent implements OnInit {
               {
                 time: time[index],
                 power: ((v * response.data[0].columns[1]['data'][index]) / 1000),
-                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000),
-                earthing: (response.data[0].earthing_columns[0]['data'][index])
+                loss: (Math.abs((v * (response.data[0].columns[1]['data'][index + 1] ?? response.data[0].columns[1]['data'][index]) / 1000) - (v * response.data[0].columns[1]['data'][index] / 1000))).toFixed(4),
+                // loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000),
+                earthing: (response.data[0].earthing_columns[0]['data'][index]),
+                earthing_resistance: (response.data[0].earthing_resistance_columns[0]['data'][index])
               }
             );
           });

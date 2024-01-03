@@ -75,8 +75,12 @@
         <td>{{ general.formatNumber(spot.powerdata.energy, 1) }}Wh</td>
       </tr>
       <tr>
-        <th>Earthing Loss</th>
+        <th>Ground Current</th>
         <td>{{ general.formatNumber(spot.powerdata.losses, 1) }}A</td>
+      </tr>
+      <tr>
+        <th>Ground Resitance</th>
+        <td>{{ general.formatNumber(spot.powerdata.losses_resistance, 1) }}Ω</td>
       </tr>
     </table>
   </div>
@@ -196,7 +200,8 @@
                 <th>Time</th>
                 <th>Power (kW)</th>
                 <th>Loss (kW)</th>
-                <th>Earthing Loss (A)</th>
+                <th>Ground Current (A)</th>
+                <th>Ground Resistance (Ω)</th>
               </tr>
 
               <tr *ngFor="let summary of summaryByArea, let i = index">
@@ -205,6 +210,7 @@
                 <td>{{ summary.power }}</td>
                 <td>{{ summary.loss }}</td>
                 <td>{{ summary.earthing }}</td>
+                <td>{{ summary.earthing_resistance }}</td>
               </tr>
 
               <tr>
@@ -212,6 +218,7 @@
                 <th>{{ sumValue(summaryByArea, 'power') }}</th>
                 <th>{{ sumValue(summaryByArea, 'loss') }}</th>
                 <th>{{ sumValue(summaryByArea, 'earthing') }}</th>
+                <th>{{ sumValue(summaryByArea, 'earthing_resistance') }}</th>
               </tr>
             </table>
           </div>

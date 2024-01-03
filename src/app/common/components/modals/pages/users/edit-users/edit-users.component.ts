@@ -48,6 +48,7 @@ export class EditUsersComponent implements OnInit {
     'house_number': new FormControl(),
     'residence_id': new FormControl(),
     'coordinates': new FormControl(),
+    'availableUnits': new FormControl(),
     'roleId': new FormControl(),
   });
 
@@ -86,6 +87,10 @@ export class EditUsersComponent implements OnInit {
   get coordinates() {
     return this.form.get('coordinates');
   }
+  
+  get availableUnits() {
+    return this.form.get('availableUnits');
+  }
 
   get roleId() {
     return this.form.get('roleId');
@@ -104,6 +109,7 @@ export class EditUsersComponent implements OnInit {
       this.form.setControl('house_number', new FormControl(this.data.house_number));
       this.form.setControl('residence_id', new FormControl(this.data.residence_id));
       this.form.setControl('coordinates', new FormControl(this.data.coordinates));
+      this.form.setControl('availableUnits', new FormControl(this.data.available_units));
       this.form.setControl('roleId', new FormControl(this.data.role_id, [GeneralValidators.required, GeneralValidators.isNot(this.selectors.role)]));
     }
     this.getRoles();
@@ -142,6 +148,7 @@ export class EditUsersComponent implements OnInit {
       house_number: this.house_number?.value,
       residence_id: this.residence_id?.value,
       coordinates: this.coordinates?.value,
+      available_units: this.availableUnits?.value,
     };
     // console.log(data);
 

@@ -1,3 +1,4 @@
+import { BoardsService } from './../../../../services/iot/boards.service';
 import { PreferencesService } from './../../../../common/services/preferences.service';
 import { ModalsService } from './../../../../common/services/layouts/modals.service';
 import { UsersService } from './../../../../services/pages/users.service';
@@ -23,6 +24,7 @@ export class MySmartReportsComponent implements OnInit {
   sensors: any[] = [];
   sensorData: any = [];
   dtOptions: DataTables.Settings = {};
+  availableUnits: number = 0;
 
   healthStatus: any = [];
   summaryByArea: any[] = [];
@@ -76,11 +78,18 @@ export class MySmartReportsComponent implements OnInit {
     private sensorsService: SensorsService,
     public modal: ModalsService,
     private usersService: UsersService,
-    private preferences: PreferencesService
+    private preferences: PreferencesService,
+    private userBoard: BoardsService
   ) { }
 
   ngOnInit(): void {
     this.fullName = this.auth.getAuth().name;
+
+    this.userBoard.getUserBoards().then((response) => {
+      if (!response.error)
+        this.availableUnits = response.data[0].board.available_units;
+        console.log(this.availableUnits);
+    });
 
     this.reports.getUserBriefStats().then((response) => {
       if (!response.error)
@@ -127,8 +136,10 @@ export class MySmartReportsComponent implements OnInit {
               {
                 time: time[index],
                 power: ((v * response.data[0].columns[1]['data'][index]) / 1000),
-                loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000),
-                earthing: (response.data[0].earthing_columns[0]['data'][index])
+                loss: (Math.abs((v * (response.data[0].columns[1]['data'][index + 1] ?? response.data[0].columns[1]['data'][index]) / 1000) - (v * response.data[0].columns[1]['data'][index] / 1000))).toFixed(4),
+                // loss: ((response.data[0].loss_columns[0]['data'][index] * response.data[0].loss_columns[1]['data'][index]) / 1000),
+                earthing: (response.data[0].earthing_columns[0]['data'][index]),
+                earthing_resistance: (response.data[0].earthing_resistance_columns[0]['data'][index])
               }
             );
           });
@@ -175,7 +186,7 @@ export class MySmartReportsComponent implements OnInit {
         this.healthStatus = response.data;
 
         this.currentData = this.healthStatus.filter((curr: any) => curr.si == 'A');
-        this.resistanceData = this.healthStatus.filter((curr: any) => curr.si == 'R');
+        this.resistanceData = this.healthStatus.filter((curr: any) => curr.si == 'Ω');
     });
   }
 
@@ -223,7 +234,7 @@ export class MySmartReportsComponent implements OnInit {
     let threshold_plus = Number(threshold) + (Number(threshold) * (Number(threshold_percentage) / 100))
     let threshold_minus = Number(threshold) - (Number(threshold) * (Number(threshold_percentage) / 100))
 
-    if (si == 'R') {
+    if (si == 'Ω') {
       if (powerData[3] <= 5)
         return {
           'status': 'success',
@@ -244,7 +255,7 @@ export class MySmartReportsComponent implements OnInit {
     }
 
     if (si == 'A') {
-      if (powerData[3] > threshold_plus && powerData[3] < threshold_minus)
+      if (powerData[3] > 5)
         return {
           'status': 'warning',
           'message': 'Check electrical network for short circuit, open circuit and earth fault'
@@ -282,11 +293,13 @@ export class MySmartReportsComponent implements OnInit {
         'status': 'danger',
         'message': 'Power is higher than acceptable'
       }
+
     if (percent > this.thresholdPercent && (powerData[0] > powerData[3]))
       return {
         'status': 'warning',
         'message': 'Power is lower than acceptable'
       }
+
     else
       return {
         'status': 'success',

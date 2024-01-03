@@ -134,6 +134,19 @@
     <label for="floatingCoordinates">Coordinates</label>
     <p class="text-danger font-weight-bold p-0 m-0" *ngIf="coordinates?.touched && coordinates?.invalid">{{ coordinates?.errors?.message }}</p>
   </div>
+  
+  <div class="form-floating mb-3">
+    <input
+      formControlName="availableUnits"
+      [class.invalid]="availableUnits?.touched && availableUnits?.invalid"
+      type="number"
+      class="form-control"
+      id="floatingavailableUnits"
+      placeholder="Available Units"
+    >
+    <label for="floatingavailableUnits">Available Units</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="availableUnits?.touched && availableUnits?.invalid">{{ availableUnits?.errors?.message }}</p>
+  </div>
 
   <div class="form-floating mb-3">
     <select
