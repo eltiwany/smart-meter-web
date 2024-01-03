@@ -22,14 +22,14 @@
         <div [class]="'col-md-6 my-2'" style="font-weight: bold;">
           <div [class]="'bg-' + getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status + ' rounded p-3 ' + (getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'warning' ? '' : 'text-white')">
             <i class="bi bi-{{ getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'success' ? 'check' : 'exclamation' }}-circle"></i>
-            &emsp; {{ getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'success' ? 'Earthing current is normal' : 'Check status of earthing current' }}
+            &emsp; {{ getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'success' ? 'Ground current is normal' : 'Check status of ground current' }}
           </div>
         </div>
 
         <div [class]="'col-md-6 my-2'" style="font-weight: bold;">
           <div [class]="'bg-' + getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status + ' rounded p-3 ' + (getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'warning' ? '' : 'text-white')">
             <i class="bi bi-{{ getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'success' ? 'check' : 'exclamation' }}-circle"></i>
-            &emsp; {{ getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'success' ? 'Earthing resistace is normal' : 'Check status of earthing resistace' }}
+            &emsp; {{ getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'success' ? 'Ground resistace is normal' : 'Check status of ground resistace' }}
           </div>
         </div>
         
