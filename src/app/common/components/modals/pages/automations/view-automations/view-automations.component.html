@@ -99,14 +99,14 @@
             type="text"
             class="form-control"
             id="floatingActuator"
-            placeholder="Actuator"
+            placeholder="Appliance"
           >
             <option [value]="">{{ selectors.userActuator }}</option>
             <option *ngFor="let userActuator of userActuators" [ngValue]="userActuator">
               {{ userActuator.actuator.user_defined_name ?? userActuator.actuator.name }}
             </option>
           </select>
-          <label for="floatingActuator">Actuator</label>
+          <label for="floatingActuator">Appliance</label>
           <p class="text-danger font-weight-bold p-0 m-0" *ngIf="userActuator?.touched && userActuator?.invalid">{{ userActuator?.errors?.message }}</p>
         </div>
       </div>

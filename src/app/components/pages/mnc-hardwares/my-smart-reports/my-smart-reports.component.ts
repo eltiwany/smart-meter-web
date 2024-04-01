@@ -9,7 +9,9 @@ import { SummaryReportsService } from './../../../../services/pages/reports/summ
 import { UserBoardsService } from './../../../../services/iot/user-boards.service';
 import { GeneralService } from './../../../../services/general.service';
 import { AuthService } from './../../../../services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-my-smart-reports',
@@ -25,6 +27,7 @@ export class MySmartReportsComponent implements OnInit {
   sensorData: any = [];
   dtOptions: DataTables.Settings = {};
   availableUnits: number = 0;
+  // @ViewChild('smartApplianceReports') smartApplianceReports: ElementRef;
 
   healthStatus: any = [];
   summaryByArea: any[] = [];
@@ -79,7 +82,8 @@ export class MySmartReportsComponent implements OnInit {
     public modal: ModalsService,
     private usersService: UsersService,
     private preferences: PreferencesService,
-    private userBoard: BoardsService
+    private userBoard: BoardsService,
+    private viewportScroller: ViewportScroller
   ) { }
 
   ngOnInit(): void {
@@ -229,19 +233,20 @@ export class MySmartReportsComponent implements OnInit {
   }
 
   getNoticationStatus(powerData: number[], threshold = 0, threshold_percentage = 0, si: string = 'W') {
-    let percent = Math.round((Math.max(...powerData) - Math.min(...powerData)) / Math.max(...powerData) * 100);
+    let percent = Math.round((Math.max(...powerData) - Math.min(...powerData)) / (Math.max(...powerData) + Math.min(...powerData)) * 100);
 
     let threshold_plus = Number(threshold) + (Number(threshold) * (Number(threshold_percentage) / 100))
     let threshold_minus = Number(threshold) - (Number(threshold) * (Number(threshold_percentage) / 100))
 
     if (si == 'Ω') {
-      if (powerData[3] <= 5)
+      let resistanceData = powerData[3];
+      if (resistanceData <= 2.5)
         return {
           'status': 'success',
-          'message': 'Ground resistance OK'
+          'message': 'Earthing resistance OK'
         }
 
-      else if (powerData[3] > 10000)
+      else if (resistanceData > 10000)
         return {
           'status': 'danger',
           'message': 'Disconnected ground system'
@@ -255,7 +260,8 @@ export class MySmartReportsComponent implements OnInit {
     }
 
     if (si == 'A') {
-      if (powerData[3] > 5)
+      let groundCurrentData = powerData[3];
+      if (groundCurrentData > 0)
         return {
           'status': 'warning',
           'message': 'Check electrical network for short circuit, open circuit and earth fault'
@@ -264,7 +270,7 @@ export class MySmartReportsComponent implements OnInit {
       else
         return {
           'status': 'success',
-          'message': 'Ground current OK'
+          'message': 'Earthing fault current OK'
         }
     }
 
@@ -306,6 +312,10 @@ export class MySmartReportsComponent implements OnInit {
         'message': 'Power is normal'
       }
 
+  }
+
+  scrollToReport() {
+    this.viewportScroller.scrollToAnchor('smartApplianceReports')
   }
 
 }

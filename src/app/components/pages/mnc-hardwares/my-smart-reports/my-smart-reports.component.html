@@ -12,8 +12,8 @@
   </div>
   <div class="card-body">
       <div class="row" *ngIf="currentData.length > 0">
-        <div [class]="'col-md-6 my-2'" style="font-weight: bold;">
-          <div [class]="'bg-' + getNoticationPowerStatus().status + ' rounded p-3 ' + (getNoticationPowerStatus().status == 'warning' ? '' : 'text-white')">
+        <div [class]="'col-md-6 my-2'" style="font-weight: bold; text-decoration: underline; cursor: pointer;">
+          <div (click)="scrollToReport()" [class]="'bg-' + getNoticationPowerStatus().status + ' rounded p-3 ' + (getNoticationPowerStatus().status == 'warning' ? '' : 'text-white')">
             <i class="bi bi-{{ getNoticationPowerStatus().status == 'success' ? 'check' : 'exclamation' }}-circle"></i>
             &emsp; {{ getNoticationPowerStatus().message }}
           </div>
@@ -22,17 +22,17 @@
         <div [class]="'col-md-6 my-2'" style="font-weight: bold;">
           <div [class]="'bg-' + getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status + ' rounded p-3 ' + (getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'warning' ? '' : 'text-white')">
             <i class="bi bi-{{ getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'success' ? 'check' : 'exclamation' }}-circle"></i>
-            &emsp; {{ getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'success' ? 'Ground current is normal' : 'Check status of ground current' }}
+            &emsp; {{ getNoticationStatus(currentData[0].statuses, currentData[0].sensor.threshold, currentData[0].sensor.threshold_percentage, currentData[0].si).status == 'success' ? 'Earthing fault current is normal' : 'Check status of Earthing fault current' }}
           </div>
         </div>
 
         <div [class]="'col-md-6 my-2'" style="font-weight: bold;">
           <div [class]="'bg-' + getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status + ' rounded p-3 ' + (getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'warning' ? '' : 'text-white')">
             <i class="bi bi-{{ getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'success' ? 'check' : 'exclamation' }}-circle"></i>
-            &emsp; {{ getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'success' ? 'Ground resistace is normal' : 'Check status of ground resistace' }}
+            &emsp; {{ getNoticationStatus(resistanceData[0].statuses, resistanceData[0].sensor.threshold, resistanceData[0].sensor.threshold_percentage, resistanceData[0].si).status == 'success' ? 'Earthing resistance is normal' : 'Check status of Earthing resistance' }}
           </div>
         </div>
-        
+
         <div [class]="'col-md-6 my-2'" style="font-weight: bold;">
           <div [class]="'bg-' + (availableUnits > 10 ? 'success' : 'warning') + ' rounded p-3 ' + (availableUnits <= 10 ? '' : 'text-white')">
             <i class="bi bi-{{ availableUnits > 10 ? 'check' : 'exclamation' }}-circle"></i>
@@ -66,7 +66,7 @@
               <app-card-brief
                 *ngIf="i == 0"
                 class="col-md-3"
-                [addedHeight]="data.length - 1"
+                [addedHeight]="(data.length / 2)"
                 [cardName]="datum[0].name"
                 [cardNumber]="getPower(datum[0].value)"
                 [cardNumberSI]="datum[0]?.si"
@@ -154,25 +154,25 @@
                 <th>Time</th>
                 <th>Power (kW)</th>
                 <th>Loss (kW)</th>
-                <th>Ground Current (A)</th>
+                <th>Earthing fault current (A)</th>
                 <th>Ground Resitance (Ω)</th>
               </tr>
 
               <tr *ngFor="let summary of summaryByArea, let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ summary.time }}</td>
-                <td>{{ summary.power }}</td>
-                <td>{{ summary.loss }}</td>
-                <td>{{ summary.earthing }}</td>
-                <td>{{ summary.earthing_resistance }}</td>
+                <td>{{ summary.power | number:'1.4-4' }}</td>
+                <td>{{ summary.loss | number:'1.4-4' }}</td>
+                <td>{{ summary.earthing | number:'1.4-4' }}</td>
+                <td>{{ summary.earthing_resistance | number:'1.4-4' }}</td>
               </tr>
 
               <tr>
                 <th colspan="2">Total</th>
-                <th>{{ sumValue(summaryByArea, 'power') }}</th>
-                <th>{{ sumValue(summaryByArea, 'loss') }}</th>
-                <th>{{ sumValue(summaryByArea, 'earthing') }}</th>
-                <th>{{ sumValue(summaryByArea, 'earthing_resistance') }}</th>
+                <th>{{ sumValue(summaryByArea, 'power')  | number:'1.4-4' }}</th>
+                <th>{{ sumValue(summaryByArea, 'loss')  | number:'1.4-4' }}</th>
+                <th>{{ sumValue(summaryByArea, 'earthing')  | number:'1.4-4' }}</th>
+                <th>{{ sumValue(summaryByArea, 'earthing_resistance')  | number:'1.4-4' }}</th>
               </tr>
             </table>
           </div>
@@ -200,7 +200,7 @@
   </div>
 </div>
 
-<div class="card mb-4 shadow">
+<div class="card mb-4 shadow" id="smartApplianceReports">
   <div class="card-header bg-primary text-white">
     <h5 class="p-0 m-0 font-weight-750">
       <i class="bi bi-heart-fill" style="margin-right: 10px;"></i>
@@ -213,13 +213,14 @@
           <thead class="thead-light">
           <tr class="text-center">
             <th rowspan="1">ID</th>
-            <th rowspan="1">Sensor Name</th>
-            <th colspan="4">Power Usage</th>
+            <th rowspan="1">Appliance Name</th>
+            <th colspan="5">Power Usage</th>
             <th rowspan="1">Status</th>
           </tr>
           <tr class="text-center">
             <th></th>
             <th></th>
+            <th>Last Year</th>
             <th>Last Month</th>
             <th>Last 2 weeks</th>
             <th>Last Week</th>

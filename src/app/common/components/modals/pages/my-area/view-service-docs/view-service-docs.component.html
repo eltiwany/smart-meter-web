@@ -1,5 +1,7 @@
 <div *ngIf="data.file_path" style="height: 900px;">
   <object [data]="fileUrl" type="application/pdf" width="100%" height="100%">
-    <p>Alternative text - include a link <a [href]="fileUrl">to the PDF!</a></p>
+    <p>You can not preview PDF on this device, please download PDF file with link below
+    <br/><br/>
+    <a [href]="fileUrl" target="_blank" style="font-weight: bold; text-decoration: underline; color:blue;">Download {{ data.file_path }}</a></p>
   </object>
 </div>

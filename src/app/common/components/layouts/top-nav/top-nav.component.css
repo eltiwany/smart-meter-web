@@ -1,0 +1,6 @@
+.float-right {
+  float: right !important;
+  position: absolute !important;
+  left: 130px !important;
+  top: -35px !important;
+}

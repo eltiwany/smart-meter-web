@@ -67,12 +67,51 @@ export class ColumnChartComponent implements OnInit {
       },
       xaxis: {
         title: {
-          text: "Time (t)"
+          text: "x-axis [Time (t)]"
+        },
+
+        axisBorder: {
+          show: true,
+          color: '#1F2937',
+          height: 1,
+          width: '100%',
+          offsetX: 0,
+          offsetY: 0
+        },
+
+        axisTicks: {
+          show: true,
+          borderType: 'solid',
+          color: '#1F2937',
+          height: 6,
+          width: '100%',
+          offsetX: 0,
+          offsetY: 0
         }
+
       },
       yaxis: {
         title: {
-          text: this.fn.getColumnNames(this.columns)
+          text: `y-axis [${this.fn.getColumnNames(this.columns)}]`
+        },
+
+        axisBorder: {
+          show: true,
+          color: '#1F2937',
+          // height: 1,
+          // width: '100%',
+          offsetX: 0,
+          offsetY: 0
+        },
+
+        axisTicks: {
+          show: true,
+          borderType: 'solid',
+          color: '#1F2937',
+          // height: 3,
+          width: 6,
+          offsetX: 0,
+          offsetY: 0
         }
       },
       fill: {

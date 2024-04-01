@@ -1,22 +1,22 @@
 <div class="col-12 mb-3">
-  <div *ngIf="!allDataUrl" class="card border-0 shadow bg-light text-dark" [style]="'height: ' + ((addedHeight != 1 ? (100 + 11) : 100) * addedHeight) + 'px'">
+  <div *ngIf="!allDataUrl" class="card border-0 shadow bg-light text-dark" [style]="'height: ' + ((addedHeight != 1 ? (100 + 11) : 100) * ((addedHeight * 2) - 1)) + 'px'">
       <div class="card-body" style="display: flex; justify-content: center;">
           <div class="row align-items-center">
               <div class="col-12 text-center">
                 <h5 class="mb-0" [style]="'font-size: 20px;'"> {{ cardName | uppercase }}</h5>
-                <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'number'">{{ general.formatNumber(cardNumber, 1) + (cardNumberSI ?? "") }}</h3>
+                <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'number'">{{ general.formatNumber(cardNumber, 1) + " " + (cardNumberSI ?? "") }}</h3>
                 <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'percent'">{{ (cardNumber | number) + "%" }}</h3>
                 <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'currency'">{{ (cardNumber | number) }}</h3>
               </div>
           </div>
       </div>
   </div>
-  <a *ngIf="allDataUrl" [routerLink]="allDataUrl" class="card border-0 shadow text-dark" [style]="'height: ' + ((addedHeight != 1 ? (100 + 11) : 100) * addedHeight) + 'px; background: beige !important;'">
+  <a *ngIf="allDataUrl" [routerLink]="allDataUrl" class="card border-0 shadow text-dark" [style]="'height: ' + ((addedHeight != 1 ? (100 + 11) : 100) * ((addedHeight * 2) - 1)) + 'px; background: beige !important;'">
       <div class="card-body" style="display: flex; justify-content: center;">
           <div class="row align-items-center">
               <div class="col-12 text-center">
                 <h5 class="mb-0" [style]="'font-size: 20px;'"> <i class="bi bi-link"></i> {{ cardName | uppercase }}</h5>
-                <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'number'">{{ general.formatNumber(cardNumber, 1) + (cardNumberSI ?? "") }}</h3>
+                <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'number'">{{ general.formatNumber(cardNumber, 1) + " " + (cardNumberSI ?? "") }}</h3>
                 <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'percent'">{{ (cardNumber | number) + "%" }}</h3>
                 <h3 class="fw-extrabold mb-2" [style]="'font-size: ' + (25 * addedHeight) + 'px;'" *ngIf="cardNumberFormat == 'currency'">{{ (cardNumber | number) }}</h3>
               </div>
