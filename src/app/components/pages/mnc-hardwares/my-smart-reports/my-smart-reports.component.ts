@@ -92,7 +92,7 @@ export class MySmartReportsComponent implements OnInit {
     this.userBoard.getUserBoards().then((response) => {
       if (!response.error)
         this.availableUnits = response.data[0].board.available_units;
-        console.log(this.availableUnits);
+        // console.log(this.availableUnits);
     });
 
     this.reports.getUserBriefStats().then((response) => {
@@ -190,6 +190,7 @@ export class MySmartReportsComponent implements OnInit {
         this.healthStatus = response.data;
 
         this.currentData = this.healthStatus.filter((curr: any) => curr.si == 'A');
+        console.log(this.currentData);
         this.resistanceData = this.healthStatus.filter((curr: any) => curr.si == 'Ω');
     });
   }
@@ -207,8 +208,8 @@ export class MySmartReportsComponent implements OnInit {
   getSensors() {
     this.sensorsService.getAutoAddedUserSensors().then((response) => {
       if (!response.error)
-
-      this.sensors = response.data;
+        this.sensors = response.data;
+        // console.table(response.data);
       // console.table(this.data);
     });
   }
@@ -216,7 +217,7 @@ export class MySmartReportsComponent implements OnInit {
   getNoticationPowerStatus() {
     let powerOk = true;
     this.healthStatus.forEach((power: any) => {
-      if (this.getNoticationStatus(power.statuses, power.sensor.threshold, power.sensor.threshold_percentage, power.si).status != 'success' && power.si == 'W')
+      if (this.getNoticationStatus(power.statuses, power?.sensor?.threshold, power?.sensor?.threshold_percentage, power.si).status != 'success' && power.si == 'W')
         powerOk = false;
     });
 

@@ -90,6 +90,7 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
 
     this.sensorsService.getUserSensorValuesPerSensor(sensorId).then((response) => {
       if (!response.error) {
+
         this.sensorData = response.data[0];
         this.columns = this.sensorData.columns;
         this.sensors = this.sensorData.sensors;
@@ -108,12 +109,17 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
                     ((this.columns[0]['data'][index] * this.columns[1]['data'][index]) / 1000)
                 )).toFixed(4);
 
+            // console.log(JSON.stringify(this.time));
+
             power = ((v * this.columns[1]['data'][index]) / 1000).toFixed(2);
 
-            while (loss > power)
-                  loss = (loss - power).toFixed(4);
+            if (loss > power)
+                  loss = (power - (loss/(power+loss))).toFixed(4);
 
-            powerData.push({ x: (index + 1), y: power });
+            // while (loss > power)
+            // loss = (loss - power).toFixed(4);
+
+                  powerData.push({ x: (index + 1), y: power });
             powerLossData.push({
               x: (index + 1),
               y: isNaN(loss) ? 0 : loss
@@ -139,7 +145,7 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
           }
         ]
 
-        console.log(this.power, this.powerWithLosses);
+        // console.log(this.power, this.powerWithLosses);
       }
 
       this.setSelectedColumns();
