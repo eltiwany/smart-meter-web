@@ -84,4 +84,13 @@ export class UserBoardsService {
     return await this.http.post(this.api.boards.setBoardStatus, {token: token}, true);
   }
 
+  /**
+   * Disconnect board from API
+   * @param void
+   * @returns Promise<any>
+   */
+   async setBoardTemperStatus(token:string): Promise<any> {
+    return await this.http.post(this.api.boards.setBoardTemperStatus, {token: token}, true);
+  }
+
 }

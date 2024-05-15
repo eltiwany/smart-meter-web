@@ -31,6 +31,12 @@ export class SideNavComponent implements OnInit {
     'roles',
   ];
 
+  ticketsRoutes = [
+    'new-ticket',
+    'open-tickets',
+    'closed-tickets',
+  ];
+
   billingRoutes = [
     'payments',
     'user-payments',

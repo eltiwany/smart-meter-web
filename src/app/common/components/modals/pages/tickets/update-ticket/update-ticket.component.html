@@ -1,0 +1,41 @@
+<form class="p-1" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+  <div class="form-floating mb-3">
+    <textarea
+      formControlName="remark"
+      [class.invalid]="remark?.touched && remark?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingname"
+      placeholder="Remark"
+      style="min-height: 300px;"
+    ></textarea>
+    <label for="floatingname">Remark</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="remark?.touched && remark?.invalid">{{ remark?.errors?.message }}</p>
+  </div>
+
+  <div class="form-floating mb-3">
+    <select
+      formControlName="status"
+      [class.invalid]="status?.touched && status?.invalid"
+      type="text"
+      class="form-control"
+      id="floatingStatus"
+      placeholder="Status"
+    >
+      <option [value]="">-- Select Status --</option>
+      <option *ngFor="let status of statuses" [value]="status">
+        {{ status }}
+      </option>
+    </select>
+    <label for="floatingStatus">Status</label>
+    <p class="text-danger font-weight-bold p-0 m-0" *ngIf="status?.touched && status?.invalid">{{ status?.errors?.message }}</p>
+  </div>
+  <button
+    class="w-100 btn btn-lg btn-primary"
+    [class.disabled]="form.invalid"
+    [type]="form.valid ? 'submit' : 'button'"
+    >
+    <i class="bi bi-file-earmark-plus-fill"></i>
+    Submit Ticket
+  </button>
+</form>

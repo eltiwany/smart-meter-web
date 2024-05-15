@@ -28,6 +28,9 @@ import { ImportTestDataComponent } from './pages/user-boards/import-test-data/im
 import { PrintPaymentsComponent } from './pages/billing/payments/print-payments/print-payments.component';
 import { DeletePaymentsComponent } from './pages/billing/payments/delete-payments/delete-payments.component';
 import { ImportPaymentsComponent } from './pages/billing/payments/import-payments/import-payments.component';
+import { ViewTicketComponent } from './pages/tickets/view-ticket/view-ticket.component';
+import { UpdateTicketComponent } from './pages/tickets/update-ticket/update-ticket.component';
+import { DeleteTicketComponent } from './pages/tickets/delete-ticket/delete-ticket.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { ImportPaymentsComponent } from './pages/billing/payments/import-payment
     PrintPaymentsComponent,
     DeletePaymentsComponent,
     ImportPaymentsComponent,
+    ViewTicketComponent,
+    UpdateTicketComponent,
+    DeleteTicketComponent,
   ],
   imports: [
     CommonModule,

@@ -47,6 +47,12 @@ export class UserBoardsComponent implements OnInit {
     });
   }
 
+  changeTemperStatus(token: string) {
+    this.userBoard.setBoardTemperStatus(token).then((response) => {
+      this.loader.refresh();
+    });
+  }
+
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -70,6 +76,7 @@ export class UserBoardsComponent implements OnInit {
         { data: 'email' },
         { data: 'name' },
         { data: 'is_online' },
+        { data: 'temper' },
         { data: 'token' },
         { data: '', orderable: false}
       ],

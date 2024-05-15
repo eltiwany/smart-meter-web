@@ -184,6 +184,96 @@
       </div>
     </li>
 
+    <li role="separator" class="dropdown-divider mt-3 mb-3 border-gray-700"></li>
+
+    <!-- Tickets -->
+    <li *ngIf="permissions.isAllowedPath(ticketsRoutes)" class="nav-item" routerLinkActive="active">
+      <span
+        [class.collapsed]="!router.isActive('tickets', false)"
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse" data-bs-target="#submenu-tickets"
+        [attr.aria-expanded]="router.isActive('tickets', false)">
+        <span>
+          <span class="sidebar-icon">
+            <i class="icon icon-xs me-2 bi bi-receipt"></i>
+          </span>
+          <span class="sidebar-text">Tickets</span>
+        </span>
+        <span class="link-arrow">
+          <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+        </span>
+      </span>
+      <div class="multi-level collapse " role="list"
+        id="submenu-tickets" aria-expanded="false"
+        [class.show]="router.isActive('tickets', false)">
+
+        <!-- Submenus -->
+        <ul class="flex-column nav">
+
+          <!-- New TIcket -->
+          <li *ngIf="permissions.isAllowedPath(['new-ticket'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/tickets/new-ticket">
+              <span class="sidebar-icon">
+                <i class="bi bi-plus-square-fill"></i>
+              </span>
+              <span class="sidebar-text">New Ticket</span>
+            </a>
+          </li>
+
+          <!-- All TIckets -->
+          <li *ngIf="permissions.isAllowedPath(['all-tickets'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/tickets/all-tickets">
+              <span class="sidebar-icon">
+                <i class="bi bi-list"></i>
+              </span>
+              <span class="sidebar-text">All Tickets</span>
+            </a>
+          </li>
+
+          <!-- Open TIckets -->
+          <li *ngIf="permissions.isAllowedPath(['my-tickets'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/tickets/my-tickets">
+              <span class="sidebar-icon">
+                <i class="bi bi-envelope-fill"></i>
+              </span>
+              <span class="sidebar-text">My Tickets</span>
+            </a>
+          </li>
+
+          <!-- Open TIckets -->
+          <li *ngIf="permissions.isAllowedPath(['open-tickets'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/tickets/open-tickets">
+              <span class="sidebar-icon">
+                <i class="bi bi-envelope-open-fill"></i>
+              </span>
+              <span class="sidebar-text">Open Tickets</span>
+            </a>
+          </li>
+
+          <!-- Open TIckets -->
+          <li *ngIf="permissions.isAllowedPath(['closed-tickets'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/tickets/closed-tickets">
+              <span class="sidebar-icon">
+                <i class="bi bi-check-circle-fill"></i>
+              </span>
+              <span class="sidebar-text">Closed Tickets</span>
+            </a>
+          </li>
+
+          <!-- Open TIckets -->
+          <li *ngIf="permissions.isAllowedPath(['escalated-tickets'])" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/tickets/escalated-tickets">
+              <span class="sidebar-icon">
+                <i class="bi bi-arrow-right"></i>
+              </span>
+              <span class="sidebar-text">Escalated Tickets</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </li>
+
     <!-- Separator -->
     <li role="separator" class="dropdown-divider mt-3 mb-3 border-gray-700"></li>
 

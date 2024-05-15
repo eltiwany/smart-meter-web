@@ -21,6 +21,7 @@ export class SystemPreferencesComponent implements OnInit {
     'systemName',
     'itSupport',
     'thresholdPercent',
+    'tariff',
   ];
 
   form: FormGroup;

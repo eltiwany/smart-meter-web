@@ -159,5 +159,32 @@
       </div>
     </div>
 
+    <!-- Report Threashold -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <p class="event_desc">Tariff
+          <br>
+          <small>
+            <i>
+              <i class="bi bi-caret-right-fill me-2"></i>
+              (Rate in Tsh for 1kwh)<br>
+            </i>
+          </small>
+        </p>
+      </div>
+      <div class="col-md-8">
+          <input
+            (change)="updatePreference('tariff')"
+            formControlName="tariff"
+            [class.invalid]="form.get('tariff')?.touched && form.get('tariff')?.invalid"
+            type="number"
+            class="form-control"
+            id="floatingtariff"
+            placeholder="Tariff"
+          >
+          <p class="text-danger font-weight-bold p-0 m-0" *ngIf="form.get('tariff')?.touched && form.get('tariff')?.invalid">{{ form.get('tariff')?.errors?.message }}</p>
+      </div>
+    </div>
+
   </form>
 </div>

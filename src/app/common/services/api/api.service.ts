@@ -86,6 +86,15 @@ export class ApiService {
   }
 
   /**
+   * Users Api's
+   */
+   tickets = {
+    getTickets: this.host + 'get-tickets',
+    getTicketThread: this.host + 'get-ticket-thread',
+    tickets: this.host + 'tickets',
+  }
+
+  /**
    * Messages Api's
    */
   messages = {
@@ -103,6 +112,7 @@ export class ApiService {
     boards: this.host + 'boards',
     userBoards: this.host + 'user-boards',
     setBoardStatus: this.host + 'set-board-omc',
+    setBoardTemperStatus: this.host + 'set-temper',
   }
 
   /**

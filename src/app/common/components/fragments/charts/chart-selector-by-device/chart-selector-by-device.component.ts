@@ -1,3 +1,4 @@
+import { PreferencesService } from './../../../../services/preferences.service';
 import { GeneralValidators } from './../../../../../validators/general.validators';
 import { SensorsService } from './../../../../../services/iot/sensors.service';
 import { FunctionsService } from './../../../../services/extras/functions.service';
@@ -14,6 +15,8 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
   // selectedColumns: any[] = [];
   columns: any[] = [];
   power: any[] = [];
+  cost: any[] = [];
+  energy: any[] = [];
   powerWithLosses: any[] = [];
   lossColumns: any[] = [];
   sensors: any;
@@ -31,7 +34,8 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
 
   constructor(
     public fn: FunctionsService,
-    private sensorsService: SensorsService
+    private sensorsService: SensorsService,
+    private preferencesService: PreferencesService
   ) { }
 
   get chartOption() {
@@ -99,56 +103,90 @@ export class ChartSelectorByDeviceComponent implements OnInit, OnChanges {
 
         let powerData: any[] = [];
         let powerLossData: any[] = [];
-        let loss: any, power: any;
+        let costData: any[] = [];
+        let energyData: any[] = [];
+        let loss: any, power: any, tariff: number = 0, cost, energy;
 
-        this.columns[0]['data'].forEach((v: number, index: number) => {
-          if (index < 12) {
-            loss =
-                (Math.abs(
-                    ((this.columns[0]['data'][index + 1] * this.columns[1]['data'][index + 1]) / 1000) -
-                    ((this.columns[0]['data'][index] * this.columns[1]['data'][index]) / 1000)
-                )).toFixed(4);
+        this.preferencesService.getPreference('tariff').then((response) => {
+          if (!response.error)
+            tariff = response.data.value;
 
-            // console.log(JSON.stringify(this.time));
+          this.columns[0]['data'].forEach((v: number, index: number) => {
+            if (index < 12) {
+              loss =
+                  (Math.abs(
+                      ((this.columns[0]['data'][index + 1] * this.columns[1]['data'][index + 1]) / 1000) -
+                      ((this.columns[0]['data'][index] * this.columns[1]['data'][index]) / 1000)
+                  )).toFixed(4);
 
-            power = ((v * this.columns[1]['data'][index]) / 1000).toFixed(2);
+              // console.log(JSON.stringify(this.time));
 
-            if (loss > power)
-                  loss = (power - (loss/(power+loss))).toFixed(4);
+              power = ((v * this.columns[1]['data'][index]) / 1000).toFixed(2);
 
-            // while (loss > power)
-            // loss = (loss - power).toFixed(4);
+              energy = ((v * this.columns[1]['data'][index] * (index + 1)) / 1000).toFixed(2);
 
-                  powerData.push({ x: (index + 1), y: power });
-            powerLossData.push({
-              x: (index + 1),
-              y: isNaN(loss) ? 0 : loss
-            });
-          }
+              cost = ((v * this.columns[1]['data'][index] * (index + 1) * tariff) / 1000).toFixed(2);
+
+              if (loss > power)
+                    loss = (power - (loss/(power+loss))).toFixed(4);
+
+              energyData.push({ x: (index + 1), y: energy });
+              costData.push({ x: (index + 1), y: cost });
+              powerData.push({ x: (index + 1), y: power });
+              powerLossData.push({
+                x: (index + 1),
+                y: isNaN(loss) ? 0 : loss
+              });
+            }
+          });
+
+          this.energy = [
+            {
+              name: 'Energy (kWh)',
+              data: energyData
+            }
+          ]
+
+          this.cost = [
+            {
+              name: 'Cost (Tsh)',
+              data: costData
+            }
+          ]
+
+          this.power = [
+            {
+              name: 'Power (kW)',
+              data: powerData
+            }
+          ]
+
+          this.powerWithLosses = [
+            {
+              name: 'Power (kW)',
+              data: powerData
+            },
+            {
+              name: 'Losses (kW)',
+              data: powerLossData
+            },
+            {
+              name: 'Energy (kWh)',
+              data: energyData
+            },
+            {
+              name: 'Cost (Tsh)',
+              data: costData
+            },
+          ]
+
+          console.log(this.powerWithLosses)
+
         });
 
-        this.power = [
-          {
-            name: 'Power (kW)',
-            data: powerData
-          }
-        ]
-
-        this.powerWithLosses = [
-          {
-            name: 'Power (kW)',
-            data: powerData
-          },
-          {
-            name: 'Losses (kW)',
-            data: powerLossData
-          }
-        ]
-
-        // console.log(this.power, this.powerWithLosses);
+        this.setSelectedColumns();
       }
 
-      this.setSelectedColumns();
 
     });
   }

@@ -26,6 +26,7 @@
           <th>Email</th>
           <th>Board Name</th>
           <th>Board Status</th>
+          <th>Temper</th>
           <th>Board Token</th>
           <th>Actions</th>
         </tr>
@@ -40,6 +41,11 @@
             <td [style]="datum.token ? 'cursor: pointer' : ''" (click)="changeStatus(datum.token)">
               <span class="px-2 py-1 text-white rounded bg-success" *ngIf="datum.token && datum.is_online"><i class="bi bi-toggle-on"></i> ONLINE </span>
               <span style="background: gray" class="px-2 py-1 text-white rounded" *ngIf="datum.token && !datum.is_online"><i class="bi bi-toggle-off"></i> OFFLINE </span>
+              <span *ngIf="!datum.token">N/A</span>
+            </td>
+            <td [style]="datum.token ? 'cursor: pointer' : ''" (click)="changeTemperStatus(datum.token)">
+              <span class="px-2 py-1 text-white rounded bg-success" *ngIf="datum.token && datum.temper"><i class="bi bi-toggle-on"></i> ACTIVE </span>
+              <span style="background: gray" class="px-2 py-1 text-white rounded" *ngIf="datum.token && !datum.temper"><i class="bi bi-toggle-off"></i> NOT ACTIVE </span>
               <span *ngIf="!datum.token">N/A</span>
             </td>
             <td>{{ datum.token ?? "N/A" }}</td>

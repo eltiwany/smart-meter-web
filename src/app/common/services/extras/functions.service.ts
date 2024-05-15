@@ -23,6 +23,15 @@ export class FunctionsService {
     }).replace(/\s+/g, '').replace('-', ' ').replace('_', ' ');
   }
 
+  getTicketStatuses() {
+    return [
+      'Created',
+      'Processed',
+      'Closed',
+      'Escalated',
+    ]
+  }
+
   /**
    * Convert string to upper camel case
    * @param sentense

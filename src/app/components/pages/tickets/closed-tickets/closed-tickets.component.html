@@ -1,0 +1,63 @@
+<app-top-bar
+  [newButton]="false"
+  ></app-top-bar>
+
+<div class="card">
+  <div class="table-responsive py-4" id="htmlData" #htmlData>
+    <div class="dataTable-wrapper dataTable-loading no-footer fixed-columns">
+      <table datatable [dtOptions]="dtOptions" class="table table-flush dataTable-table" id="htmlData">
+        <thead class="thead-light">
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Ticket Number</th>
+          <th>Reported By</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Contact</th>
+          <th>Created Date</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="data?.length != 0">
+        <ng-container *ngFor="let datum of  data; let i = index">
+          <tr>
+            <!-- <th>{{ datum.id }}</th> -->
+            <td>{{ datum.ticket_number }}</td>
+            <td>{{ datum.reported_by }}</td>
+            <td>{{ (datum.description | slice:0:30) + (datum.description.length >= 30 ? '...' : '') }}</td>
+            <td>{{ (datum.location | slice:0:30) + (datum.location.length >= 30 ? '...' : '') }}</td>
+            <td>{{ datum.status }}</td>
+            <td>{{ datum.contact }}</td>
+            <td>{{ datum.created_at }}</td>
+            <td>
+              <app-action-buttons
+                [headingDelete]="'Delete Ticket'"
+                [headingEdit]="'Update Ticket'"
+                [headingView]="'View Ticket'"
+                [modalEditContent]="modalEditComponent"
+                [editAction]="false"
+                [deleteAction]="datum.status == 'Created'"
+                [modalViewContent]="modalViewComponent"
+                [modalViewSize]="'lg'"
+                [modalDeleteContent]="modalDeleteComponent"
+                [data]="datum"
+              ></app-action-buttons>
+              <small class="font-weight-750 text-italic" *ngIf="datum.email == 'admin@nafuutronics.com'">
+                (Superadmin can't be modified for security reasons)
+              </small>
+              <small class="font-weight-750 text-italic" *ngIf="datum.email == 'admin@nafuuhrm.com'">
+                (Backup admin can't be deleted)
+              </small>
+            </td>
+          </tr>
+        </ng-container>
+        <tbody *ngIf="data?.length == 0">
+          <tr>
+            <th colspan="3">No data found.</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

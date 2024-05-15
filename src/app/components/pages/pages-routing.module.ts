@@ -48,6 +48,7 @@ const routes: Routes = [
   {'path': 'my-area', loadChildren: () => import('./my-area/my-area.module').then(m => m.MyAreaModule), canActivateChild: [RolesGuardService]},
   {'path': 'preferences', loadChildren: () => import('./system-preferences/system-preferences.module').then(m => m.SystemPreferencesModule), canActivateChild: [RolesGuardService]},
   {'path': 'billing', loadChildren: () => import('./billing/billing.module').then(m => m.BillingModule), canActivateChild: [RolesGuardService]},
+  {'path': 'tickets', loadChildren: () => import('./tickets/tickets.module').then(m => m.TicketsModule), canActivateChild: [RolesGuardService]},
 
   {'path': 'no-access', 'component': NoAccessComponent},
   {'path': '**', 'component': NotFoundComponent},

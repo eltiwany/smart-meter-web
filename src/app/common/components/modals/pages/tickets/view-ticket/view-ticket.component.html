@@ -1,0 +1,52 @@
+<h4  class="bg-primary w-25 text-white rounded p-2 my-4 text-center m-auto">Ticket Details</h4>
+<div class="table-responsive">
+  <table class="table table-sm table-bordered table-hover">
+      <tr>
+        <th>Ticket Number</th>
+        <td>{{data?.ticket_number}}</td>
+      </tr>
+      <tr>
+        <th>Reported by</th>
+        <td>{{data?.reported_by}}</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>{{data?.description}}</td>
+      </tr>
+      <tr>
+        <th>Location</th>
+        <td>{{data?.location}}</td>
+      </tr>
+      <tr>
+        <th>Contact</th>
+        <td>{{data?.contact}}</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td>{{data?.status}}</td>
+      </tr>
+  </table>
+</div>
+
+<h4 class="bg-primary w-25 text-white rounded p-2 my-4 text-center m-auto">Ticket Activities</h4>
+<div *ngIf="threads" class="table-responsive">
+  <table class="table table-sm table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Action by</th>
+        <th>Remark</th>
+        <th>Created Date</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let thread of threads">
+          <td>{{ thread.action_by }}</td>
+          <td>{{ thread.remark }}</td>
+          <td>{{ thread.created_at }}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="!threads">
+  No activities found.
+</div>
