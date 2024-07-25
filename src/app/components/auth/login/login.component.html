@@ -8,7 +8,7 @@
               <img [src]="config.app.logoUrl" alt="" height="100">
             </a>
           </label>
-          <h3 class="text-center font-weight-900 p-0 m-0">Login in to access {{ config.app.name }}</h3>
+          <h3 class="text-center font-weight-700 p-0 m-0">Login in to access {{ config.app.name }}</h3>
         </div>
         <div class="card-body">
           <form class="p-1" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
@@ -55,6 +55,48 @@
               </a>
               </p> -->
           </form>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="card mb-4 rounded-lg mx-auto">
+        <div class="card-header py-3 px-5">
+          <h3 class="text-center font-weight-700 p-0 m-0">Power application <font class="text-warning">services</font></h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col col md-4">
+              <a href="https://nikonekt.tanesco.co.tz/web/index.php?r=application" target="_blank">
+                <p for=""
+                  class="text-center bg-warning p-2 rounded font-weight-700 pointer m-0">
+                  <img src="assets/images/service-new-connection.png" width="50" alt="">
+                  <br>
+                  New Application
+                </p>
+              </a>
+            </div>
+            <div class="col col md-4">
+              <a href="https://nikonekt.tanesco.co.tz/web/index.php?r=application%2Fcheck_status" target="_blank">
+                <p for=""
+                  class="text-center bg-warning p-2 rounded font-weight-700 pointer m-0">
+                  <img src="assets/images/service-check-status.png" width="50" alt="">
+                  <br>
+                  Check Status
+                </p>
+              </a>
+            </div>
+            <div class="col col md-4">
+              <a href="https://nikonekt.tanesco.co.tz/web/index.php?r=main%2Fcontractors_list" target="_blank">
+                <p for=""
+                  class="text-center bg-warning p-2 rounded font-weight-700 pointer m-0">
+                  <img src="assets/images/service-contractors-list.png" width="50" alt="">
+                  <br>
+                  Contractors list
+                </p>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
