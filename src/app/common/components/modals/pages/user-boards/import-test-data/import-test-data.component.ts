@@ -147,22 +147,25 @@ export class ImportTestDataComponent implements OnInit {
 
   onSubmit = (): void => {
 
-    let chunkSent = 0;
-    const chunkSize = 20; // Choose an appropriate chunk size
-    const chunks: any[] = [];
-    for (let i = 0; i < this.excelImportData.length; i += chunkSize) {
-      chunks.push(this.excelImportData.slice(i, i + chunkSize));
-    }
+    // let chunkSent = 0;
+    // const chunkSize = 20; // Choose an appropriate chunk size
+    // const chunks: any[] = [];
+    // for (let i = 0; i < this.excelImportData.length; i += chunkSize) {
+    //   chunks.push(this.excelImportData.slice(i, i + chunkSize));
+    // }
 
-    for (let index = 0; index < chunks.length; index++) {
+    // for (let index = 0; index < chunks.length; index++) {
       let data = {
-        testData: chunks[index]
+        // testData: chunks[index]
+        testData: this.excelImportData
       };
 
       try {
         this.boardsService.importTestData(data).then((response) => {
-          chunkSent+= 1;
-          if (!response.error && chunks.length == chunkSent) {
+          // chunkSent+= 1;
+          if (!response.error
+            // && chunks.length == chunkSent
+          ) {
             this.modal.close();
             this.loader.refresh();
           }
@@ -171,12 +174,12 @@ export class ImportTestDataComponent implements OnInit {
         console.log(`Error sending data: ${e}`);
       }
 
-    }
+    // }
 
-    chunks.forEach(chunk => {
+    // chunks.forEach(chunk => {
 
 
-    });
+    // });
   }
 
 }
