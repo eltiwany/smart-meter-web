@@ -30,6 +30,7 @@ export class ImportTestDataComponent implements OnInit {
 
   form = new FormGroup({
     'token': new FormControl(null, [GeneralValidators.required, GeneralValidators.isNot(null)]),
+    'prevDays': new FormControl(1, [GeneralValidators.required, GeneralValidators.isNot(null)]),
   });
 
   constructor(
@@ -46,6 +47,10 @@ export class ImportTestDataComponent implements OnInit {
 
   get token() {
     return this.form.get('token');
+  }
+
+  get prevDays() {
+    return this.form.get('prevDays');
   }
 
   getUsers() {
@@ -156,7 +161,8 @@ export class ImportTestDataComponent implements OnInit {
 
     for (let index = 0; index < chunks.length; index++) {
       let data = {
-        testData: chunks[index]
+        testData: chunks[index],
+        prevDays: this.prevDays?.value
       };
 
       try {

@@ -13,6 +13,17 @@
     <label class="my-1 me-2" for="User">User</label>
   </div>
 
+  <div class="form-floating mb-3">
+    <input
+      type="number"
+      class="form-control"
+      placeholder="Number of Previous Dates"
+      [formControlName]="'prevDays'"
+      id="dates"
+      >
+    <label class="my-1 me-2" for="dates">Number of Previous Dates</label>
+  </div>
+
   <button class="btn btn-link btn-block mb-4 w-100" type="button" *ngIf="token?.value && token?.value !== 'null' && userSensors.length > 0" (click)="downloadExcel()">
     <i class="bi bi-download"></i>
     Download Excel and Fill Test Values for: {{ token?.value }}

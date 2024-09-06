@@ -152,6 +152,8 @@
               <tr>
                 <th>S/N</th>
                 <th>Time</th>
+                <th>Voltage (V)</th>
+                <th>Current (A)</th>
                 <th>Power (kW)</th>
                 <th>Loss (kW)</th>
                 <th>Earthing fault current (A)</th>
@@ -161,6 +163,8 @@
               <tr *ngFor="let summary of summaryByArea, let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ summary.time }}</td>
+                <td>{{ summary.voltage  | number:'1.4-4'}}</td>
+                <td>{{ summary.current  | number:'1.4-4'}}</td>
                 <td>{{ summary.power | number:'1.4-4' }}</td>
                 <td>{{ summary.loss | number:'1.4-4' }}</td>
                 <td>{{ summary.earthing | number:'1.4-4' }}</td>
